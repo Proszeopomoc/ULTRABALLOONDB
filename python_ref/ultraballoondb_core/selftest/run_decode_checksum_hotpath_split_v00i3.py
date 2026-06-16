@@ -45,42 +45,72 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest().upper()
 
 
-def repo_text_scan(repo_root: Path) -> Dict[str, object]:
-    # Fragmented tokens keep this guard from flagging its own control list.
-    forbidden = [
-        ("neo" + "4j").lower(),
-        ("pine" + "cone").lower(),
-        ("wea" + "viate").lower(),
-        ("chroma" + "db").lower(),
-        ("mil" + "vus").lower(),
-        ("qdr" + "ant").lower(),
-        ("fa" + "iss").lower(),
+def _token_from_codes(codes: List[int]) -> str:
+    return ''.join(chr(c) for c in codes).lower()
+
+
+def _control_tokens() -> List[str]:
+    # Keep control strings out of repo text as plain literals.
+    # This prevents the scanner from flagging its own guard implementation.
+    token_codes = [
+        [110, 101, 111, 52, 106],
+        [112, 105, 110, 101, 99, 111, 110, 101],
+        [119, 101, 97, 118, 105, 97, 116, 101],
+        [99, 104, 114, 111, 109, 97, 100, 98],
+        [99, 104, 114, 111, 109, 97],
+        [109, 105, 108, 118, 117, 115],
+        [113, 100, 114, 97, 110, 116],
+        [102, 97, 105, 115, 115],
     ]
+    return [_token_from_codes(codes) for codes in token_codes]
+
+
+def repo_text_scan(repo_root: Path) -> Dict[str, object]:
+    control_tokens = _control_tokens()
     hits = []
     skip_dirs = {'.git', 'audit', '__pycache__'}
     suffixes = {'.py', '.ps1', '.md', '.txt'}
+
     for path in repo_root.rglob('*'):
         if not path.is_file() or path.suffix.lower() not in suffixes:
             continue
         if any(part in skip_dirs for part in path.parts):
             continue
+
         try:
             text = path.read_text(encoding='utf-8', errors='ignore').lower()
         except Exception:
             continue
-        for token in forbidden:
+
+        for token in control_tokens:
             if token in text:
-                hits.append({'path': str(path.relative_to(repo_root)), 'token_sha256': hashlib.sha256(token.encode()).hexdigest().upper()})
-    return {'pass': not hits, 'hit_count': len(hits), 'hits': hits}
+                hits.append({
+                    'path': str(path.relative_to(repo_root)),
+                    'token_sha256_8': hashlib.sha256(token.encode('utf-8')).hexdigest().upper()[:8],
+                })
+
+    return {
+        'pass': not hits,
+        'hit_count': len(hits),
+        'hits': hits,
+    }
 
 
 def run_one_size(record_count: int, page_size: int, recall_samples: int, top_k_values: List[int], run_dir: Path) -> Dict[str, object]:
     store_dir = run_dir / 'stores'
     store_dir.mkdir(parents=True, exist_ok=True)
+
     store_path = store_dir / f'v00i3_records_{record_count}_page_{page_size}.ubpage'
+
     t0 = time.perf_counter()
-    pointers = build_page_store(store_path, record_count=record_count, page_size=page_size, payload_size=96)
+    pointers = build_page_store(
+        store_path,
+        record_count=record_count,
+        page_size=page_size,
+        payload_size=96,
+    )
     build_s = time.perf_counter() - t0
+
     file_size = store_path.stat().st_size
     file_sha256 = sha256_file(store_path)
 
@@ -91,12 +121,20 @@ def run_one_size(record_count: int, page_size: int, recall_samples: int, top_k_v
             'checksum_sampled_1_of_8',
             'checksum_disabled_trusted_hot_snapshot',
         ]:
-            profiles.append(run_split_profile(store_path, pointers, recall_samples, top_k, checksum_mode))
+            profiles.append(
+                run_split_profile(
+                    store_path,
+                    pointers,
+                    recall_samples,
+                    top_k,
+                    checksum_mode,
+                )
+            )
 
-    # Rank by full checksum top_k max, because that is the strictest validation path.
     strict_profiles = [p for p in profiles if p['checksum_mode'] == 'checksum_full']
     strict_top = max(strict_profiles, key=lambda p: int(p['top_k']))
     summary_top = strict_top['summary']
+
     mode_rank = sorted(
         [
             {
@@ -115,8 +153,9 @@ def run_one_size(record_count: int, page_size: int, recall_samples: int, top_k_v
             }
             for p in profiles
         ],
-        key=lambda x: (int(x['top_k']), str(x['checksum_mode']))
+        key=lambda x: (int(x['top_k']), str(x['checksum_mode'])),
     )
+
     return {
         'record_count': record_count,
         'page_size': page_size,
@@ -147,35 +186,46 @@ def main() -> int:
     event_sizes = parse_int_csv(args.event_sizes)
     page_sizes = parse_int_csv(args.page_sizes)
     top_k_values = parse_int_csv(args.top_k_values)
+
     requested_recall_samples = int(args.recall_samples)
     effective_recall_samples = min(requested_recall_samples, int(args.max_effective_samples))
+
     if not repo_root.exists():
         print(f"{NO_GO_LINE}: repo root does not exist: {repo_root}")
         return 1
+
     run_id = time.strftime('RUN_%Y%m%d_%H%M%S')
     run_dir = repo_root / 'audit' / 'v00i3_decode_checksum_hotpath_split' / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 
     tracemalloc.start()
     start = time.perf_counter()
+
     failures: Dict[str, str] = {}
     size_reports = []
 
     try:
         for n in event_sizes:
             for page_size in page_sizes:
-                size_reports.append(run_one_size(n, page_size, effective_recall_samples, top_k_values, run_dir))
+                size_reports.append(
+                    run_one_size(
+                        n,
+                        page_size,
+                        effective_recall_samples,
+                        top_k_values,
+                        run_dir,
+                    )
+                )
     except Exception as exc:
         failures['benchmark_exception'] = repr(exc)
 
     text_scan = repo_text_scan(repo_root)
     if not text_scan['pass']:
-        failures['text_scan'] = 'forbidden external product text scan hit'
+        failures['text_scan'] = 'repo text scan hit'
 
     current, peak = tracemalloc.get_traced_memory()
     tracemalloc.stop()
 
-    # Cross-checks focused on measurement integrity, not tuning decisions.
     checks = {
         'decode_checksum_split_present': True,
         'checksum_full_profile_present': False,
@@ -188,24 +238,33 @@ def main() -> int:
         'no_agent_policy': True,
         'no_model_calls': True,
         'no_network_calls': True,
-        'text_scan_no_external_product_names': bool(text_scan['pass']),
+        'text_scan_no_control_token_hits': bool(text_scan['pass']),
     }
 
     all_profiles = []
     for sr in size_reports:
         all_profiles.extend(sr.get('profiles', []))
+
     modes = {p.get('checksum_mode') for p in all_profiles}
+
     checks['checksum_full_profile_present'] = 'checksum_full' in modes
     checks['checksum_sampled_profile_present'] = 'checksum_sampled_1_of_8' in modes
     checks['checksum_disabled_profile_present'] = 'checksum_disabled_trusted_hot_snapshot' in modes
-    checks['dominant_phase_measured'] = all('dominant_phase_by_p95' in p.get('summary', {}) for p in all_profiles)
-    checks['actual_read_share_measured'] = all('actual_read_share_of_total_p95' in p.get('summary', {}) for p in all_profiles)
+    checks['dominant_phase_measured'] = all(
+        'dominant_phase_by_p95' in p.get('summary', {})
+        for p in all_profiles
+    )
+    checks['actual_read_share_measured'] = all(
+        'actual_read_share_of_total_p95' in p.get('summary', {})
+        for p in all_profiles
+    )
 
     for key, ok in checks.items():
         if not ok:
             failures[key] = 'check failed'
 
     status = PASS_LINE if not failures else NO_GO_LINE
+
     report = {
         'version': VERSION,
         'status': status,
@@ -231,14 +290,21 @@ def main() -> int:
         'tracemalloc_current_bytes': current,
         'tracemalloc_peak_bytes': peak,
     }
+
     report_path = run_dir / 'decode_checksum_hotpath_split_report.json'
-    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    report_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2),
+        encoding='utf-8',
+    )
 
     print(status)
     print(f"REPORT={report_path}")
+
     if failures:
         print('FAILURES=' + '; '.join(f'{k}={v}' for k, v in failures.items()))
+        print('TEXT_SCAN_HITS=' + json.dumps(text_scan.get('hits', []), ensure_ascii=False))
         return 1
+
     return 0
 
 
