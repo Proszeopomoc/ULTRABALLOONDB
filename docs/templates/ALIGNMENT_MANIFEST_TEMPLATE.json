@@ -1,0 +1,13 @@
+{
+  "milestone": "V00X_NAME",
+  "role": "CORE|SUPPORT|EXPERIMENT|FUTURE",
+  "touches_core_layers": [],
+  "uses_auxiliary_layers": [],
+  "must_not_replace": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION"
+  ],
+  "runtime_impact": "NONE|BUILD_ONLY|HOT_PATH_DECLARED|RUNTIME_DECLARED",
+  "roadmap_status": "ALIGNED|EXPERIMENT_ONLY|FUTURE_ONLY|NO_GO",
+  "reason": "Explain why this milestone belongs in this class."
+}

@@ -1,0 +1,10 @@
+{
+  "milestone": "V00K_CORE_ALIGNMENT_GUARD",
+  "role": "CORE",
+  "touches_core_layers": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
+  "uses_auxiliary_layers": ["C1_RULE_MODEL", "C2_RESIDUAL_EXCEPTION", "C3_QUERY_RECONSTRUCTION_INDEX", "C4_DELTA_PATCH", "C5_REBUILD_VERIFY"],
+  "must_not_replace": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "runtime_impact": "NONE",
+  "roadmap_status": "ALIGNED",
+  "reason": "Adds a project guard that keeps auxiliary compression work aligned with the original L0-L7 database architecture."
+}
