@@ -1,0 +1,12 @@
+﻿UltraBalloonDB V00A bootstrap
+
+Source foundation path:
+C:\BalloonDB_REPO_STAGING
+
+Source git head:
+343a3b914a8293b9b04efb19dec5b081749951f9
+
+Boundary:
+UltraBalloonDB is a new repository and a new database engine direction.
+BalloonDB is the foundation and benchmark evidence source.
+Agent logic must remain outside this database repository.
