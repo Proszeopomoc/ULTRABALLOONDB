@@ -1,0 +1,15 @@
+{
+  "milestone": "V00L_REAL_HOT_WAVE_SUBGRAPH_BINDING",
+  "role": "CORE",
+  "touches_core_layers": ["L1", "L2", "L3", "L4", "L7"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "must_not_replace": [
+    "L2_TYPED_EDGE_GRAPH_WITH_COMPRESSION_MODEL",
+    "L3_WAVE_ACTIVATION_WITH_EMBEDDING_SEARCH"
+  ],
+  "runtime_impact": "REFERENCE_CORE_BINDING",
+  "roadmap_status": "ALIGNED",
+  "canonical_archive_mutation": false,
+  "agent_policy_inside_db": false
+}
