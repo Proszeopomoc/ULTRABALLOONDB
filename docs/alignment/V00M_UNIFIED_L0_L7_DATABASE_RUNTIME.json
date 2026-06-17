@@ -1,0 +1,13 @@
+{
+  "milestone": "V00M_UNIFIED_L0_L7_DATABASE_RUNTIME",
+  "role": "CORE",
+  "touches_core_layers": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "must_not_replace": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "runtime_impact": "UNIFIED_REFERENCE_RUNTIME",
+  "roadmap_status": "ALIGNED",
+  "durable_mutation_wal_included": false,
+  "agent_policy": false,
+  "semantic_interpretation_inside_db": false
+}
