@@ -1,4 +1,4 @@
-﻿# UltraBalloonDB
+# UltraBalloonDB
 
 UltraBalloonDB is an original deterministic database and memory engine for agent infrastructure.
 
