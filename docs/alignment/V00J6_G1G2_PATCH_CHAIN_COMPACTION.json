@@ -1,0 +1,23 @@
+{
+  "milestone": "V00J6_G1G2_PATCH_CHAIN_COMPACTION",
+  "role": "SUPPORT",
+  "touches_core_layers": [
+    "L0",
+    "L4",
+    "L6"
+  ],
+  "uses_auxiliary_layers": [
+    "C1_RULE_MODEL",
+    "C2_RESIDUAL_EXCEPTION",
+    "C3_QUERY_RECONSTRUCTION_INDEX",
+    "C4_DELTA_PATCH",
+    "C5_REBUILD_VERIFY"
+  ],
+  "must_not_replace": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION"
+  ],
+  "runtime_impact": "OFFLINE_COMPACTION_ONLY",
+  "roadmap_status": "ALIGNED",
+  "reason": "Bounds the growth of the auxiliary G4 delta chain by producing a new compact G1/G2 snapshot for L0/L4/L6 while preserving the logical state and leaving the typed-edge graph and wave-activation engine unchanged."
+}
