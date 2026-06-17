@@ -1,0 +1,134 @@
+{
+  "version": "V00R3A2B1_R01",
+  "test_name": "ULTRABALLOONDB_V00R3A2B1_RUST_DIRECT_WAVE_CPU_GPU_PARITY_SHADOW_ONLY",
+  "run_id": "RUN_20260618_010352",
+  "timestamp_utc": "2026-06-17T23:03:54Z",
+  "repo_root": "C:\\UltraBalloonDB",
+  "run_root": "C:\\UltraBalloonDB\\audit\\v00r3a2b1_rust_direct_wave_cpu_gpu_parity_shadow_only\\RUN_20260618_010352",
+  "mode": "shadow_only_additive",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B1_BINDING_PREFLIGHT_READY_SHADOW_ONLY",
+  "checks": {
+    "git_clean_before": true,
+    "v00r3a2b0_exact_parity_true": true,
+    "v00r3a2b0_gpu_not_promoted": true,
+    "rust_workspace_required_files_present": true,
+    "cargo_check_workspace_locked_pass": true,
+    "nvcc_available": true,
+    "cl_available": true,
+    "active_runtime_modified": false,
+    "gpu_backend_promoted": false
+  },
+  "paths": {
+    "v00r3a2b0_latest_report": "C:\\UltraBalloonDB\\audit\\v00r3a2b0_raw_csr_cpu_gpu_crossover\\RUN_20260618_003145\\raw_csr_cpu_gpu_crossover_report.json",
+    "missing_required_files": [],
+    "docs_summary": "C:\\UltraBalloonDB\\docs\\benchmarks\\v00r3a2b1\\RUN_20260618_010352\\v00r3a2b1_shadow_preflight_summary.json",
+    "docs_report_copy": "C:\\UltraBalloonDB\\docs\\benchmarks\\v00r3a2b1\\RUN_20260618_010352\\v00r3a2b1_shadow_preflight_report.json"
+  },
+  "commands": {
+    "git_head": {
+      "cmd": [
+        "git",
+        "rev-parse",
+        "--short",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "f2a52af\n",
+      "stderr": ""
+    },
+    "git_status_before": {
+      "cmd": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "cargo_check_workspace_locked": {
+      "cmd": [
+        "cargo",
+        "check",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "    Checking ultraballoondb-core v0.0.3 (C:\\UltraBalloonDB\\rust_native\\ultraballoondb-core)\n    Checking ultraballoondb_rust_core v0.0.3 (C:\\UltraBalloonDB\\rust_native\\ultraballoondb_rust_core)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.43s\n"
+    },
+    "nvcc_version": {
+      "cmd": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Thu_Mar_19_22:28:55_Pacific_Daylight_Time_2026\nCuda compilation tools, release 13.2, V13.2.78\nBuild cuda_13.2.r13.2/compiler.37668154_0\n",
+      "stderr": ""
+    },
+    "cl_probe": {
+      "returncode": 0,
+      "stdout_head": "uľycie: cl [ opcja... ] Nazwa pliku... [/link linkoption... ]\n",
+      "stderr_head": "Microsoft (R) C/C++ wersja kompilatora optymalizujĄcego 19.50.35729 dla x64\nCopyright (C) Microsoft Corporation. Wszystkie prawa zastrzeľone.\n\n"
+    }
+  },
+  "safety": {
+    "canonical_database_changed": false,
+    "rust_cpu_runtime_changed": false,
+    "wal_changed": false,
+    "checkpoint_changed": false,
+    "recovery_changed": false,
+    "gpu_backend_promoted": false
+  },
+  "result": {
+    "exact_parity": null,
+    "full_scan_counter": 0,
+    "cpu_gpu_cases_executed": 0,
+    "crossover_count": 0,
+    "gpu_backend_promoted": false
+  },
+  "next_gate": "V00R3A2B1_DIRECT_WAVE_CPU_GPU_PARITY_RUN",
+  "git_head": "f2a52af",
+  "v00r3a2b0_status": "PASS_ULTRABALLOONDB_V00R3A2B0_RAW_CSR_CPU_GPU_CROSSOVER_SHADOW_BENCHMARK",
+  "core_api": {
+    "lib_rs_sha256": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "public_fn_count": 8,
+    "public_struct_count": 7,
+    "public_enum_count": 0,
+    "public_mod_count": 0,
+    "public_functions": [
+      "as_slice",
+      "build_synthetic",
+      "export_subgraph",
+      "get_edges",
+      "open",
+      "run_cli",
+      "wave_activation",
+      "wave_activation_l3"
+    ],
+    "public_structs": [
+      "Counters",
+      "Edge",
+      "Graph",
+      "L3Stats",
+      "L3WaveRow",
+      "MmapFile",
+      "WaveRow"
+    ],
+    "public_enums": [],
+    "public_modules": [],
+    "signals": {
+      "has_wave_name": true,
+      "has_query_name": false,
+      "has_csr_name": false,
+      "has_mmap_name": true,
+      "has_topk_name": false,
+      "has_edge_name": true
+    }
+  },
+  "binding_detection": {
+    "direct_binding_ready": true,
+    "semantic_wave_surface_detected": true,
+    "reason": "explicit public wave binding detected"
+  }
+}

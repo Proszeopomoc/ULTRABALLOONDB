@@ -1,0 +1,34 @@
+{
+  "version": "V00R3A2B1_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B1_BINDING_PREFLIGHT_READY_SHADOW_ONLY",
+  "next_gate": "V00R3A2B1_DIRECT_WAVE_CPU_GPU_PARITY_RUN",
+  "repo_head": "f2a52af",
+  "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b1_rust_direct_wave_cpu_gpu_parity_shadow_only\\RUN_20260618_010352\\v00r3a2b1_rust_direct_wave_cpu_gpu_parity_shadow_report.json",
+  "run_root": "C:\\UltraBalloonDB\\audit\\v00r3a2b1_rust_direct_wave_cpu_gpu_parity_shadow_only\\RUN_20260618_010352",
+  "v00r3a2b0_report": "C:\\UltraBalloonDB\\audit\\v00r3a2b0_raw_csr_cpu_gpu_crossover\\RUN_20260618_003145\\raw_csr_cpu_gpu_crossover_report.json",
+  "core_lib_sha256": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+  "public_fn_count": 8,
+  "public_struct_count": 7,
+  "public_enum_count": 0,
+  "api_signals": {
+    "has_wave_name": true,
+    "has_query_name": false,
+    "has_csr_name": false,
+    "has_mmap_name": true,
+    "has_topk_name": false,
+    "has_edge_name": true
+  },
+  "direct_binding_ready": true,
+  "semantic_wave_surface_detected": true,
+  "exact_parity": null,
+  "full_scan_counter": 0,
+  "gpu_backend_promoted": false,
+  "safety": {
+    "canonical_database_changed": false,
+    "rust_cpu_runtime_changed": false,
+    "wal_changed": false,
+    "checkpoint_changed": false,
+    "recovery_changed": false,
+    "gpu_backend_promoted": false
+  }
+}
