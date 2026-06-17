@@ -1,0 +1,17 @@
+{
+  "milestone": "V00P3_WINDOWS_RAM_AND_NETWORK_METRICS_FINALIZATION",
+  "role": "CORE",
+  "touches_core_layers": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "runtime_impact": "BENCHMARK_METRICS_FINALIZATION_ONLY",
+  "roadmap_status": "ALIGNED",
+  "non_negotiable_gates": [
+    "WINDOWS_PROCESS_MEMORY_MEASUREMENT_NONZERO",
+    "ACTUAL_LOOPBACK_HTTP_MEASURED",
+    "LOCAL_HTTP_WAVE_PARITY",
+    "MALFORMED_HTTP_REQUEST_REJECTED",
+    "MODELLED_LAN_WAN_REPORTED",
+    "FULL_SCAN_COUNTER_ZERO"
+  ]
+}
