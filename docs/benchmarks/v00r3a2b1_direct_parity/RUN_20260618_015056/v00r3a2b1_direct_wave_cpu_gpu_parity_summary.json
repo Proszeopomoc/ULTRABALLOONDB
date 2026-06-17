@@ -1,0 +1,12 @@
+{
+  "version": "V00R3A2B1_DIRECT_WAVE_CPU_GPU_PARITY_RUN_R02",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B1_DIRECT_WAVE_CPU_GPU_PARITY_SHADOW_ONLY",
+  "run_id": "RUN_20260618_015056",
+  "exact_parity": true,
+  "case_count": 12,
+  "full_scan_counter": 0,
+  "gpu_backend_promoted": false,
+  "core_lib_sha256": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+  "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b1_direct_wave_cpu_gpu_parity_run\\RUN_20260618_015056\\v00r3a2b1_direct_wave_cpu_gpu_parity_report.json",
+  "next_gate": "V00R3A2B2_DIRECT_WAVE_CROSSOVER_STABILITY_SHADOW_ONLY"
+}
