@@ -1,0 +1,10 @@
+[package]
+name = "ultraballoondb-core"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Canonical UltraBalloonDB Rust CSR/mmap, typed-edge, wave, path-evidence, and subgraph core"
+
+[lib]
+name = "ultraballoondb_core"
+path = "src/lib.rs"

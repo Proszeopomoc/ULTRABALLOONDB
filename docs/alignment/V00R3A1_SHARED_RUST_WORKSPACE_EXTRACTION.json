@@ -1,0 +1,34 @@
+{
+  "milestone": "V00R3A1_SHARED_RUST_WORKSPACE_EXTRACTION",
+  "role": "CORE",
+  "touches_core_layers": [
+    "L1",
+    "L2",
+    "L3",
+    "L7"
+  ],
+  "uses_auxiliary_layers": [],
+  "must_preserve": [
+    "V00R1_PARITY",
+    "V00R2_ACTIVE_QUERY_BINDING",
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION",
+    "L7_FLOATING_SUBGRAPH",
+    "WINDOWS_LINUX_MMAP",
+    "ZERO_FULL_GRAPH_SCANS"
+  ],
+  "runtime_impact": "STRUCTURAL_REFACTOR_WITHOUT_SEMANTIC_CHANGE",
+  "active_full_runtime_replacement": false,
+  "roadmap_status": "ALIGNED",
+  "architecture": {
+    "one_canonical_rust_core": true,
+    "multiple_delivery_modes": true,
+    "separate_database_implementations": false,
+    "workspace_members": [
+      "ultraballoondb-core",
+      "ultraballoondb_rust_core"
+    ],
+    "compatibility_binary_preserved": true
+  },
+  "next_gate": "V00R3B_PURE_RUST_STORAGE_WAL_CHECKPOINT_RECOVERY"
+}

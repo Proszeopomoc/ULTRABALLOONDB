@@ -3,5 +3,12 @@
 version = 4
 
 [[package]]
+name = "ultraballoondb-core"
+version = "0.0.3"
+
+[[package]]
 name = "ultraballoondb_rust_core"
-version = "0.0.2"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-core",
+]
