@@ -1,0 +1,27 @@
+{
+  "milestone": "V00R1_RUST_NATIVE_CSR_MMAP_WAVE_CORE_CANDIDATE",
+  "role": "EXPERIMENT",
+  "touches_core_layers": ["L1", "L2", "L3", "L7"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION",
+    "L7_FLOATING_SUBGRAPH"
+  ],
+  "must_not_replace": [
+    "PYTHON_ACTIVE_RUNTIME_BEFORE_PARITY_AND_SPEED_GATE"
+  ],
+  "runtime_impact": "SHADOW_PARITY_AND_BENCHMARK_ONLY",
+  "active_runtime_replacement": false,
+  "third_party_rust_crates": 0,
+  "roadmap_status": "ALIGNED",
+  "promotion_gate": {
+    "byte_parity": true,
+    "wave_parity": true,
+    "subgraph_parity": true,
+    "mmap_active": true,
+    "full_scan_counter": 0,
+    "minimum_query_speedup": 1.25
+  },
+  "reason": "Measure a native Rust whole-query boundary without PyO3 per-edge overhead before replacing the proven Python CSR/mmap runtime."
+}
