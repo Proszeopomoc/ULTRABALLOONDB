@@ -1,0 +1,13 @@
+{
+  "milestone": "V00N_DURABLE_WRITES_WAL_CRASH_RECOVERY",
+  "role": "CORE",
+  "touches_core_layers": ["L0", "L1", "L2", "L3", "L4"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "must_not_replace": ["L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION"],
+  "runtime_impact": "DURABLE_SINGLE_WRITER_WAL_RECOVERY_REFERENCE",
+  "roadmap_status": "ALIGNED",
+  "canonical_base_archive_rewritten": false,
+  "agent_policy": false,
+  "model_calls": false
+}
