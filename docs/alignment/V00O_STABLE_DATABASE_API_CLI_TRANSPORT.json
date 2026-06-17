@@ -1,0 +1,23 @@
+{
+  "milestone": "V00O_STABLE_DATABASE_API_CLI_TRANSPORT",
+  "role": "CORE",
+  "touches_core_layers": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7"
+  ],
+  "uses_auxiliary_layers": [],
+  "must_preserve": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION"
+  ],
+  "runtime_impact": "STABLE_API_CLI_HTTP_REFERENCE",
+  "roadmap_status": "ALIGNED",
+  "network_transport": "SINGLE_WRITER_JSON_HTTP_REFERENCE",
+  "production_security_claim": false
+}
