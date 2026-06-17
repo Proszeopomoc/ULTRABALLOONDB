@@ -1,0 +1,18 @@
+{
+  "milestone": "V00Q1_WSL2_NATIVE_LINUX_RUNTIME_VALIDATION",
+  "role": "SUPPORT",
+  "touches_core_layers": [],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
+  "runtime_impact": "CROSS_PLATFORM_VALIDATION_ONLY",
+  "roadmap_status": "ALIGNED",
+  "claims_after_pass": [
+    "WSL2_NATIVE_LINUX_RUNTIME=TRUE",
+    "WINDOWS_TO_LINUX_CSR_BINARY_COMPATIBILITY=TRUE",
+    "LINUX_TO_WINDOWS_CSR_BINARY_COMPATIBILITY=TRUE"
+  ],
+  "claims_not_granted": [
+    "INDEPENDENT_LINUX_DISTRO_CERTIFIED",
+    "MACOS_NATIVE_RUNTIME_CERTIFIED"
+  ]
+}
