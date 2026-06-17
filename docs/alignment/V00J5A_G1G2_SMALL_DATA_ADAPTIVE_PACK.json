@@ -1,0 +1,22 @@
+{
+  "milestone": "V00J5A_G1G2_SMALL_DATA_ADAPTIVE_PACK",
+  "role": "SUPPORT",
+  "touches_core_layers": [
+    "L0",
+    "L4",
+    "L6"
+  ],
+  "uses_auxiliary_layers": [
+    "C1_RULE_MODEL",
+    "C2_RESIDUAL_EXCEPTION",
+    "C3_QUERY_RECONSTRUCTION_INDEX",
+    "C5_REBUILD_VERIFY"
+  ],
+  "must_not_replace": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION"
+  ],
+  "runtime_impact": "BUILD_ONLY",
+  "roadmap_status": "ALIGNED",
+  "reason": "Selects the lowest-overhead small-data storage representation for L0/L4 and supports L6 compact reconstruction without changing the typed-edge graph or wave-activation query model."
+}

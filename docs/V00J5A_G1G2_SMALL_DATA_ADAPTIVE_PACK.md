@@ -33,3 +33,16 @@ The selector does not make a compression claim unless the selected self-containe
 
 This layer protects the database from small-data overhead while preserving queryability.
 It is not a replacement for G1/G2 family compression on large regular data; it is a safe intake selector.
+
+## Core alignment
+
+```text
+role: SUPPORT
+touches: L0, L4, L6
+uses: C1, C2, C3, C5
+runtime impact: BUILD_ONLY
+must not replace: L2 typed edge graph, L3 wave activation
+roadmap status: ALIGNED
+```
+
+The adaptive pack is a storage/intake optimization. It does not redefine the UltraBalloonDB graph model or wave-activation query engine.
