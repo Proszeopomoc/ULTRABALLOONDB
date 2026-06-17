@@ -1,4 +1,4 @@
-# UltraBalloonDB
+﻿# UltraBalloonDB
 
 UltraBalloonDB is an original deterministic database and memory engine for agent infrastructure.
 
@@ -69,3 +69,21 @@ V00G hot snapshot + archive split
 V00H floating subgraph export/import
 V00I page-size benchmark: 4 KB / 16 KB / 64 KB / 256 KB
 ```
+
+<!-- ULTRABALLOONDB:RUST-DELIVERY-ARCHITECTURE:START -->
+
+## Rust core and product delivery architecture
+
+UltraBalloonDB uses **one canonical Rust core** with multiple delivery modes:
+
+1. Pure Rust binary
+2. PyO3 native Python extension
+3. Isolated Rust daemon/service
+4. Stable C ABI embedded library
+
+The database format, WAL contract, typed-edge semantics, wave activation, path evidence, and correctness gates remain shared across all editions.
+
+See: [V00R3A Shared Rust Core and Delivery Modes Architecture](docs/V00R3A_SHARED_RUST_CORE_AND_DELIVERY_MODES_ARCHITECTURE.md)
+
+<!-- ULTRABALLOONDB:RUST-DELIVERY-ARCHITECTURE:END -->
+

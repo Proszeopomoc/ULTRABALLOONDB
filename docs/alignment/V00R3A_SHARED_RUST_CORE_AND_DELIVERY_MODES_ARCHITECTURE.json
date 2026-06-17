@@ -1,0 +1,41 @@
+{
+  "milestone": "V00R3A_SHARED_RUST_CORE_AND_DELIVERY_MODES_ARCHITECTURE",
+  "role": "SUPPORT",
+  "touches_core_layers": [],
+  "uses_auxiliary_layers": [],
+  "must_preserve": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "WAL",
+    "API",
+    "CLI",
+    "HTTP"
+  ],
+  "runtime_impact": "DOCUMENTATION_AND_ARCHITECTURE_CONTRACT_ONLY",
+  "roadmap_status": "ALIGNED",
+  "architecture_decisions": {
+    "one_canonical_rust_core": true,
+    "multiple_delivery_modes": true,
+    "separate_database_implementations": false,
+    "delivery_modes": [
+      "PURE_RUST_BINARY",
+      "PYO3_NATIVE_EXTENSION",
+      "ISOLATED_RUST_DAEMON",
+      "STABLE_C_ABI_EMBEDDED_LIBRARY"
+    ],
+    "future_delivery_mode": "DISTRIBUTED_CLUSTER"
+  },
+  "verified_baseline": {
+    "v00r1_native_rust_candidate": "PASS",
+    "v00r2_active_rust_query_binding": "PASS",
+    "windows_native": "PASS",
+    "linux_wsl2_native": "PASS",
+    "macos_native": "NOT_TESTED"
+  }
+}
