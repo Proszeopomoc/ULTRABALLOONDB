@@ -1,0 +1,23 @@
+{
+  "milestone": "V00J7_G1G2_HOT_PATCH_EXPORT_IMPORT",
+  "role": "SUPPORT",
+  "touches_core_layers": [
+    "L0",
+    "L4",
+    "L7"
+  ],
+  "uses_auxiliary_layers": [
+    "C1_RULE_MODEL",
+    "C2_RESIDUAL_EXCEPTION",
+    "C3_QUERY_RECONSTRUCTION_INDEX",
+    "C4_DELTA_PATCH",
+    "C5_REBUILD_VERIFY"
+  ],
+  "must_not_replace": [
+    "L2_TYPED_EDGE_GRAPH",
+    "L3_WAVE_ACTIVATION"
+  ],
+  "runtime_impact": "BOUNDED_IN_MEMORY_HOT_PATCH_ONLY",
+  "roadmap_status": "ALIGNED",
+  "reason": "Adds deterministic hashed patch transfer between compact L4/L7 states while preserving canonical archive boundaries and leaving the typed-edge graph and wave-activation engine unchanged."
+}
