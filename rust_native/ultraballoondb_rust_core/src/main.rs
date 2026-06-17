@@ -3,7 +3,7 @@ use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
 use std::ffi::c_void;
 use std::fs::{self, File};
-use std::io::{BufWriter, Write};
+use std::io::{self, BufRead, BufReader, BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process;
 use std::time::Instant;
@@ -453,6 +453,297 @@ fn subgraph_json(nodes: &[u64], edges: &[(u64, u64, u32)]) -> String {
     format!("{{\"nodes\":[{node_text}],\"edges\":[{edge_text}]}}")
 }
 
+
+fn edges_json(edges: &[Edge]) -> String {
+    let body = edges
+        .iter()
+        .map(|edge| {
+            format!(
+                "{{\"src\":{},\"dst\":{},\"edge_type\":{},\"attenuation_class\":{},\"weight\":{:.12}}}",
+                edge.src, edge.dst, edge.edge_type, edge.attenuation_class, edge.weight
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    format!("[{body}]")
+}
+
+fn default_attenuation(edge_type: u32) -> f64 {
+    match edge_type {
+        1 => 0.70,
+        2 => 0.25,
+        3 => 0.40,
+        4 => 0.75,
+        5 => 0.90,
+        6 => 0.55,
+        7 => 0.65,
+        8 => 0.80,
+        9 => 0.85,
+        10 => 0.0,
+        _ => 0.0,
+    }
+}
+
+#[derive(Clone, Debug)]
+struct L3WaveRow {
+    node_id: u64,
+    energy: f64,
+    best_path: Vec<u32>,
+}
+
+#[derive(Default, Clone, Debug)]
+struct L3Stats {
+    expanded_nodes: u64,
+    filtered_by_mask: u64,
+    filtered_by_threshold: u64,
+    blocked_path_count: u64,
+    result_count_before_top_k: u64,
+    result_count_after_top_k: u64,
+}
+
+impl Graph {
+    fn wave_activation_l3(
+        &mut self,
+        seeds: &[u64],
+        max_steps: usize,
+        energy_threshold: f64,
+        top_k: usize,
+        edge_mask: u32,
+        rigor_multiplier: f64,
+    ) -> (Vec<L3WaveRow>, L3Stats) {
+        let mut best_energy: HashMap<u64, f64> = HashMap::new();
+        let mut best_path: HashMap<u64, Vec<u32>> = HashMap::new();
+        let mut queue: Vec<(f64, u64, usize, Vec<u32>)> = Vec::new();
+        for &seed in seeds {
+            best_energy.insert(seed, 1.0);
+            best_path.insert(seed, Vec::new());
+            queue.push((1.0, seed, 0, Vec::new()));
+        }
+        let mut stats = L3Stats::default();
+        while !queue.is_empty() {
+            queue.sort_by(|a, b| {
+                b.0.partial_cmp(&a.0)
+                    .unwrap_or(Ordering::Equal)
+                    .then_with(|| a.1.cmp(&b.1))
+                    .then_with(|| a.2.cmp(&b.2))
+                    .then_with(|| a.3.cmp(&b.3))
+            });
+            let (current_energy, node, steps, path) = queue.remove(0);
+            if current_energy + 1e-15 < best_energy.get(&node).copied().unwrap_or(0.0) {
+                continue;
+            }
+            if steps >= max_steps {
+                continue;
+            }
+            stats.expanded_nodes += 1;
+            let outgoing = self.get_edges(node);
+            let blocked_targets: HashSet<u64> = outgoing
+                .iter()
+                .filter(|edge| edge.edge_type == 10)
+                .map(|edge| edge.dst)
+                .collect();
+            for edge in outgoing {
+                if edge.edge_type == 10 {
+                    stats.blocked_path_count += 1;
+                    continue;
+                }
+                let bit = if edge.edge_type < 31 { 1_u32 << edge.edge_type } else { 0 };
+                if bit == 0 || bit & edge_mask == 0 {
+                    stats.filtered_by_mask += 1;
+                    continue;
+                }
+                if blocked_targets.contains(&edge.dst) {
+                    stats.blocked_path_count += 1;
+                    continue;
+                }
+                let next_energy = current_energy
+                    * default_attenuation(edge.edge_type)
+                    * edge.weight
+                    * rigor_multiplier;
+                if next_energy < energy_threshold {
+                    stats.filtered_by_threshold += 1;
+                    continue;
+                }
+                if next_energy > best_energy.get(&edge.dst).copied().unwrap_or(-1.0) + 1e-15 {
+                    let mut next_path = path.clone();
+                    next_path.push(edge.edge_type);
+                    best_energy.insert(edge.dst, next_energy);
+                    best_path.insert(edge.dst, next_path.clone());
+                    queue.push((next_energy, edge.dst, steps + 1, next_path));
+                }
+            }
+        }
+        let mut rows: Vec<L3WaveRow> = best_energy
+            .into_iter()
+            .filter(|(_, energy)| *energy >= energy_threshold)
+            .map(|(node_id, energy)| L3WaveRow {
+                node_id,
+                energy: (energy * 1_000_000_000_000.0).round() / 1_000_000_000_000.0,
+                best_path: best_path.remove(&node_id).unwrap_or_default(),
+            })
+            .collect();
+        rows.sort_by(|a, b| {
+            b.energy
+                .partial_cmp(&a.energy)
+                .unwrap_or(Ordering::Equal)
+                .then_with(|| a.best_path.len().cmp(&b.best_path.len()))
+                .then_with(|| a.node_id.cmp(&b.node_id))
+        });
+        stats.result_count_before_top_k = rows.len() as u64;
+        rows.truncate(top_k);
+        stats.result_count_after_top_k = rows.len() as u64;
+        (rows, stats)
+    }
+}
+
+fn l3_wave_json(rows: &[L3WaveRow]) -> String {
+    let body = rows
+        .iter()
+        .map(|row| {
+            let path = row.best_path.iter().map(u32::to_string).collect::<Vec<_>>().join(",");
+            format!(
+                "{{\"node_id\":{},\"energy_score\":{:.12},\"best_path_len\":{},\"path_edge_type_ids\":[{}],\"record_id\":{}}}",
+                row.node_id,
+                row.energy,
+                row.best_path.len(),
+                path,
+                row.node_id
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    format!("[{body}]")
+}
+
+fn l3_stats_json(stats: &L3Stats) -> String {
+    format!(
+        "{{\"expanded_nodes\":{},\"filtered_by_mask\":{},\"filtered_by_threshold\":{},\"blocked_path_count\":{},\"result_count_before_top_k\":{},\"result_count_after_top_k\":{}}}",
+        stats.expanded_nodes,
+        stats.filtered_by_mask,
+        stats.filtered_by_threshold,
+        stats.blocked_path_count,
+        stats.result_count_before_top_k,
+        stats.result_count_after_top_k
+    )
+}
+
+fn parse_line_u64(value: &str, field: &str) -> Result<u64, String> {
+    value.parse::<u64>().map_err(|_| format!("invalid {field}: {value}"))
+}
+
+fn parse_line_usize(value: &str, field: &str) -> Result<usize, String> {
+    value.parse::<usize>().map_err(|_| format!("invalid {field}: {value}"))
+}
+
+fn parse_line_u32(value: &str, field: &str) -> Result<u32, String> {
+    value.parse::<u32>().map_err(|_| format!("invalid {field}: {value}"))
+}
+
+fn parse_line_f64(value: &str, field: &str) -> Result<f64, String> {
+    value.parse::<f64>().map_err(|_| format!("invalid {field}: {value}"))
+}
+
+fn command_serve(args: &HashMap<String, String>) -> Result<(), String> {
+    let layout = PathBuf::from(required(args, "layout-dir"));
+    let mut graph = Graph::open(&layout)?;
+    println!(
+        "{{\"ready\":true,\"version\":\"V00R2_RUST_NATIVE_RUNTIME_BINDING\",\"mmap_active\":true,\"node_count\":{},\"edge_count\":{},\"third_party_rust_crates\":0}}",
+        graph.node_count, graph.edge_count
+    );
+    io::stdout().flush().map_err(|e| e.to_string())?;
+    let stdin = io::stdin();
+    let reader = BufReader::new(stdin.lock());
+    for line_result in reader.lines() {
+        let line = line_result.map_err(|e| e.to_string())?;
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.is_empty() || parts[0].is_empty() {
+            continue;
+        }
+        let request_id = parts.get(1).copied().unwrap_or("0");
+        let response = match parts[0] {
+            "PING" => format!("{{\"pass\":true,\"request_id\":\"{}\",\"pong\":true}}", json_escape(request_id)),
+            "EXIT" => {
+                println!("{{\"pass\":true,\"request_id\":\"{}\",\"exiting\":true}}", json_escape(request_id));
+                io::stdout().flush().map_err(|e| e.to_string())?;
+                break;
+            }
+            "GET" => {
+                if parts.len() != 3 {
+                    format!("{{\"pass\":false,\"request_id\":\"{}\",\"error\":\"GET expects 3 fields\"}}", json_escape(request_id))
+                } else {
+                    match parse_line_u64(parts[2], "node_id") {
+                        Ok(node_id) => {
+                            let edges = graph.get_edges(node_id);
+                            format!(
+                                "{{\"pass\":true,\"request_id\":\"{}\",\"node_id\":{},\"edges\":{},\"full_scan_counter\":{}}}",
+                                json_escape(request_id), node_id, edges_json(&edges), graph.counters.full_scan_counter
+                            )
+                        }
+                        Err(error) => format!("{{\"pass\":false,\"request_id\":\"{}\",\"error\":\"{}\"}}", json_escape(request_id), json_escape(&error)),
+                    }
+                }
+            }
+            "WAVE" => {
+                if parts.len() != 10 {
+                    format!("{{\"pass\":false,\"request_id\":\"{}\",\"error\":\"WAVE expects 10 fields\"}}", json_escape(request_id))
+                } else {
+                    let parsed = (|| -> Result<String, String> {
+                        let seeds = parts[2]
+                            .split(',')
+                            .filter(|v| !v.is_empty())
+                            .map(|v| parse_line_u64(v, "seed"))
+                            .collect::<Result<Vec<_>, _>>()?;
+                        if seeds.is_empty() {
+                            return Err("at least one seed is required".to_string());
+                        }
+                        let max_steps = parse_line_usize(parts[3], "max_steps")?;
+                        let top_k = parse_line_usize(parts[4], "top_k")?;
+                        let threshold = parse_line_f64(parts[5], "energy_threshold")?;
+                        let edge_mask = parse_line_u32(parts[6], "edge_mask")?;
+                        let rigor = parse_line_f64(parts[7], "rigor_multiplier")?;
+                        let export_limit = parse_line_usize(parts[8], "export_limit")?;
+                        let semantics = parts[9];
+                        if semantics == "L3" {
+                            let (rows, stats) = graph.wave_activation_l3(
+                                &seeds, max_steps, threshold, top_k, edge_mask, rigor,
+                            );
+                            let selected: Vec<u64> = rows.iter().take(export_limit).map(|row| row.node_id).collect();
+                            let (nodes, edges) = graph.export_subgraph(&selected);
+                            Ok(format!(
+                                "{{\"pass\":true,\"request_id\":\"{}\",\"semantics\":\"L3\",\"wave\":{},\"stats\":{},\"subgraph\":{},\"mmap_active\":true,\"full_scan_counter\":{},\"slice_lookups\":{},\"node_rows_read\":{},\"edge_records_read\":{}}}",
+                                json_escape(request_id),
+                                l3_wave_json(&rows),
+                                l3_stats_json(&stats),
+                                subgraph_json(&nodes, &edges),
+                                graph.counters.full_scan_counter,
+                                graph.counters.slice_lookups,
+                                graph.counters.node_rows_read,
+                                graph.counters.edge_records_read
+                            ))
+                        } else {
+                            let rows = graph.wave_activation(&seeds, max_steps, threshold, top_k, edge_mask);
+                            let selected: Vec<u64> = rows.iter().take(export_limit).map(|row| row.node_id).collect();
+                            let (nodes, edges) = graph.export_subgraph(&selected);
+                            Ok(format!(
+                                "{{\"pass\":true,\"request_id\":\"{}\",\"semantics\":\"DIRECT\",\"wave\":{},\"stats\":{{}},\"subgraph\":{},\"mmap_active\":true,\"full_scan_counter\":{}}}",
+                                json_escape(request_id), wave_json(&rows), subgraph_json(&nodes, &edges), graph.counters.full_scan_counter
+                            ))
+                        }
+                    })();
+                    match parsed {
+                        Ok(value) => value,
+                        Err(error) => format!("{{\"pass\":false,\"request_id\":\"{}\",\"error\":\"{}\"}}", json_escape(request_id), json_escape(&error)),
+                    }
+                }
+            }
+            other => format!("{{\"pass\":false,\"request_id\":\"{}\",\"error\":\"unknown request: {}\"}}", json_escape(request_id), json_escape(other)),
+        };
+        println!("{response}");
+        io::stdout().flush().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
 fn parse_args() -> (String, HashMap<String, String>) {
     let mut values = env::args().skip(1);
     let command = values.next().unwrap_or_else(|| "help".to_string());
@@ -630,11 +921,12 @@ fn command_bench(args: &HashMap<String, String>) -> Result<(), String> {
 }
 
 fn print_help() {
-    println!("UltraBalloonDB Rust native core candidate V00R1");
+    println!("UltraBalloonDB Rust native core V00R2");
     println!("commands:");
     println!("  build-synthetic --layout-dir PATH --event-count N --output FILE");
     println!("  query --layout-dir PATH --seeds 1,2 --max-steps N --top-k N --energy-threshold F --output FILE");
     println!("  bench --layout-dir PATH --event-count N --query-samples N --max-steps N --top-k N --energy-threshold F --output FILE");
+    println!("  serve --layout-dir PATH");
 }
 
 fn main() {
@@ -643,6 +935,7 @@ fn main() {
         "build-synthetic" => command_build(&args),
         "query" => command_query(&args),
         "bench" => command_bench(&args),
+        "serve" => command_serve(&args),
         "help" | "--help" | "-h" => {
             print_help();
             Ok(())
@@ -650,7 +943,7 @@ fn main() {
         other => Err(format!("unknown command: {}", json_escape(other))),
     };
     if let Err(error) = result {
-        eprintln!("NO_GO_ULTRABALLOONDB_V00R1_RUST_NATIVE_CORE");
+        eprintln!("NO_GO_ULTRABALLOONDB_V00R2_RUST_NATIVE_CORE");
         eprintln!("ERROR={error}");
         process::exit(2);
     }

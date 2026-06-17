@@ -1,9 +1,9 @@
 [package]
 name = "ultraballoondb_rust_core"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 publish = false
-description = "UltraBalloonDB native Rust CSR/mmap wave core candidate"
+description = "UltraBalloonDB native Rust CSR/mmap runtime binding core"
 
 [[bin]]
 name = "ultraballoondb_rust_core"

@@ -2,3 +2,5 @@
 audit/
 __pycache__/
 *.pyc
+
+rust_native/**/target/

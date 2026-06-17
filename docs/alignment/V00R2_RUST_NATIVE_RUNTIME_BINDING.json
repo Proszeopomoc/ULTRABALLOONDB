@@ -1,0 +1,14 @@
+{
+  "milestone": "V00R2_RUST_NATIVE_RUNTIME_BINDING",
+  "role": "CORE",
+  "touches_core_layers": ["L1", "L2", "L3", "L7"],
+  "uses_auxiliary_layers": [],
+  "must_preserve": ["L0", "L1", "L2_TYPED_EDGE_GRAPH", "L3_WAVE_ACTIVATION", "L4", "L5", "L6", "L7_FLOATING_SUBGRAPH", "WAL", "API", "CLI", "HTTP"],
+  "runtime_impact": "OPT_IN_ACTIVE_RUST_QUERY_BINDING_WITH_SAFE_FALLBACK",
+  "active_full_runtime_replacement": false,
+  "canonical_writes_owned_by_python": true,
+  "derived_csr_rebuild_required_after_edge_mutation": true,
+  "third_party_rust_crates": 0,
+  "roadmap_status": "ALIGNED",
+  "next_gate": "V00R3_RUST_NATIVE_FULL_RUNTIME_PROMOTION"
+}
