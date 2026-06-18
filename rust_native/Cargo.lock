@@ -3,6 +3,15 @@
 version = 4
 
 [[package]]
+name = "ultraballoondb-compat"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-lifecycle",
+ "ultraballoondb-storage",
+ "ultraballoondb-wal",
+]
+
+[[package]]
 name = "ultraballoondb-core"
 version = "0.0.3"
 

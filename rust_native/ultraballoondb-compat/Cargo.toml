@@ -1,0 +1,19 @@
+[package]
+name = "ultraballoondb-compat"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB crash consistency and Format V1 compatibility suite"
+
+[dependencies]
+ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-wal = { path = "../ultraballoondb-wal" }
+
+[lib]
+name = "ultraballoondb_compat"
+path = "src/lib.rs"
+
+[[example]]
+name = "crash_format_compat_probe"
+path = "examples/crash_format_compat_probe.rs"

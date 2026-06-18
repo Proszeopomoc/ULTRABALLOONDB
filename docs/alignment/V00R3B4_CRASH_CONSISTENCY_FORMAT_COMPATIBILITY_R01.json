@@ -1,0 +1,38 @@
+{
+  "version": "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE_R01",
+  "status": "OFFLINE_TEST_SUITE",
+  "requires": {
+    "b3_pass": true,
+    "b3_commit_ancestor": true,
+    "durable_commit": true,
+    "wal_v1": true,
+    "checkpoint_recovery_v1": true
+  },
+  "new_crate": "ultraballoondb-compat",
+  "product_crates_modified": false,
+  "scenarios": [
+    "hard exit after uncommitted WAL",
+    "hard exit after durable commit before checkpoint",
+    "hard exit after checkpoint and atomic head",
+    "hard exit after incomplete WAL tail",
+    "complete WAL frame corruption rejection",
+    "future WAL major version rejection",
+    "head corruption rejection",
+    "manifest corruption rejection",
+    "checkpoint corruption rejection",
+    "second restart determinism",
+    "Format V1 golden vector verification"
+  ],
+  "hard_guards": {
+    "active_runtime_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "lifecycle_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY"
+}

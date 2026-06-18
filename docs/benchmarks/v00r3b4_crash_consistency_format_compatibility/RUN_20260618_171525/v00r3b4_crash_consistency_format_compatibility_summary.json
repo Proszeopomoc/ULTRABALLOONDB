@@ -1,0 +1,22 @@
+{
+  "version": "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE",
+  "run_id": "RUN_20260618_171525",
+  "new_crate": "ultraballoondb-compat",
+  "product_crates_modified": false,
+  "cargo_check_workspace": true,
+  "cargo_test_workspace": true,
+  "rust_probe_pass": true,
+  "independent_python_verifier_pass": true,
+  "hard_exit_scenario_count": 4,
+  "controlled_hard_exit_code": 86,
+  "uncommitted_ignored_count": 1,
+  "committed_replayed_transaction_count": 1,
+  "partial_wal_tail_bytes": 13,
+  "golden_fixture_count": 4,
+  "format_major": 1,
+  "checkpointed_state_sha256": "152F143CA8D82F71E104F07E8E6865FE8D714DE608CDBCF17DEBACFFE24FCAD1",
+  "active_runtime_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY"
+}
