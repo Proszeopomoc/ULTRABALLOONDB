@@ -1,5 +1,7 @@
 mod crypto;
 mod ledger;
+mod governance;
+mod audit;
 mod cli;
 
 use std::fmt;
@@ -17,21 +19,27 @@ use ultraballoondb_trust_commit::{
     TrustCommitJournal, TrustCommitReceipt, TrustCommitRequest,
 };
 
+pub use audit::{export_offline_audit, AuditExportReceipt};
 pub use cli::{main_entry, run_cli, CliError};
 pub use crypto::{
-    constant_time_equal, hmac_sha256, key_fingerprint,
+    audit_root_digest, constant_time_equal, hmac_sha256,
+    key_fingerprint, key_rotate_subject, policy_revoke_subject,
     MIN_SECRET_BYTES, MAX_SECRET_BYTES,
+};
+pub use governance::{
+    PolicyStatusEvent, PolicyStatusEventKind, PolicyStatusLedger,
 };
 pub use ledger::{
     domain_name, role_names, AuthorizationLedger, AuthorizationProof,
     AuthorizationRecord, KeyEvent, KeyEventKind, KeyRegistry, KeyState,
     DOMAIN_KEY_BOOTSTRAP, DOMAIN_KEY_REGISTER, DOMAIN_KEY_REVOKE,
-    DOMAIN_POLICY_REGISTER, DOMAIN_TRUST_COMMIT, ROLE_ALL, ROLE_AUDITOR,
+    DOMAIN_KEY_ROTATE, DOMAIN_POLICY_REGISTER, DOMAIN_POLICY_REVOKE,
+    DOMAIN_TRUST_COMMIT, ROLE_ALL, ROLE_AUDITOR,
     ROLE_KEY_ADMIN, ROLE_POLICY_ADMIN, ROLE_TRUST_OPERATOR,
 };
 
 pub const TRUST_AUTH_VERSION: &str =
-    "V00R3T3_TRUST_POLICY_AUTHORIZATION_SIGNATURES_AND_CLI_SURFACE_R01";
+    "V00R3T4_TRUST_KEY_ROTATION_POLICY_REVOCATION_AND_OFFLINE_AUDIT_EXPORT_R01";
 pub const TRUST_COMMAND_SCHEMA: &str =
     "ultraballoondb.trust.command.v1";
 
@@ -98,6 +106,7 @@ pub struct TrustPaths {
     pub key_registry: PathBuf,
     pub authorization_ledger: PathBuf,
     pub policy_registry: PathBuf,
+    pub policy_status: PathBuf,
     pub trust_ledger: PathBuf,
     pub commit_journal: PathBuf,
 }
@@ -109,17 +118,19 @@ impl TrustPaths {
             key_registry: root.join("keys.ubkey"),
             authorization_ledger: root.join("authorizations.ubauth"),
             policy_registry: root.join("policies.ubpolicy"),
+            policy_status: root.join("policy-status.ubpstat"),
             trust_ledger: root.join("trust.ubtrust"),
             commit_journal: root.join("commit.ubcommit"),
             root,
         }
     }
 
-    pub fn all_files(&self) -> [&Path; 5] {
+    pub fn all_files(&self) -> [&Path; 6] {
         [
             &self.key_registry,
             &self.authorization_ledger,
             &self.policy_registry,
+            &self.policy_status,
             &self.trust_ledger,
             &self.commit_journal,
         ]
@@ -133,6 +144,25 @@ pub struct AuthorizedPolicyReceipt {
     pub authorization_event_id: [u8; 32],
     pub authorization_sequence: u64,
     pub policy_count: usize,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PolicyRevocationReceipt {
+    pub changed: bool,
+    pub policy_id: String,
+    pub policy_version: String,
+    pub policy_digest: [u8; 32],
+    pub authorization_event_id: [u8; 32],
+    pub authorization_sequence: u64,
+    pub policy_status_sequence: u64,
+    pub policy_revocation_count: usize,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct GovernanceUpgradeReceipt {
+    pub changed: bool,
+    pub policy_status_path: PathBuf,
+    pub policy_revocation_count: usize,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -153,6 +183,8 @@ pub struct TrustSurfaceStatus {
     pub active_key_count: usize,
     pub authorization_count: usize,
     pub policy_count: usize,
+    pub policy_revocation_count: usize,
+    pub active_policy_count: usize,
     pub trust_transition_count: usize,
     pub commit_journal_entry_count: usize,
     pub database_record_count: u64,
@@ -160,6 +192,7 @@ pub struct TrustSurfaceStatus {
     pub key_registry_head: [u8; 32],
     pub authorization_head: [u8; 32],
     pub policy_registry_head: [u8; 32],
+    pub policy_status_head: [u8; 32],
     pub trust_ledger_head: [u8; 32],
     pub commit_journal_head: [u8; 32],
     pub database_state_digest: [u8; 32],
@@ -183,6 +216,7 @@ pub fn create_trust_surface(
         AuthorizationLedger::create(&paths.authorization_ledger)?;
         PolicyRegistry::create(&paths.policy_registry)
             .map_err(|error| AuthError::Trust(error.to_string()))?;
+        PolicyStatusLedger::create(&paths.policy_status)?;
         TrustLedger::create(&paths.trust_ledger)
             .map_err(|error| AuthError::Trust(error.to_string()))?;
         TrustCommitJournal::create(&paths.commit_journal)
@@ -193,6 +227,112 @@ pub fn create_trust_surface(
         let _ = fs::remove_dir_all(&paths.root);
     }
     result
+}
+
+
+pub fn upgrade_trust_surface(
+    paths: &TrustPaths,
+) -> Result<GovernanceUpgradeReceipt> {
+    if !paths.root.is_dir() {
+        return Err(AuthError::Invalid(format!(
+            "trust root is missing: {}",
+            paths.root.display(),
+        )));
+    }
+    KeyRegistry::open_strict(&paths.key_registry)?;
+    AuthorizationLedger::open_strict(&paths.authorization_ledger)?;
+    PolicyRegistry::open_strict(&paths.policy_registry)
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+    TrustLedger::open_strict(&paths.trust_ledger)
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+    TrustCommitJournal::open_strict(&paths.commit_journal)
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+
+    if paths.policy_status.exists() {
+        let status = PolicyStatusLedger::open_strict(
+            &paths.policy_status,
+        )?;
+        return Ok(GovernanceUpgradeReceipt {
+            changed: false,
+            policy_status_path: paths.policy_status.clone(),
+            policy_revocation_count: status.revoked_count(),
+        });
+    }
+
+    let status = PolicyStatusLedger::create(
+        &paths.policy_status,
+    )?;
+    Ok(GovernanceUpgradeReceipt {
+        changed: true,
+        policy_status_path: paths.policy_status.clone(),
+        policy_revocation_count: status.revoked_count(),
+    })
+}
+
+
+pub fn validate_policy_status_bindings(
+    policy_status: &PolicyStatusLedger,
+    authorizations: &AuthorizationLedger,
+    policies: &PolicyRegistry,
+) -> Result<()> {
+    for event in policy_status.events() {
+        let policy = policies
+            .get(&event.policy_id, &event.policy_version)
+            .ok_or_else(|| AuthError::Invalid(format!(
+                "policy status references unknown policy: {}@{}",
+                event.policy_id,
+                event.policy_version,
+            )))?;
+        let policy_digest = policy
+            .digest()
+            .map_err(|error| AuthError::Trust(error.to_string()))?;
+        if policy_digest != event.policy_digest {
+            return Err(AuthError::Invalid(format!(
+                "policy status digest mismatch: {}@{}",
+                event.policy_id,
+                event.policy_version,
+            )));
+        }
+        let expected_subject = crypto::policy_revoke_subject(
+            &event.policy_id,
+            &event.policy_version,
+            event.policy_digest,
+            &event.reason_code,
+        )?;
+        let authorization = authorizations
+            .records()
+            .iter()
+            .find(|record| {
+                record.event_id == event.authorization_event_id
+            })
+            .ok_or_else(|| AuthError::Invalid(format!(
+                "policy status authorization is missing: {}@{}",
+                event.policy_id,
+                event.policy_version,
+            )))?;
+        if authorization.proof.domain_code
+                != DOMAIN_POLICY_REVOKE
+            || authorization.proof.required_role
+                != ROLE_POLICY_ADMIN
+            || authorization.proof.subject_digest
+                != expected_subject
+            || authorization.proof.signer_key_id
+                != event.signer_key_id
+            || authorization.proof.signer_fingerprint
+                != event.signer_fingerprint
+            || authorization.proof.key_registry_head
+                != event.key_registry_head
+            || authorization.proof.logical_timestamp
+                != event.logical_timestamp
+        {
+            return Err(AuthError::Invalid(format!(
+                "policy status authorization binding mismatch: {}@{}",
+                event.policy_id,
+                event.policy_version,
+            )));
+        }
+    }
+    Ok(())
 }
 
 pub fn register_policy_authorized(
@@ -208,6 +348,24 @@ pub fn register_policy_authorized(
         AuthorizationLedger::open_strict(&paths.authorization_ledger)?;
     let mut policies = PolicyRegistry::open_strict(&paths.policy_registry)
         .map_err(|error| AuthError::Trust(error.to_string()))?;
+    let policy_status = PolicyStatusLedger::open_strict(
+        &paths.policy_status,
+    )?;
+    validate_policy_status_bindings(
+        &policy_status,
+        &authorizations,
+        &policies,
+    )?;
+    if policy_status.is_revoked(
+        &policy.policy_id,
+        &policy.policy_version,
+    ) {
+        return Err(AuthError::Invalid(format!(
+            "policy version is revoked: {}@{}",
+            policy.policy_id,
+            policy.policy_version,
+        )));
+    }
     let policy_digest = policy
         .digest()
         .map_err(|error| AuthError::Trust(error.to_string()))?;
@@ -267,6 +425,82 @@ pub fn register_policy_authorized(
     })
 }
 
+
+pub fn revoke_policy_authorized(
+    paths: &TrustPaths,
+    policy_id: &str,
+    policy_version: &str,
+    reason_code: &str,
+    signer_key_id: &str,
+    signer_secret: &[u8],
+    logical_timestamp: u64,
+    nonce: &str,
+) -> Result<PolicyRevocationReceipt> {
+    crypto::validate_identifier("policy_id", policy_id)?;
+    crypto::validate_identifier("policy_version", policy_version)?;
+    crypto::validate_identifier("reason_code", reason_code)?;
+
+    let registry = KeyRegistry::open_strict(&paths.key_registry)?;
+    let mut authorizations =
+        AuthorizationLedger::open_strict(&paths.authorization_ledger)?;
+    let policies = PolicyRegistry::open_strict(&paths.policy_registry)
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+    let mut policy_status = PolicyStatusLedger::open_strict(
+        &paths.policy_status,
+    )?;
+    validate_policy_status_bindings(
+        &policy_status,
+        &authorizations,
+        &policies,
+    )?;
+
+    let policy = policies
+        .get(policy_id, policy_version)
+        .ok_or_else(|| AuthError::Invalid(format!(
+            "unknown policy version: {policy_id}@{policy_version}",
+        )))?;
+    let policy_digest = policy
+        .digest()
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+    let subject_digest = crypto::policy_revoke_subject(
+        policy_id,
+        policy_version,
+        policy_digest,
+        reason_code,
+    )?;
+    let proof = registry.authorize(
+        DOMAIN_POLICY_REVOKE,
+        ROLE_POLICY_ADMIN,
+        subject_digest,
+        signer_key_id,
+        signer_secret,
+        logical_timestamp,
+        nonce,
+    )?;
+    let (authorization, _authorization_changed) =
+        authorizations.append_once(
+            &registry,
+            proof,
+            signer_secret,
+        )?;
+    let (event, changed) = policy_status.append_revoke(
+        policy,
+        &authorization,
+        reason_code,
+    )?;
+
+    Ok(PolicyRevocationReceipt {
+        changed,
+        policy_id: policy_id.to_string(),
+        policy_version: policy_version.to_string(),
+        policy_digest,
+        authorization_event_id: authorization.event_id,
+        authorization_sequence: authorization.sequence,
+        policy_status_sequence: event.sequence,
+        policy_revocation_count: policy_status.revoked_count(),
+    })
+}
+
 pub fn commit_trust_authorized(
     database_root: impl AsRef<Path>,
     paths: &TrustPaths,
@@ -280,6 +514,26 @@ pub fn commit_trust_authorized(
     let registry = KeyRegistry::open_strict(&paths.key_registry)?;
     let mut authorizations =
         AuthorizationLedger::open_strict(&paths.authorization_ledger)?;
+    let policies = PolicyRegistry::open_strict(&paths.policy_registry)
+        .map_err(|error| AuthError::Trust(error.to_string()))?;
+    let policy_status = PolicyStatusLedger::open_strict(
+        &paths.policy_status,
+    )?;
+    validate_policy_status_bindings(
+        &policy_status,
+        &authorizations,
+        &policies,
+    )?;
+    if policy_status.is_revoked(
+        &request.policy_id,
+        &request.policy_version,
+    ) {
+        return Err(AuthError::Invalid(format!(
+            "trust commit policy is revoked: {}@{}",
+            request.policy_id,
+            request.policy_version,
+        )));
+    }
     let proof = registry.authorize(
         DOMAIN_TRUST_COMMIT,
         ROLE_TRUST_OPERATOR,
@@ -341,6 +595,14 @@ pub fn trust_surface_status(
         AuthorizationLedger::open_strict(&paths.authorization_ledger)?;
     let policies = PolicyRegistry::open_strict(&paths.policy_registry)
         .map_err(|error| AuthError::Trust(error.to_string()))?;
+    let policy_status = PolicyStatusLedger::open_strict(
+        &paths.policy_status,
+    )?;
+    validate_policy_status_bindings(
+        &policy_status,
+        &authorizations,
+        &policies,
+    )?;
     let trust = TrustLedger::open_strict(&paths.trust_ledger)
         .map_err(|error| AuthError::Trust(error.to_string()))?;
     let journal = TrustCommitJournal::open_strict(&paths.commit_journal)
@@ -352,6 +614,9 @@ pub fn trust_surface_status(
         active_key_count: keys.active_key_count(),
         authorization_count: authorizations.record_count(),
         policy_count: policies.policy_count(),
+        policy_revocation_count: policy_status.revoked_count(),
+        active_policy_count: policies.policy_count()
+            .saturating_sub(policy_status.revoked_count()),
         trust_transition_count: trust.transition_count(),
         commit_journal_entry_count: journal.entry_count(),
         database_record_count,
@@ -359,6 +624,7 @@ pub fn trust_surface_status(
         key_registry_head: keys.head_digest(),
         authorization_head: authorizations.head_digest(),
         policy_registry_head: policies.head_digest(),
+        policy_status_head: policy_status.head_digest(),
         trust_ledger_head: trust.head_digest(),
         commit_journal_head: journal.head_digest(),
         database_state_digest: database.state_sha256(),

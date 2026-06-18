@@ -11,9 +11,11 @@ use ultraballoondb_trust_commit::{
 
 use crate::{
     authority_name, commit_trust_authorized, create_trust_surface,
-    domain_name, hex, operation_name, parse_authority, parse_operation,
-    register_policy_authorized, role_names, trust_surface_status,
-    AuthError, AuthorizationLedger, KeyRegistry, TrustPaths,
+    domain_name, export_offline_audit, hex, operation_name,
+    parse_authority, parse_operation, register_policy_authorized,
+    revoke_policy_authorized, role_names, trust_surface_status,
+    upgrade_trust_surface, AuthError, AuthorizationLedger, KeyRegistry,
+    PolicyStatusLedger, TrustPaths,
     TRUST_AUTH_VERSION, TRUST_COMMAND_SCHEMA,
 };
 
@@ -123,8 +125,13 @@ where
         "trust-init" => command_trust_init(parsed.flags),
         "trust-key-bootstrap" => command_key_bootstrap(parsed.flags),
         "trust-key-register" => command_key_register(parsed.flags),
+        "trust-key-rotate" => command_key_rotate(parsed.flags),
         "trust-key-revoke" => command_key_revoke(parsed.flags),
+        "trust-governance-upgrade" => {
+            command_governance_upgrade(parsed.flags)
+        }
         "trust-policy-register" => command_policy_register(parsed.flags),
+        "trust-policy-revoke" => command_policy_revoke(parsed.flags),
         "trust-commit" => command_trust_commit(parsed.flags),
         "trust-status" => command_trust_status(parsed.flags),
         "trust-list-keys" => command_list_keys(parsed.flags),
@@ -132,6 +139,7 @@ where
         "trust-list-authorizations" => {
             command_list_authorizations(parsed.flags)
         }
+        "trust-audit-export" => command_audit_export(parsed.flags),
         "help" => command_help(parsed.flags),
         "version" => command_version(parsed.flags),
         command => Err(CliError::invalid(format!(
@@ -275,6 +283,7 @@ fn command_trust_init(
             "\"key_registry\":\"{}\",",
             "\"authorization_ledger\":\"{}\",",
             "\"policy_registry\":\"{}\",",
+            "\"policy_status\":\"{}\",",
             "\"trust_ledger\":\"{}\",",
             "\"commit_journal\":\"{}\",",
             "\"raw_secret_persisted\":false,",
@@ -289,8 +298,39 @@ fn command_trust_init(
         json_escape(&paths.key_registry.to_string_lossy()),
         json_escape(&paths.authorization_ledger.to_string_lossy()),
         json_escape(&paths.policy_registry.to_string_lossy()),
+        json_escape(&paths.policy_status.to_string_lossy()),
         json_escape(&paths.trust_ledger.to_string_lossy()),
         json_escape(&paths.commit_journal.to_string_lossy()),
+    ))
+}
+
+
+fn command_governance_upgrade(
+    mut flags: BTreeMap<String, String>,
+) -> Result<String, CliError> {
+    let paths = paths(&mut flags)?;
+    reject_unknown(&flags)?;
+    let receipt = upgrade_trust_surface(&paths)?;
+    Ok(format!(
+        concat!(
+            "{{",
+            "\"schema\":\"{}\",",
+            "\"ok\":true,",
+            "\"command\":\"trust-governance-upgrade\",",
+            "\"trust_root\":\"{}\",",
+            "\"changed\":{},",
+            "\"policy_status_path\":\"{}\",",
+            "\"policy_revocation_count\":{},",
+            "\"network_enabled\":false,",
+            "\"automatic_repair_enabled\":false,",
+            "\"active_runtime_changed\":false",
+            "}}"
+        ),
+        TRUST_COMMAND_SCHEMA,
+        json_escape(&paths.root.to_string_lossy()),
+        json_bool(receipt.changed),
+        json_escape(&receipt.policy_status_path.to_string_lossy()),
+        receipt.policy_revocation_count,
     ))
 }
 
@@ -367,6 +407,86 @@ fn command_key_register(
         registry.event_count(),
         registry.active_key_count(),
     )?)
+}
+
+
+fn command_key_rotate(
+    mut flags: BTreeMap<String, String>,
+) -> Result<String, CliError> {
+    let paths = paths(&mut flags)?;
+    let target_key_id = required(&mut flags, "target-key-id")?;
+    let new_secret_path = required(&mut flags, "new-key-file")?;
+    let signer_key_id = required(&mut flags, "signer-key-id")?;
+    let signer_secret_path = required(&mut flags, "signer-key-file")?;
+    let timestamp = parse_u64(
+        "logical-timestamp",
+        &required(&mut flags, "logical-timestamp")?,
+    )?;
+    let nonce = required(&mut flags, "nonce")?;
+    reject_unknown(&flags)?;
+
+    let new_secret = read_secret(&new_secret_path)?;
+    let signer_secret = read_secret(&signer_secret_path)?;
+    let mut registry = KeyRegistry::open_strict(&paths.key_registry)?;
+    let old_state = registry
+        .get(&target_key_id)
+        .cloned()
+        .ok_or_else(|| CliError::semantic(
+            "KEY_NOT_FOUND",
+            format!("unknown target key: {target_key_id}"),
+        ))?;
+    let event = registry.rotate_key(
+        &target_key_id,
+        &new_secret,
+        &signer_key_id,
+        &signer_secret,
+        timestamp,
+        &nonce,
+    )?;
+    let new_state = registry
+        .get(&target_key_id)
+        .cloned()
+        .ok_or_else(|| CliError::operation(
+            "rotated key state missing",
+        ))?;
+    Ok(format!(
+        concat!(
+            "{{",
+            "\"schema\":\"{}\",",
+            "\"ok\":true,",
+            "\"command\":\"trust-key-rotate\",",
+            "\"trust_root\":\"{}\",",
+            "\"event\":\"ROTATE\",",
+            "\"sequence\":{},",
+            "\"target_key_id\":\"{}\",",
+            "\"old_fingerprint\":\"{}\",",
+            "\"new_fingerprint\":\"{}\",",
+            "\"role_mask\":{},",
+            "\"rotation_count\":{},",
+            "\"signer_key_id\":\"{}\",",
+            "\"signer_fingerprint\":\"{}\",",
+            "\"target_proof\":\"{}\",",
+            "\"logical_timestamp\":{},",
+            "\"nonce\":\"{}\",",
+            "\"signature_algorithm\":\"HMAC-SHA256\",",
+            "\"raw_secret_persisted\":false,",
+            "\"active_runtime_changed\":false",
+            "}}"
+        ),
+        TRUST_COMMAND_SCHEMA,
+        json_escape(&paths.root.to_string_lossy()),
+        event.sequence,
+        json_escape(&target_key_id),
+        hex(&old_state.fingerprint),
+        hex(&new_state.fingerprint),
+        new_state.role_mask,
+        new_state.rotation_count,
+        json_escape(&event.signer_key_id),
+        hex(&event.signer_fingerprint),
+        hex(&event.target_proof),
+        event.logical_timestamp,
+        json_escape(&event.nonce),
+    ))
 }
 
 fn command_key_revoke(
@@ -498,6 +618,70 @@ fn command_policy_register(
     ))
 }
 
+
+fn command_policy_revoke(
+    mut flags: BTreeMap<String, String>,
+) -> Result<String, CliError> {
+    let paths = paths(&mut flags)?;
+    let policy_id = required(&mut flags, "policy-id")?;
+    let policy_version = required(&mut flags, "policy-version")?;
+    let reason_code = required(&mut flags, "reason-code")?;
+    let signer_key_id = required(&mut flags, "signer-key-id")?;
+    let signer_secret_path = required(&mut flags, "signer-key-file")?;
+    let authorization_timestamp = parse_u64(
+        "authorization-timestamp",
+        &required(&mut flags, "authorization-timestamp")?,
+    )?;
+    let nonce = required(&mut flags, "nonce")?;
+    reject_unknown(&flags)?;
+
+    let signer_secret = read_secret(&signer_secret_path)?;
+    let receipt = revoke_policy_authorized(
+        &paths,
+        &policy_id,
+        &policy_version,
+        &reason_code,
+        &signer_key_id,
+        &signer_secret,
+        authorization_timestamp,
+        &nonce,
+    )?;
+    Ok(format!(
+        concat!(
+            "{{",
+            "\"schema\":\"{}\",",
+            "\"ok\":true,",
+            "\"command\":\"trust-policy-revoke\",",
+            "\"trust_root\":\"{}\",",
+            "\"changed\":{},",
+            "\"policy_id\":\"{}\",",
+            "\"policy_version\":\"{}\",",
+            "\"policy_digest\":\"{}\",",
+            "\"reason_code\":\"{}\",",
+            "\"authorization_event_id\":\"{}\",",
+            "\"authorization_sequence\":{},",
+            "\"policy_status_sequence\":{},",
+            "\"policy_revocation_count\":{},",
+            "\"irreversible_in_t4\":true,",
+            "\"signature_algorithm\":\"HMAC-SHA256\",",
+            "\"raw_secret_persisted\":false,",
+            "\"active_runtime_changed\":false",
+            "}}"
+        ),
+        TRUST_COMMAND_SCHEMA,
+        json_escape(&paths.root.to_string_lossy()),
+        json_bool(receipt.changed),
+        json_escape(&receipt.policy_id),
+        json_escape(&receipt.policy_version),
+        hex(&receipt.policy_digest),
+        json_escape(&reason_code),
+        hex(&receipt.authorization_event_id),
+        receipt.authorization_sequence,
+        receipt.policy_status_sequence,
+        receipt.policy_revocation_count,
+    ))
+}
+
 fn command_trust_commit(
     mut flags: BTreeMap<String, String>,
 ) -> Result<String, CliError> {
@@ -598,6 +782,58 @@ fn command_trust_commit(
     ))
 }
 
+
+fn command_audit_export(
+    mut flags: BTreeMap<String, String>,
+) -> Result<String, CliError> {
+    let database_root = PathBuf::from(required(&mut flags, "db")?);
+    let paths = paths(&mut flags)?;
+    let output_root = PathBuf::from(required(
+        &mut flags,
+        "output-dir",
+    )?);
+    reject_unknown(&flags)?;
+
+    let receipt = export_offline_audit(
+        &database_root,
+        &paths,
+        &output_root,
+    )?;
+    Ok(format!(
+        concat!(
+            "{{",
+            "\"schema\":\"{}\",",
+            "\"ok\":true,",
+            "\"command\":\"trust-audit-export\",",
+            "\"db\":\"{}\",",
+            "\"trust_root\":\"{}\",",
+            "\"output_dir\":\"{}\",",
+            "\"copied_file_count\":{},",
+            "\"manifest_sha256\":\"{}\",",
+            "\"summary_sha256\":\"{}\",",
+            "\"root_digest\":\"{}\",",
+            "\"source_unchanged\":{},",
+            "\"deterministic_format\":{},",
+            "\"read_only_source\":true,",
+            "\"raw_secret_persisted\":false,",
+            "\"network_enabled\":false,",
+            "\"automatic_repair_enabled\":false,",
+            "\"active_runtime_changed\":false",
+            "}}"
+        ),
+        TRUST_COMMAND_SCHEMA,
+        json_escape(&database_root.to_string_lossy()),
+        json_escape(&paths.root.to_string_lossy()),
+        json_escape(&receipt.output_root.to_string_lossy()),
+        receipt.copied_file_count,
+        hex(&receipt.manifest_sha256),
+        hex(&receipt.summary_sha256),
+        hex(&receipt.root_digest),
+        json_bool(receipt.source_unchanged),
+        json_bool(receipt.deterministic_format),
+    ))
+}
+
 fn command_trust_status(
     mut flags: BTreeMap<String, String>,
 ) -> Result<String, CliError> {
@@ -617,6 +853,8 @@ fn command_trust_status(
             "\"active_key_count\":{},",
             "\"authorization_count\":{},",
             "\"policy_count\":{},",
+            "\"policy_revocation_count\":{},",
+            "\"active_policy_count\":{},",
             "\"trust_transition_count\":{},",
             "\"commit_journal_entry_count\":{},",
             "\"database_record_count\":{},",
@@ -624,6 +862,7 @@ fn command_trust_status(
             "\"key_registry_head\":\"{}\",",
             "\"authorization_head\":\"{}\",",
             "\"policy_registry_head\":\"{}\",",
+            "\"policy_status_head\":\"{}\",",
             "\"trust_ledger_head\":\"{}\",",
             "\"commit_journal_head\":\"{}\",",
             "\"database_state_digest\":\"{}\",",
@@ -641,6 +880,8 @@ fn command_trust_status(
         status.active_key_count,
         status.authorization_count,
         status.policy_count,
+        status.policy_revocation_count,
+        status.active_policy_count,
         status.trust_transition_count,
         status.commit_journal_entry_count,
         status.database_record_count,
@@ -648,6 +889,7 @@ fn command_trust_status(
         hex(&status.key_registry_head),
         hex(&status.authorization_head),
         hex(&status.policy_registry_head),
+        hex(&status.policy_status_head),
         hex(&status.trust_ledger_head),
         hex(&status.commit_journal_head),
         hex(&status.database_state_digest),
@@ -676,7 +918,9 @@ fn command_list_keys(
                 "\"roles\":[{}],",
                 "\"active\":{},",
                 "\"registered_sequence\":{},",
-                "\"revoked_sequence\":{}",
+                "\"revoked_sequence\":{},",
+                "\"rotation_count\":{},",
+                "\"last_rotated_sequence\":{}",
                 "}}"
             ),
             json_escape(&state.key_id),
@@ -686,6 +930,8 @@ fn command_list_keys(
             json_bool(state.active),
             state.registered_sequence,
             optional_u64_json(state.revoked_sequence),
+            state.rotation_count,
+            optional_u64_json(state.last_rotated_sequence),
         )
     }).collect::<Vec<_>>().join(",");
     Ok(format!(
@@ -716,7 +962,14 @@ fn command_list_policies(
     let paths = paths(&mut flags)?;
     reject_unknown(&flags)?;
     let policies = parse_policy_views(&paths.policy_registry)?;
+    let policy_status = PolicyStatusLedger::open_strict(
+        &paths.policy_status,
+    )?;
     let values = policies.iter().map(|policy| {
+        let revoked = policy_status.revoked_event(
+            &policy.policy_id,
+            &policy.policy_version,
+        );
         format!(
             concat!(
                 "{{",
@@ -728,7 +981,10 @@ fn command_list_policies(
                 "\"max_evidence\":{},",
                 "\"verifier_id\":\"{}\",",
                 "\"unique_provenance\":{},",
-                "\"policy_digest\":\"{}\"",
+                "\"policy_digest\":\"{}\",",
+                "\"revoked\":{},",
+                "\"revocation_sequence\":{},",
+                "\"revocation_reason\":{}",
                 "}}"
             ),
             json_escape(&policy.policy_id),
@@ -740,6 +996,15 @@ fn command_list_policies(
             json_escape(&policy.verifier_id),
             json_bool(policy.unique_provenance),
             hex(&policy.policy_digest),
+            json_bool(revoked.is_some()),
+            revoked
+                .map(|event| event.sequence.to_string())
+                .unwrap_or_else(|| "null".to_string()),
+            revoked
+                .map(|event| format!(
+                    "\"{}\"", json_escape(&event.reason_code)
+                ))
+                .unwrap_or_else(|| "null".to_string()),
         )
     }).collect::<Vec<_>>().join(",");
     Ok(format!(
@@ -750,6 +1015,8 @@ fn command_list_policies(
             "\"command\":\"trust-list-policies\",",
             "\"trust_root\":\"{}\",",
             "\"policy_count\":{},",
+            "\"policy_revocation_count\":{},",
+            "\"active_policy_count\":{},",
             "\"policies\":[{}],",
             "\"active_runtime_changed\":false",
             "}}"
@@ -757,6 +1024,10 @@ fn command_list_policies(
         TRUST_COMMAND_SCHEMA,
         json_escape(&paths.root.to_string_lossy()),
         policies.len(),
+        policy_status.revoked_count(),
+        policies.len().saturating_sub(
+            policy_status.revoked_count()
+        ),
         values,
     ))
 }
@@ -781,6 +1052,7 @@ fn command_list_authorizations(
                 "\"subject_digest\":\"{}\",",
                 "\"signer_key_id\":\"{}\",",
                 "\"signer_fingerprint\":\"{}\",",
+                "\"key_registry_head\":\"{}\",",
                 "\"logical_timestamp\":{},",
                 "\"nonce\":\"{}\",",
                 "\"signature\":\"{}\"",
@@ -793,6 +1065,7 @@ fn command_list_authorizations(
             hex(&record.proof.subject_digest),
             json_escape(&record.proof.signer_key_id),
             hex(&record.proof.signer_fingerprint),
+            hex(&record.proof.key_registry_head),
             record.proof.logical_timestamp,
             json_escape(&record.proof.nonce),
             hex(&record.proof.signature),
@@ -830,17 +1103,21 @@ fn command_help(
             "\"command\":\"help\",",
             "\"commands\":[",
             "\"trust-init\",",
+            "\"trust-governance-upgrade\",",
             "\"trust-key-bootstrap\",",
             "\"trust-key-register\",",
+            "\"trust-key-rotate\",",
             "\"trust-key-revoke\",",
             "\"trust-policy-register\",",
+            "\"trust-policy-revoke\",",
             "\"trust-commit\",",
             "\"trust-status\",",
             "\"trust-list-keys\",",
             "\"trust-list-policies\",",
-            "\"trust-list-authorizations\"",
+            "\"trust-list-authorizations\",",
+            "\"trust-audit-export\"",
             "],",
-            "\"command_count\":10,",
+            "\"command_count\":14,",
             "\"signature_algorithm\":\"HMAC-SHA256\",",
             "\"asymmetric_signature\":false,",
             "\"raw_secret_persisted\":false,",
@@ -1243,11 +1520,11 @@ mod tests {
     }
 
     #[test]
-    fn help_has_ten_commands() {
+    fn help_has_fourteen_commands() {
         let output = run_cli(vec![
             "ultraballoondb-trust".to_string(),
             "help".to_string(),
         ]).unwrap();
-        assert!(output.contains("\"command_count\":10"));
+        assert!(output.contains("\"command_count\":14"));
     }
 }

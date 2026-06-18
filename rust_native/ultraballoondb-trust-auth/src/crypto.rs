@@ -8,7 +8,10 @@ pub const HMAC_BLOCK_BYTES: usize = 64;
 pub const SIGNATURE_DOMAIN: [u8; 8] = *b"UBAUTSG1";
 pub const KEY_REGISTER_DOMAIN: [u8; 8] = *b"UBKEYSUB";
 pub const KEY_REVOKE_DOMAIN: [u8; 8] = *b"UBKEYREV";
+pub const KEY_ROTATE_DOMAIN: [u8; 8] = *b"UBKROT01";
+pub const POLICY_REVOKE_DOMAIN: [u8; 8] = *b"UBPOLRV1";
 pub const TRUST_REQUEST_DOMAIN: [u8; 8] = *b"UBTRQA01";
+pub const AUDIT_ROOT_DOMAIN: [u8; 8] = *b"UBAUDR01";
 
 pub fn validate_secret(secret: &[u8]) -> Result<()> {
     if secret.len() < MIN_SECRET_BYTES {
@@ -150,6 +153,74 @@ pub fn key_revoke_subject(
     output.extend_from_slice(&fingerprint);
     output.extend_from_slice(key_id_bytes);
     Ok(sha256(&output))
+}
+
+
+pub fn key_rotate_subject(
+    key_id: &str,
+    old_fingerprint: [u8; 32],
+    new_fingerprint: [u8; 32],
+    role_mask: u16,
+) -> Result<[u8; 32]> {
+    validate_identifier("target_key_id", key_id)?;
+    if old_fingerprint == [0; 32]
+        || new_fingerprint == [0; 32]
+        || old_fingerprint == new_fingerprint
+    {
+        return Err(AuthError::Invalid(
+            "rotation fingerprints must be non-zero and different"
+                .to_string(),
+        ));
+    }
+    let key_id_bytes = key_id.as_bytes();
+    let mut output = Vec::new();
+    output.extend_from_slice(&KEY_ROTATE_DOMAIN);
+    output.extend_from_slice(&role_mask.to_le_bytes());
+    output.extend_from_slice(&(key_id_bytes.len() as u32).to_le_bytes());
+    output.extend_from_slice(&old_fingerprint);
+    output.extend_from_slice(&new_fingerprint);
+    output.extend_from_slice(key_id_bytes);
+    Ok(sha256(&output))
+}
+
+pub fn policy_revoke_subject(
+    policy_id: &str,
+    policy_version: &str,
+    policy_digest: [u8; 32],
+    reason_code: &str,
+) -> Result<[u8; 32]> {
+    validate_identifier("policy_id", policy_id)?;
+    validate_identifier("policy_version", policy_version)?;
+    validate_identifier("reason_code", reason_code)?;
+    if policy_digest == [0; 32] {
+        return Err(AuthError::Invalid(
+            "policy digest cannot be zero".to_string(),
+        ));
+    }
+    let policy_id_bytes = policy_id.as_bytes();
+    let version_bytes = policy_version.as_bytes();
+    let reason_bytes = reason_code.as_bytes();
+    let mut output = Vec::new();
+    output.extend_from_slice(&POLICY_REVOKE_DOMAIN);
+    output.extend_from_slice(&policy_digest);
+    output.extend_from_slice(&(policy_id_bytes.len() as u32).to_le_bytes());
+    output.extend_from_slice(policy_id_bytes);
+    output.extend_from_slice(&(version_bytes.len() as u32).to_le_bytes());
+    output.extend_from_slice(version_bytes);
+    output.extend_from_slice(&(reason_bytes.len() as u32).to_le_bytes());
+    output.extend_from_slice(reason_bytes);
+    Ok(sha256(&output))
+}
+
+pub fn audit_root_digest(
+    manifest_digest: [u8; 32],
+    summary_digest: [u8; 32],
+) -> [u8; 32] {
+    let mut output = Vec::new();
+    output.extend_from_slice(&AUDIT_ROOT_DOMAIN);
+    output.extend_from_slice(&manifest_digest);
+    output.extend_from_slice(&summary_digest);
+    sha256(&output)
 }
 
 pub fn validate_identifier(name: &str, value: &str) -> Result<()> {

@@ -7,8 +7,8 @@ use ultraballoondb_storage::sha256;
 
 use crate::crypto::{
     constant_time_equal, key_fingerprint, key_register_subject,
-    key_revoke_subject, sign_authorization, signature_message,
-    validate_identifier,
+    key_revoke_subject, key_rotate_subject, sign_authorization,
+    signature_message, validate_identifier,
 };
 use crate::{AuthError, Result};
 
@@ -26,6 +26,8 @@ pub const DOMAIN_KEY_REGISTER: u8 = 2;
 pub const DOMAIN_KEY_REVOKE: u8 = 3;
 pub const DOMAIN_POLICY_REGISTER: u8 = 4;
 pub const DOMAIN_TRUST_COMMIT: u8 = 5;
+pub const DOMAIN_KEY_ROTATE: u8 = 6;
+pub const DOMAIN_POLICY_REVOKE: u8 = 7;
 
 const KEY_LEDGER_MAGIC: [u8; 8] = *b"UBKEY01\0";
 const KEY_PAYLOAD_MAGIC: [u8; 8] = *b"UBKEYP1\0";
@@ -44,6 +46,7 @@ pub enum KeyEventKind {
     Bootstrap = 1,
     Register = 2,
     Revoke = 3,
+    Rotate = 4,
 }
 
 impl KeyEventKind {
@@ -52,6 +55,7 @@ impl KeyEventKind {
             1 => Ok(Self::Bootstrap),
             2 => Ok(Self::Register),
             3 => Ok(Self::Revoke),
+            4 => Ok(Self::Rotate),
             _ => Err(AuthError::Invalid(format!(
                 "unknown key event kind {value}",
             ))),
@@ -63,6 +67,7 @@ impl KeyEventKind {
             Self::Bootstrap => "BOOTSTRAP",
             Self::Register => "REGISTER",
             Self::Revoke => "REVOKE",
+            Self::Rotate => "ROTATE",
         }
     }
 }
@@ -75,6 +80,8 @@ pub struct KeyState {
     pub active: bool,
     pub registered_sequence: u64,
     pub revoked_sequence: Option<u64>,
+    pub rotation_count: u64,
+    pub last_rotated_sequence: Option<u64>,
 }
 
 impl KeyState {
@@ -98,6 +105,7 @@ pub struct KeyEvent {
     pub nonce: String,
     pub subject_digest: [u8; 32],
     pub signature: [u8; 32],
+    pub target_proof: [u8; 32],
     pub previous_digest: [u8; 32],
     pub frame_digest: [u8; 32],
 }
@@ -258,6 +266,7 @@ impl KeyRegistry {
             nonce: nonce.to_string(),
             subject_digest,
             signature,
+            target_proof: [0; 32],
             previous_digest: [0; 32],
             frame_digest: [0; 32],
         };
@@ -320,6 +329,96 @@ impl KeyRegistry {
             nonce: nonce.to_string(),
             subject_digest,
             signature,
+            target_proof: [0; 32],
+            previous_digest: [0; 32],
+            frame_digest: [0; 32],
+        })
+    }
+
+
+    pub fn rotate_key(
+        &mut self,
+        target_key_id: &str,
+        new_secret: &[u8],
+        signer_key_id: &str,
+        signer_secret: &[u8],
+        logical_timestamp: u64,
+        nonce: &str,
+    ) -> Result<KeyEvent> {
+        let target = self.states
+            .get(target_key_id)
+            .cloned()
+            .ok_or_else(|| AuthError::Invalid(format!(
+                "unknown target key: {target_key_id}",
+            )))?;
+        if !target.active {
+            return Err(AuthError::Invalid(format!(
+                "target key is revoked: {target_key_id}",
+            )));
+        }
+        let signer = self.verify_secret_role(
+            signer_key_id,
+            signer_secret,
+            ROLE_KEY_ADMIN,
+        )?;
+        let new_fingerprint = key_fingerprint(new_secret)?;
+        if new_fingerprint == target.fingerprint {
+            return Err(AuthError::Invalid(
+                "new key fingerprint equals current fingerprint"
+                    .to_string(),
+            ));
+        }
+        let subject_digest = key_rotate_subject(
+            target_key_id,
+            target.fingerprint,
+            new_fingerprint,
+            target.role_mask,
+        )?;
+        let (signer_fingerprint, signature) = sign_authorization(
+            signer_secret,
+            DOMAIN_KEY_ROTATE,
+            ROLE_KEY_ADMIN,
+            logical_timestamp,
+            subject_digest,
+            self.head_digest,
+            signer_key_id,
+            nonce,
+        )?;
+        if signer_fingerprint != signer.fingerprint {
+            return Err(AuthError::Invalid(
+                "signer fingerprint changed during rotation".to_string(),
+            ));
+        }
+        let (proof_fingerprint, target_proof) = sign_authorization(
+            new_secret,
+            DOMAIN_KEY_ROTATE,
+            0,
+            logical_timestamp,
+            subject_digest,
+            self.head_digest,
+            target_key_id,
+            nonce,
+        )?;
+        if proof_fingerprint != new_fingerprint {
+            return Err(AuthError::Invalid(
+                "new-key proof fingerprint mismatch".to_string(),
+            ));
+        }
+        self.append(KeyEvent {
+            sequence: 0,
+            kind: KeyEventKind::Rotate,
+            target_key_id: target_key_id.to_string(),
+            target_fingerprint: new_fingerprint,
+            target_role_mask: target.role_mask,
+            signer_key_id: signer_key_id.to_string(),
+            signer_fingerprint,
+            required_role: ROLE_KEY_ADMIN,
+            domain_code: DOMAIN_KEY_ROTATE,
+            logical_timestamp,
+            nonce: nonce.to_string(),
+            subject_digest,
+            signature,
+            target_proof,
             previous_digest: [0; 32],
             frame_digest: [0; 32],
         })
@@ -391,6 +490,7 @@ impl KeyRegistry {
             nonce: nonce.to_string(),
             subject_digest,
             signature,
+            target_proof: [0; 32],
             previous_digest: [0; 32],
             frame_digest: [0; 32],
         })
@@ -408,7 +508,9 @@ impl KeyRegistry {
     ) -> Result<AuthorizationProof> {
         if !matches!(
             domain_code,
-            DOMAIN_POLICY_REGISTER | DOMAIN_TRUST_COMMIT
+            DOMAIN_POLICY_REGISTER
+                | DOMAIN_TRUST_COMMIT
+                | DOMAIN_POLICY_REVOKE
         ) {
             return Err(AuthError::Invalid(format!(
                 "unsupported authorization domain {domain_code}",
@@ -796,6 +898,10 @@ fn validate_key_event(
     if event.signature == [0; 32]
         || event.target_fingerprint == [0; 32]
         || event.signer_fingerprint == [0; 32]
+        || (event.kind == KeyEventKind::Rotate
+            && event.target_proof == [0; 32])
+        || (event.kind != KeyEventKind::Rotate
+            && event.target_proof != [0; 32])
     {
         return Err(AuthError::Invalid(
             "key event contains zero digest/signature".to_string(),
@@ -861,6 +967,52 @@ fn validate_key_event(
             if expected != event.subject_digest {
                 return Err(AuthError::Invalid(
                     "registration subject digest mismatch".to_string(),
+                ));
+            }
+        }
+
+        KeyEventKind::Rotate => {
+            if event.domain_code != DOMAIN_KEY_ROTATE
+                || event.required_role != ROLE_KEY_ADMIN
+            {
+                return Err(AuthError::Invalid(
+                    "invalid key rotation event".to_string(),
+                ));
+            }
+            let signer = registry.states
+                .get(&event.signer_key_id)
+                .ok_or_else(|| AuthError::Invalid(
+                    "rotation signer is unknown".to_string(),
+                ))?;
+            if !signer.has_role(ROLE_KEY_ADMIN)
+                || signer.fingerprint != event.signer_fingerprint
+            {
+                return Err(AuthError::Invalid(
+                    "rotation signer is not active KEY_ADMIN".to_string(),
+                ));
+            }
+            let target = registry.states
+                .get(&event.target_key_id)
+                .ok_or_else(|| AuthError::Invalid(
+                    "rotation target is unknown".to_string(),
+                ))?;
+            if !target.active
+                || target.role_mask != event.target_role_mask
+                || target.fingerprint == event.target_fingerprint
+            {
+                return Err(AuthError::Invalid(
+                    "rotation target state mismatch".to_string(),
+                ));
+            }
+            let expected = key_rotate_subject(
+                &event.target_key_id,
+                target.fingerprint,
+                event.target_fingerprint,
+                target.role_mask,
+            )?;
+            if expected != event.subject_digest {
+                return Err(AuthError::Invalid(
+                    "rotation subject digest mismatch".to_string(),
                 ));
             }
         }
@@ -944,12 +1096,28 @@ fn apply_key_event(
                     active: true,
                     registered_sequence: event.sequence,
                     revoked_sequence: None,
+                    rotation_count: 0,
+                    last_rotated_sequence: None,
                 },
             ).is_some() {
                 return Err(AuthError::Invalid(
                     "key state duplicate insertion".to_string(),
                 ));
             }
+        }
+
+        KeyEventKind::Rotate => {
+            let state = states.get_mut(&event.target_key_id)
+                .ok_or_else(|| AuthError::Invalid(
+                    "rotation state missing".to_string(),
+                ))?;
+            state.fingerprint = event.target_fingerprint;
+            state.rotation_count = state.rotation_count
+                .checked_add(1)
+                .ok_or_else(|| AuthError::Invalid(
+                    "rotation count overflow".to_string(),
+                ))?;
+            state.last_rotated_sequence = Some(event.sequence);
         }
         KeyEventKind::Revoke => {
             let state = states.get_mut(&event.target_key_id)
@@ -974,17 +1142,22 @@ fn validate_authorization_proof(proof: &AuthorizationProof) -> Result<()> {
     validate_role_mask(proof.required_role)?;
     if !matches!(
         proof.domain_code,
-        DOMAIN_POLICY_REGISTER | DOMAIN_TRUST_COMMIT
+        DOMAIN_POLICY_REGISTER
+            | DOMAIN_TRUST_COMMIT
+            | DOMAIN_POLICY_REVOKE
     ) {
         return Err(AuthError::Invalid(
             "unsupported authorization domain".to_string(),
         ));
     }
-    if proof.domain_code == DOMAIN_POLICY_REGISTER
-        && proof.required_role != ROLE_POLICY_ADMIN
+    if matches!(
+        proof.domain_code,
+        DOMAIN_POLICY_REGISTER | DOMAIN_POLICY_REVOKE
+    ) && proof.required_role != ROLE_POLICY_ADMIN
     {
         return Err(AuthError::Invalid(
-            "POLICY_REGISTER requires POLICY_ADMIN".to_string(),
+            "policy governance authorization requires POLICY_ADMIN"
+                .to_string(),
         ));
     }
     if proof.domain_code == DOMAIN_TRUST_COMMIT
@@ -1040,6 +1213,8 @@ pub fn domain_name(code: u8) -> Result<&'static str> {
         DOMAIN_KEY_REVOKE => Ok("KEY_REVOKE"),
         DOMAIN_POLICY_REGISTER => Ok("POLICY_REGISTER"),
         DOMAIN_TRUST_COMMIT => Ok("TRUST_COMMIT"),
+        DOMAIN_KEY_ROTATE => Ok("KEY_ROTATE"),
+        DOMAIN_POLICY_REVOKE => Ok("POLICY_REVOKE"),
         _ => Err(AuthError::Invalid(format!(
             "unknown authorization domain {code}",
         ))),
@@ -1070,6 +1245,9 @@ fn encode_key_payload(event: &KeyEvent) -> Result<Vec<u8>> {
     output.extend_from_slice(target);
     output.extend_from_slice(signer);
     output.extend_from_slice(nonce);
+    if event.kind == KeyEventKind::Rotate {
+        output.extend_from_slice(&event.target_proof);
+    }
     Ok(output)
 }
 
@@ -1113,6 +1291,13 @@ fn decode_key_payload(payload: &[u8]) -> Result<KeyEvent> {
     let nonce = read_string(
         payload, &mut cursor, nonce_len, "nonce"
     )?;
+    let target_proof = if kind == KeyEventKind::Rotate {
+        let value = read_digest(payload, cursor)?;
+        cursor += 32;
+        value
+    } else {
+        [0; 32]
+    };
     if cursor != payload.len() {
         return Err(AuthError::Invalid(
             "key payload trailing bytes".to_string(),
@@ -1132,6 +1317,7 @@ fn decode_key_payload(payload: &[u8]) -> Result<KeyEvent> {
         nonce,
         subject_digest,
         signature,
+        target_proof,
         previous_digest: [0; 32],
         frame_digest: [0; 32],
     })

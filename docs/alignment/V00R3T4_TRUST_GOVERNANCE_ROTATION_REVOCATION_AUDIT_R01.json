@@ -1,0 +1,45 @@
+{
+  "version": "V00R3T4_TRUST_KEY_ROTATION_POLICY_REVOCATION_AND_OFFLINE_AUDIT_EXPORT_R01",
+  "requires_exact_head": "378cd58",
+  "modified_crate": "ultraballoondb-trust-auth",
+  "new_crates": [],
+  "features": {
+    "dual_proof_key_rotation": true,
+    "same_key_id_rotation": true,
+    "role_mask_preserved_during_rotation": true,
+    "old_secret_rejected_after_rotation": true,
+    "append_only_policy_status_ledger_v1": true,
+    "irreversible_policy_version_revocation": true,
+    "revoked_policy_blocks_new_trust_commits": true,
+    "new_policy_version_after_revocation_supported": true,
+    "explicit_t3_governance_upgrade": true,
+    "read_only_offline_audit_export": true,
+    "deterministic_export_manifest_and_receipt": true,
+    "trust_cli_command_count": 14
+  },
+  "signature_profile": {
+    "algorithm": "HMAC-SHA256",
+    "asymmetric_signature": false,
+    "public_nonrepudiation": false,
+    "raw_secret_persisted": false
+  },
+  "hard_guards": {
+    "network_enabled": false,
+    "automatic_repair_enabled": false,
+    "active_runtime_changed": false,
+    "existing_database_cli_changed": false,
+    "trust_core_changed": false,
+    "trust_commit_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3T5_TRUST_MULTI_PARTY_APPROVAL_EXPIRY_AND_ENTERPRISE_AUDIT_PROFILE"
+}
