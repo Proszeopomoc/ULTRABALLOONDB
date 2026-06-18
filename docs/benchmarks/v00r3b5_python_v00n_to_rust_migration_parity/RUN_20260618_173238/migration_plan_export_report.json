@@ -1,0 +1,20 @@
+{
+  "pass": true,
+  "checkpoint_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture\\durable\\checkpoint.json",
+  "wal_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture\\durable\\wal.ubwl",
+  "plan_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_to_rust.ubmig",
+  "plan_sha256": "EBFA905D17CD02B8D17193C434EB664D6675CA994644E604A7D56033844FE69F",
+  "record_count": 2,
+  "edge_count": 2,
+  "source_committed_transaction_count": 2,
+  "source_checkpoint_lsn": 4,
+  "source_last_valid_lsn": 11,
+  "source_checkpoint_state_sha256": "B87512EF1514351F39F3FD2BBEE119BA08AC50371C8B06A32938F12EC3E8053A",
+  "semantic_state_sha256": "64520D625EADDCD7168933E8AF76641CA999BE6DC8EBCF0DA7C96C0EC69C8953",
+  "payload_sha256": "438B844D5D677EE71C91E24B83A594756ED24FCE029BD135213C5A5145DAA29E",
+  "replayed_transaction_count": 1,
+  "ignored_uncommitted_count": 1,
+  "tail_repaired_bytes": 6,
+  "source_overwritten": false,
+  "active_runtime_changed": false
+}

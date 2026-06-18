@@ -1,0 +1,21 @@
+{
+  "version": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY",
+  "run_id": "RUN_20260618_173238",
+  "new_crate": "ultraballoondb-migrate",
+  "source_format": "PYTHON_V00N",
+  "target_format": "CANONICAL_RUST_V1",
+  "source_record_count": 2,
+  "source_edge_count": 2,
+  "source_committed_transaction_count": 2,
+  "source_replayed_transaction_count": 1,
+  "source_ignored_uncommitted_count": 1,
+  "source_tail_repaired_bytes": 6,
+  "canonical_batch_count": 1,
+  "cross_format_semantic_sha256": "64520D625EADDCD7168933E8AF76641CA999BE6DC8EBCF0DA7C96C0EC69C8953",
+  "source_target_parity": true,
+  "target_restart_deterministic": true,
+  "source_overwritten": false,
+  "active_runtime_changed": false,
+  "next_gate": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE"
+}

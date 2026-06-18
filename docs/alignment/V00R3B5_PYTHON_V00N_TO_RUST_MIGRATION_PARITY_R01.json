@@ -1,0 +1,45 @@
+{
+  "version": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY_R01",
+  "status": "OFFLINE_MIGRATION_PARITY",
+  "requires": {
+    "b4_pass": true,
+    "b4_commit_ancestor": true,
+    "python_v00n_source_hash_locked": true,
+    "canonical_rust_wal_checkpoint_recovery": true
+  },
+  "new_crate": "ultraballoondb-migrate",
+  "source_format": "PYTHON_V00N_DURABLE_WRITES_WAL_CRASH_RECOVERY",
+  "target_format": "CANONICAL_RUST_STORAGE_WAL_CHECKPOINT_V1",
+  "parity_dimensions": [
+    "record_id",
+    "node_id",
+    "payload bytes",
+    "payload SHA256",
+    "typed edge src",
+    "typed edge dst",
+    "typed edge type",
+    "typed edge weight_million",
+    "committed WAL replay",
+    "uncommitted transaction exclusion",
+    "truncated source WAL tail repair",
+    "target durable commit",
+    "target checkpoint/head",
+    "target restart determinism",
+    "cross-format semantic SHA"
+  ],
+  "source_delete_supported": false,
+  "source_overwritten": false,
+  "hard_guards": {
+    "active_runtime_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "lifecycle_crate_changed": false,
+    "compat_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE"
+}

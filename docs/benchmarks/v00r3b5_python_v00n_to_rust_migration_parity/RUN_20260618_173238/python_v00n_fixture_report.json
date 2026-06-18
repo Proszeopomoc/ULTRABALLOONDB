@@ -1,0 +1,20 @@
+{
+  "pass": true,
+  "source_version": "V00N_DURABLE_WRITES_WAL_CRASH_RECOVERY",
+  "source_sha256": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC",
+  "fixture_root": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture",
+  "manifest_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture\\durable\\durable_manifest.json",
+  "checkpoint_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture\\durable\\checkpoint.json",
+  "wal_path": "C:\\UltraBalloonDB\\audit\\v00r3b5_python_v00n_to_rust_migration_parity\\RUN_20260618_173238\\python_v00n_source_fixture\\durable\\wal.ubwl",
+  "checkpoint_lsn": 4,
+  "last_valid_lsn": 11,
+  "expected_replayed_transaction_count": 1,
+  "expected_ignored_uncommitted_count": 1,
+  "expected_tail_repaired_bytes": 6,
+  "expected_final_record_count": 2,
+  "expected_final_edge_count": 2,
+  "expected_committed_transaction_count": 2,
+  "expected_ignored_record_id": "ignored-record",
+  "real_v00n_scan_rejects_tail_without_repair": true,
+  "source_overwritten": false
+}
