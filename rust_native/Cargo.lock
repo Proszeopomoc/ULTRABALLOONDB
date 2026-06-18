@@ -51,6 +51,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ultraballoondb-trust-auth"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-lifecycle",
+ "ultraballoondb-storage",
+ "ultraballoondb-trust",
+ "ultraballoondb-trust-commit",
+]
+
+[[package]]
 name = "ultraballoondb-trust-commit"
 version = "0.0.3"
 dependencies = [

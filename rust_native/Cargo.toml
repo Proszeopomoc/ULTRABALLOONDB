@@ -9,6 +9,7 @@ members = [
     "ultraballoondb-storage",
     "ultraballoondb-trust",
     "ultraballoondb-trust-commit",
+    "ultraballoondb-trust-auth",
     "ultraballoondb-wal",
     "ultraballoondb_rust_core",
 ]
