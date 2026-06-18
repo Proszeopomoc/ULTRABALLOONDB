@@ -1,0 +1,16 @@
+{
+  "version": "V00R3A2B5_GPU_ROUTER_LIVE_SHADOW_OBSERVATION_NO_ACTIVE_ROUTING_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B5_GPU_ROUTER_LIVE_SHADOW_OBSERVATION_NO_ACTIVE_ROUTING",
+  "run_id": "RUN_20260618_153257",
+  "observation_window_count": 12,
+  "live_cpu_execution_count": 12,
+  "exact_committed_b2_result_match_count": 12,
+  "shadow_cpu_recommendation_count": 4,
+  "shadow_gpu_candidate_count": 8,
+  "gpu_process_invocation_count": 0,
+  "full_scan_counter": 0,
+  "router_installed": false,
+  "active_routing": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE"
+}
