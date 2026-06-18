@@ -1,0 +1,19 @@
+{
+  "version": "V00R3A2B3_GPU_SNAPSHOT_LIFECYCLE_AND_FALLBACK_SHADOW_ONLY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B3_GPU_SNAPSHOT_LIFECYCLE_AND_FALLBACK_SHADOW_ONLY",
+  "run_id": "RUN_20260618_095605",
+  "scenario_count": 10,
+  "exact_parity": true,
+  "gpu_process_invocation_count": 5,
+  "gpu_accepted_count": 4,
+  "cpu_fallback_count": 6,
+  "cpu_fallback_exact_parity_count": 6,
+  "stale_snapshot_blocked_before_gpu_count": 1,
+  "corrupt_snapshot_blocked_before_gpu_count": 1,
+  "snapshot_version_count": 2,
+  "snapshot_head_update_count": 4,
+  "full_scan_counter": 0,
+  "gpu_backend_promoted": false,
+  "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b3_gpu_snapshot_lifecycle_fallback\\RUN_20260618_095605\\v00r3a2b3_gpu_snapshot_lifecycle_fallback_report.json",
+  "next_gate": "V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES"
+}
