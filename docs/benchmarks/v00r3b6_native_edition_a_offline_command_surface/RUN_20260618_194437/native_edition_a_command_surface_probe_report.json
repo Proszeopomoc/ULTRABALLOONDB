@@ -1,0 +1,888 @@
+{
+  "pass": true,
+  "binary": "C:\\UltraBalloonDB\\rust_native\\ultraballoondb_rust_core\\target\\release\\ultraballoondb.exe",
+  "binary_sha256": "E1A2ED84D2E27EBAA4481EADA6408C0E04EE5D74AC9D0108F86F6490FC17A3B4",
+  "command_surface_version": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05",
+  "database_root": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+  "command_count_executed": 30,
+  "success_command_count": 24,
+  "expected_failure_command_count": 6,
+  "create_generation": 1,
+  "final_checkpoint_generation": 9,
+  "final_checkpoint_lsn": 30,
+  "final_maximum_valid_wal_lsn": 30,
+  "final_record_count": 1,
+  "final_edge_count": 1,
+  "final_committed_transaction_count": 7,
+  "final_state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+  "final_record_id": "alpha-record",
+  "final_record_node_id": 1111,
+  "final_record_payload_hex": "10616C7068612D75706461746564007061796C6F6164FE",
+  "final_record_payload_sha256": "D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A",
+  "final_edge": {
+    "src": 1001,
+    "dst": 2002,
+    "edge_type": 7,
+    "weight_million": 750000
+  },
+  "record_put_idempotent": true,
+  "edge_put_idempotent": true,
+  "record_delete_idempotent": true,
+  "edge_delete_idempotent": true,
+  "missing_record_exit_code": 4,
+  "invalid_weight_exit_code": 2,
+  "unknown_flag_exit_code": 2,
+  "existing_create_exit_code": 4,
+  "incomplete_wal_status_exit_code": 3,
+  "incomplete_wal_not_repaired": true,
+  "corrupt_head_status_exit_code": 3,
+  "restart_deterministic": true,
+  "network_enabled": false,
+  "automatic_repair_enabled": false,
+  "active_runtime_changed": false,
+  "transcript": [
+    {
+      "arguments": [
+        "version"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"version\",\"version\":\"V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05\"}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "version",
+        "version": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05"
+      }
+    },
+    {
+      "arguments": [
+        "help"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"help\",\"commands\":[\"create\",\"status\",\"verify\",\"put-record\",\"get-record\",\"list-records\",\"delete-record\",\"put-edge\",\"list-edges\",\"delete-edge\",\"checkpoint\",\"help\",\"version\"],\"network_enabled\":false,\"automatic_repair_enabled\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "help",
+        "commands": [
+          "create",
+          "status",
+          "verify",
+          "put-record",
+          "get-record",
+          "list-records",
+          "delete-record",
+          "put-edge",
+          "list-edges",
+          "delete-edge",
+          "checkpoint",
+          "help",
+          "version"
+        ],
+        "network_enabled": false,
+        "automatic_repair_enabled": false
+      }
+    },
+    {
+      "arguments": [
+        "create",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"create\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":0,\"edge_count\":0,\"state_sha256\":\"E8B522CF3652F9BB42E2B4ADCE177C39B918C0B90B927DF2D14B2785D3560C3F\",\"checkpoint_generation\":1,\"checkpoint_lsn\":1,\"head_published\":true,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "create",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 0,
+        "edge_count": 0,
+        "state_sha256": "E8B522CF3652F9BB42E2B4ADCE177C39B918C0B90B927DF2D14B2785D3560C3F",
+        "checkpoint_generation": 1,
+        "checkpoint_lsn": 1,
+        "head_published": true,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "create",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 4,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"ALREADY_EXISTS\",\"message\":\"database path already exists: C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "ALREADY_EXISTS",
+          "message": "database path already exists: C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+        }
+      }
+    },
+    {
+      "arguments": [
+        "status",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"status\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":0,\"edge_count\":0,\"committed_transaction_count\":0,\"state_sha256\":\"E8B522CF3652F9BB42E2B4ADCE177C39B918C0B90B927DF2D14B2785D3560C3F\",\"checkpoint_generation\":1,\"checkpoint_lsn\":1,\"maximum_valid_wal_lsn\":1,\"replayed_transaction_count\":0,\"ignored_uncommitted_count\":0,\"repaired_trailing_bytes\":0,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "status",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 0,
+        "edge_count": 0,
+        "committed_transaction_count": 0,
+        "state_sha256": "E8B522CF3652F9BB42E2B4ADCE177C39B918C0B90B927DF2D14B2785D3560C3F",
+        "checkpoint_generation": 1,
+        "checkpoint_lsn": 1,
+        "maximum_valid_wal_lsn": 1,
+        "replayed_transaction_count": 0,
+        "ignored_uncommitted_count": 0,
+        "repaired_trailing_bytes": 0,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "alpha-record",
+        "--node-id",
+        "1001",
+        "--payload-file",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\alpha_initial.bin"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"897FE64D297F4C5E0FF187B0ED17F16F\",\"segment_generation\":2,\"segment_sequence\":2,\"commit_lsn\":4,\"checkpoint_generation\":2,\"checkpoint_lsn\":5,\"record_count\":1,\"edge_count\":0,\"state_sha256\":\"29A8269DBC3B0A0CED286BE04FA9E5D0DF5F151E8E8D5021ABE0F2233DD8CF51\",\"record_id\":\"alpha-record\",\"node_id\":1001,\"payload_bytes\":15,\"payload_sha256\":\"73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477\",\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "897FE64D297F4C5E0FF187B0ED17F16F",
+        "segment_generation": 2,
+        "segment_sequence": 2,
+        "commit_lsn": 4,
+        "checkpoint_generation": 2,
+        "checkpoint_lsn": 5,
+        "record_count": 1,
+        "edge_count": 0,
+        "state_sha256": "29A8269DBC3B0A0CED286BE04FA9E5D0DF5F151E8E8D5021ABE0F2233DD8CF51",
+        "record_id": "alpha-record",
+        "node_id": 1001,
+        "payload_bytes": 15,
+        "payload_sha256": "73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477",
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "alpha-record",
+        "--node-id",
+        "1001",
+        "--payload-file",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\alpha_initial.bin"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":false,\"reason\":\"record already has identical value\",\"record_count\":1,\"edge_count\":0,\"state_sha256\":\"29A8269DBC3B0A0CED286BE04FA9E5D0DF5F151E8E8D5021ABE0F2233DD8CF51\",\"checkpoint_generation\":2,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": false,
+        "reason": "record already has identical value",
+        "record_count": 1,
+        "edge_count": 0,
+        "state_sha256": "29A8269DBC3B0A0CED286BE04FA9E5D0DF5F151E8E8D5021ABE0F2233DD8CF51",
+        "checkpoint_generation": 2,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "get-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "alpha-record"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"get-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record\":{\"logical_id\":9337298104826284233,\"record_id\":\"alpha-record\",\"node_id\":1001,\"payload_bytes\":15,\"payload_sha256\":\"73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477\",\"payload_hex\":\"00616C7068612D696E697469616CFF\"},\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "get-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record": {
+          "logical_id": 9337298104826284233,
+          "record_id": "alpha-record",
+          "node_id": 1001,
+          "payload_bytes": 15,
+          "payload_sha256": "73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477",
+          "payload_hex": "00616C7068612D696E697469616CFF"
+        },
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "beta-żółć",
+        "--node-id",
+        "2002",
+        "--payload-utf8",
+        "Zażółć gęślą jaźń"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"1B9BEAB599A11410F2B915956B01A83B\",\"segment_generation\":3,\"segment_sequence\":6,\"commit_lsn\":8,\"checkpoint_generation\":3,\"checkpoint_lsn\":9,\"record_count\":2,\"edge_count\":0,\"state_sha256\":\"A2B6E31E388CC92DECF7D358795C29D64A4D7C78519D8A8C728A0FC1DA860658\",\"record_id\":\"beta-żółć\",\"node_id\":2002,\"payload_bytes\":26,\"payload_sha256\":\"BC5348FD7C2DD8BBF411F0B9268265F7C2E0D31EBF314695882B8170C7E1E9D7\",\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "1B9BEAB599A11410F2B915956B01A83B",
+        "segment_generation": 3,
+        "segment_sequence": 6,
+        "commit_lsn": 8,
+        "checkpoint_generation": 3,
+        "checkpoint_lsn": 9,
+        "record_count": 2,
+        "edge_count": 0,
+        "state_sha256": "A2B6E31E388CC92DECF7D358795C29D64A4D7C78519D8A8C728A0FC1DA860658",
+        "record_id": "beta-żółć",
+        "node_id": 2002,
+        "payload_bytes": 26,
+        "payload_sha256": "BC5348FD7C2DD8BBF411F0B9268265F7C2E0D31EBF314695882B8170C7E1E9D7",
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "1001",
+        "--dst",
+        "2002",
+        "--edge-type",
+        "7",
+        "--weight-million",
+        "750000"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-edge\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"23349C1D7A43DCA07EE44802461EC50A\",\"segment_generation\":4,\"segment_sequence\":10,\"commit_lsn\":12,\"checkpoint_generation\":4,\"checkpoint_lsn\":13,\"record_count\":2,\"edge_count\":1,\"state_sha256\":\"BE734C16D0DF82CDA5CB564AF7156EDCF3066AD9F16741F4DB80E0AD4529BE20\",\"src\":1001,\"dst\":2002,\"edge_type\":7,\"weight_million\":750000,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-edge",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "23349C1D7A43DCA07EE44802461EC50A",
+        "segment_generation": 4,
+        "segment_sequence": 10,
+        "commit_lsn": 12,
+        "checkpoint_generation": 4,
+        "checkpoint_lsn": 13,
+        "record_count": 2,
+        "edge_count": 1,
+        "state_sha256": "BE734C16D0DF82CDA5CB564AF7156EDCF3066AD9F16741F4DB80E0AD4529BE20",
+        "src": 1001,
+        "dst": 2002,
+        "edge_type": 7,
+        "weight_million": 750000,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "2002",
+        "--dst",
+        "3003",
+        "--edge-type",
+        "9",
+        "--weight-million",
+        "333333"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-edge\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"1621F8230D4B2FE56E37675D74042667\",\"segment_generation\":5,\"segment_sequence\":14,\"commit_lsn\":16,\"checkpoint_generation\":5,\"checkpoint_lsn\":17,\"record_count\":2,\"edge_count\":2,\"state_sha256\":\"C71151B578D15135BDC984236A871FEDBDA1CAE7461C94C43AB7EF656D35FBB5\",\"src\":2002,\"dst\":3003,\"edge_type\":9,\"weight_million\":333333,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-edge",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "1621F8230D4B2FE56E37675D74042667",
+        "segment_generation": 5,
+        "segment_sequence": 14,
+        "commit_lsn": 16,
+        "checkpoint_generation": 5,
+        "checkpoint_lsn": 17,
+        "record_count": 2,
+        "edge_count": 2,
+        "state_sha256": "C71151B578D15135BDC984236A871FEDBDA1CAE7461C94C43AB7EF656D35FBB5",
+        "src": 2002,
+        "dst": 3003,
+        "edge_type": 9,
+        "weight_million": 333333,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "1001",
+        "--dst",
+        "2002",
+        "--edge-type",
+        "7",
+        "--weight-million",
+        "750000"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-edge\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":false,\"reason\":\"edge already exists\",\"record_count\":2,\"edge_count\":2,\"state_sha256\":\"C71151B578D15135BDC984236A871FEDBDA1CAE7461C94C43AB7EF656D35FBB5\",\"checkpoint_generation\":5,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-edge",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": false,
+        "reason": "edge already exists",
+        "record_count": 2,
+        "edge_count": 2,
+        "state_sha256": "C71151B578D15135BDC984236A871FEDBDA1CAE7461C94C43AB7EF656D35FBB5",
+        "checkpoint_generation": 5,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "list-records",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"list-records\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":2,\"records\":[{\"logical_id\":9337298104826284233,\"record_id\":\"alpha-record\",\"node_id\":1001,\"payload_bytes\":15,\"payload_sha256\":\"73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477\"},{\"logical_id\":17928840991161726331,\"record_id\":\"beta-żółć\",\"node_id\":2002,\"payload_bytes\":26,\"payload_sha256\":\"BC5348FD7C2DD8BBF411F0B9268265F7C2E0D31EBF314695882B8170C7E1E9D7\"}],\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "list-records",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 2,
+        "records": [
+          {
+            "logical_id": 9337298104826284233,
+            "record_id": "alpha-record",
+            "node_id": 1001,
+            "payload_bytes": 15,
+            "payload_sha256": "73CC6A44B825BB40435B0B6756C936D19026CF56C8BA250A12AE176F839DE477"
+          },
+          {
+            "logical_id": 17928840991161726331,
+            "record_id": "beta-żółć",
+            "node_id": 2002,
+            "payload_bytes": 26,
+            "payload_sha256": "BC5348FD7C2DD8BBF411F0B9268265F7C2E0D31EBF314695882B8170C7E1E9D7"
+          }
+        ],
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "list-edges",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"list-edges\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"edge_count\":2,\"edges\":[{\"logical_id\":982223077304029869,\"src\":1001,\"dst\":2002,\"edge_type\":7,\"weight_million\":750000},{\"logical_id\":1240684680849126938,\"src\":2002,\"dst\":3003,\"edge_type\":9,\"weight_million\":333333}],\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "list-edges",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "edge_count": 2,
+        "edges": [
+          {
+            "logical_id": 982223077304029869,
+            "src": 1001,
+            "dst": 2002,
+            "edge_type": 7,
+            "weight_million": 750000
+          },
+          {
+            "logical_id": 1240684680849126938,
+            "src": 2002,
+            "dst": 3003,
+            "edge_type": 9,
+            "weight_million": 333333
+          }
+        ],
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "put-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "alpha-record",
+        "--node-id",
+        "1111",
+        "--payload-file",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\alpha_updated.bin"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"put-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"467BC42C3074238C47AFAC2D78294F3B\",\"segment_generation\":6,\"segment_sequence\":18,\"commit_lsn\":20,\"checkpoint_generation\":6,\"checkpoint_lsn\":21,\"record_count\":2,\"edge_count\":2,\"state_sha256\":\"34CA13F391CBACD9C75E9007185C7A6C1BD39B94FA0012BF047636FDBE182418\",\"record_id\":\"alpha-record\",\"node_id\":1111,\"payload_bytes\":23,\"payload_sha256\":\"D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A\",\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "put-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "467BC42C3074238C47AFAC2D78294F3B",
+        "segment_generation": 6,
+        "segment_sequence": 18,
+        "commit_lsn": 20,
+        "checkpoint_generation": 6,
+        "checkpoint_lsn": 21,
+        "record_count": 2,
+        "edge_count": 2,
+        "state_sha256": "34CA13F391CBACD9C75E9007185C7A6C1BD39B94FA0012BF047636FDBE182418",
+        "record_id": "alpha-record",
+        "node_id": 1111,
+        "payload_bytes": 23,
+        "payload_sha256": "D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A",
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "delete-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "beta-żółć"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"delete-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"F5252A0BE997D025810C8E2356B12F2C\",\"segment_generation\":7,\"segment_sequence\":22,\"commit_lsn\":24,\"checkpoint_generation\":7,\"checkpoint_lsn\":25,\"record_count\":1,\"edge_count\":2,\"state_sha256\":\"C9F58C18C3DF2171BBF992AB002E8A9CB912389A20DC5E7DED573F5D8F41B373\",\"record_id\":\"beta-żółć\",\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "delete-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "F5252A0BE997D025810C8E2356B12F2C",
+        "segment_generation": 7,
+        "segment_sequence": 22,
+        "commit_lsn": 24,
+        "checkpoint_generation": 7,
+        "checkpoint_lsn": 25,
+        "record_count": 1,
+        "edge_count": 2,
+        "state_sha256": "C9F58C18C3DF2171BBF992AB002E8A9CB912389A20DC5E7DED573F5D8F41B373",
+        "record_id": "beta-żółć",
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "delete-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "beta-żółć"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"delete-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":false,\"reason\":\"record is already absent\",\"record_count\":1,\"edge_count\":2,\"state_sha256\":\"C9F58C18C3DF2171BBF992AB002E8A9CB912389A20DC5E7DED573F5D8F41B373\",\"checkpoint_generation\":7,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "delete-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": false,
+        "reason": "record is already absent",
+        "record_count": 1,
+        "edge_count": 2,
+        "state_sha256": "C9F58C18C3DF2171BBF992AB002E8A9CB912389A20DC5E7DED573F5D8F41B373",
+        "checkpoint_generation": 7,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "delete-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "2002",
+        "--dst",
+        "3003",
+        "--edge-type",
+        "9",
+        "--weight-million",
+        "333333"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"delete-edge\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":true,\"transaction_id\":\"5D6D6EEF0A1E236BD83F9BBDE7B486B7\",\"segment_generation\":8,\"segment_sequence\":26,\"commit_lsn\":28,\"checkpoint_generation\":8,\"checkpoint_lsn\":29,\"record_count\":1,\"edge_count\":1,\"state_sha256\":\"BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96\",\"src\":2002,\"dst\":3003,\"edge_type\":9,\"weight_million\":333333,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "delete-edge",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": true,
+        "transaction_id": "5D6D6EEF0A1E236BD83F9BBDE7B486B7",
+        "segment_generation": 8,
+        "segment_sequence": 26,
+        "commit_lsn": 28,
+        "checkpoint_generation": 8,
+        "checkpoint_lsn": 29,
+        "record_count": 1,
+        "edge_count": 1,
+        "state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+        "src": 2002,
+        "dst": 3003,
+        "edge_type": 9,
+        "weight_million": 333333,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "delete-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "2002",
+        "--dst",
+        "3003",
+        "--edge-type",
+        "9",
+        "--weight-million",
+        "333333"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"delete-edge\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":false,\"reason\":\"edge is already absent\",\"record_count\":1,\"edge_count\":1,\"state_sha256\":\"BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96\",\"checkpoint_generation\":8,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "delete-edge",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": false,
+        "reason": "edge is already absent",
+        "record_count": 1,
+        "edge_count": 1,
+        "state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+        "checkpoint_generation": 8,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "checkpoint",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"checkpoint\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"changed\":false,\"record_count\":1,\"edge_count\":1,\"state_sha256\":\"BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96\",\"checkpoint_generation\":9,\"checkpoint_lsn\":30,\"head_published\":true,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "checkpoint",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "changed": false,
+        "record_count": 1,
+        "edge_count": 1,
+        "state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+        "checkpoint_generation": 9,
+        "checkpoint_lsn": 30,
+        "head_published": true,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "get-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "alpha-record"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"get-record\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record\":{\"logical_id\":9337298104826284233,\"record_id\":\"alpha-record\",\"node_id\":1111,\"payload_bytes\":23,\"payload_sha256\":\"D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A\",\"payload_hex\":\"10616C7068612D75706461746564007061796C6F6164FE\"},\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "get-record",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record": {
+          "logical_id": 9337298104826284233,
+          "record_id": "alpha-record",
+          "node_id": 1111,
+          "payload_bytes": 23,
+          "payload_sha256": "D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A",
+          "payload_hex": "10616C7068612D75706461746564007061796C6F6164FE"
+        },
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "get-record",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--record-id",
+        "missing-record"
+      ],
+      "exit_code": 4,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"NOT_FOUND\",\"message\":\"record not found: missing-record\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "record not found: missing-record"
+        }
+      }
+    },
+    {
+      "arguments": [
+        "put-edge",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--src",
+        "1",
+        "--dst",
+        "2",
+        "--edge-type",
+        "3",
+        "--weight-million",
+        "1000001"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"INVALID_ARGUMENT\",\"message\":\"--weight-million must be within 0..1000000\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "--weight-million must be within 0..1000000"
+        }
+      }
+    },
+    {
+      "arguments": [
+        "status",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "--unknown",
+        "value"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"INVALID_ARGUMENT\",\"message\":\"unknown flag --unknown\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "unknown flag --unknown"
+        }
+      }
+    },
+    {
+      "arguments": [
+        "list-records",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"list-records\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":1,\"records\":[{\"logical_id\":9337298104826284233,\"record_id\":\"alpha-record\",\"node_id\":1111,\"payload_bytes\":23,\"payload_sha256\":\"D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A\"}],\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "list-records",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 1,
+        "records": [
+          {
+            "logical_id": 9337298104826284233,
+            "record_id": "alpha-record",
+            "node_id": 1111,
+            "payload_bytes": 23,
+            "payload_sha256": "D3262E1CE0B859F5E6AE014950F475BD149688723EBB13CF8D8387497FDAAE6A"
+          }
+        ],
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "list-edges",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"list-edges\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"edge_count\":1,\"edges\":[{\"logical_id\":982223077304029869,\"src\":1001,\"dst\":2002,\"edge_type\":7,\"weight_million\":750000}],\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "list-edges",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "edge_count": 1,
+        "edges": [
+          {
+            "logical_id": 982223077304029869,
+            "src": 1001,
+            "dst": 2002,
+            "edge_type": 7,
+            "weight_million": 750000
+          }
+        ],
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "status",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"status\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":1,\"edge_count\":1,\"committed_transaction_count\":7,\"state_sha256\":\"BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96\",\"checkpoint_generation\":9,\"checkpoint_lsn\":30,\"maximum_valid_wal_lsn\":30,\"replayed_transaction_count\":0,\"ignored_uncommitted_count\":0,\"repaired_trailing_bytes\":0,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "status",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 1,
+        "edge_count": 1,
+        "committed_transaction_count": 7,
+        "state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+        "checkpoint_generation": 9,
+        "checkpoint_lsn": 30,
+        "maximum_valid_wal_lsn": 30,
+        "replayed_transaction_count": 0,
+        "ignored_uncommitted_count": 0,
+        "repaired_trailing_bytes": 0,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "verify",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":true,\"command\":\"verify\",\"db\":\"C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\edition_a_database\",\"record_count\":1,\"edge_count\":1,\"committed_transaction_count\":7,\"state_sha256\":\"BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96\",\"checkpoint_generation\":9,\"checkpoint_lsn\":30,\"maximum_valid_wal_lsn\":30,\"replayed_transaction_count\":0,\"ignored_uncommitted_count\":0,\"repaired_trailing_bytes\":0,\"restart_deterministic\":true,\"active_runtime_changed\":false}\n",
+      "stderr": "",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": true,
+        "command": "verify",
+        "db": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\edition_a_database",
+        "record_count": 1,
+        "edge_count": 1,
+        "committed_transaction_count": 7,
+        "state_sha256": "BBD8714505558271CF08EA9C444ECB8C6540F2B11BB06A86B5511978DBB43B96",
+        "checkpoint_generation": 9,
+        "checkpoint_lsn": 30,
+        "maximum_valid_wal_lsn": 30,
+        "replayed_transaction_count": 0,
+        "ignored_uncommitted_count": 0,
+        "repaired_trailing_bytes": 0,
+        "restart_deterministic": true,
+        "active_runtime_changed": false
+      }
+    },
+    {
+      "arguments": [
+        "status",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\partial_tail_database"
+      ],
+      "exit_code": 3,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"DATABASE_ERROR\",\"message\":\"WAL error: invalid WAL header: incomplete final frame header\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "DATABASE_ERROR",
+          "message": "WAL error: invalid WAL header: incomplete final frame header"
+        }
+      }
+    },
+    {
+      "arguments": [
+        "status",
+        "--db",
+        "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\corrupt_head_database"
+      ],
+      "exit_code": 3,
+      "stdout": "",
+      "stderr": "{\"schema\":\"ultraballoondb.command.v1\",\"ok\":false,\"error\":{\"code\":\"DATABASE_ERROR\",\"message\":\"storage error: integrity mismatch for C:\\\\UltraBalloonDB\\\\audit\\\\v00r3b6_native_edition_a_offline_command_surface\\\\RUN_20260618_194437\\\\command_surface_work\\\\corrupt_head_database\\\\CURRENT.ubhead: expected=D1CC0AB1C5D3C5BB98B1103149529C0692A577ADAB3B8972108677B7C366A464 actual=BFB1ACF3E02F7C52DE90C67114051009D0A6334387997239FB18CCA018B083FF\"}}\n",
+      "json": {
+        "schema": "ultraballoondb.command.v1",
+        "ok": false,
+        "error": {
+          "code": "DATABASE_ERROR",
+          "message": "storage error: integrity mismatch for C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\command_surface_work\\corrupt_head_database\\CURRENT.ubhead: expected=D1CC0AB1C5D3C5BB98B1103149529C0692A577ADAB3B8972108677B7C366A464 actual=BFB1ACF3E02F7C52DE90C67114051009D0A6334387997239FB18CCA018B083FF"
+        }
+      }
+    }
+  ]
+}

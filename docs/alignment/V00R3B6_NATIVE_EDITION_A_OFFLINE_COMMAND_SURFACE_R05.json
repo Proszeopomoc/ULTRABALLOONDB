@@ -1,0 +1,82 @@
+{
+  "version": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05",
+  "status": "OFFLINE_NATIVE_COMMAND_SURFACE",
+  "requires": {
+    "b5_pass": true,
+    "b5_commit_ancestor": true,
+    "canonical_rust_storage": true,
+    "canonical_rust_transactions": true,
+    "canonical_rust_wal_checkpoint_recovery": true,
+    "python_v00n_migration_parity": true
+  },
+  "new_crate": "ultraballoondb-cli",
+  "binary": "ultraballoondb",
+  "modified_crates": [
+    "ultraballoondb-lifecycle"
+  ],
+  "commands": [
+    "create",
+    "status",
+    "verify",
+    "put-record",
+    "get-record",
+    "list-records",
+    "delete-record",
+    "put-edge",
+    "list-edges",
+    "delete-edge",
+    "checkpoint",
+    "help",
+    "version"
+  ],
+  "output_contract": "JSON_V1",
+  "network_enabled": false,
+  "automatic_repair_enabled": false,
+  "hard_guards": {
+    "active_runtime_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER",
+  "installation_fix": {
+    "r01_rolled_back_cleanly": true,
+    "root_cause": "preserved_source_mtime_allowed_stale_cargo_metadata",
+    "payload_write_preserves_old_mtime": false,
+    "installed_sha_verification": true,
+    "selective_cargo_clean": true,
+    "command_semantics_changed": false
+  },
+  "baseline_contract_fix": {
+    "r02_stopped_before_install": true,
+    "repository_changed_by_r02": false,
+    "historical_durable_hash_removed": true,
+    "durable_worktree_must_equal_head_blob": true,
+    "b3_structural_contract_verified": true,
+    "b6_api_absent_before_install": true,
+    "command_semantics_changed": false
+  },
+  "windows_line_ending_fix": {
+    "r03_stopped_before_install": true,
+    "repository_changed_by_r03": false,
+    "raw_worktree_vs_blob_byte_comparison_removed": true,
+    "git_diff_quiet_is_source_of_truth": true,
+    "git_filtered_hash_comparison": true,
+    "lf_crlf_safe": true,
+    "command_semantics_changed": false
+  },
+  "cargo_artifact_discovery_fix": {
+    "r04_reached_release_build": true,
+    "r04_rollback_success": true,
+    "hardcoded_target_release_path_removed": true,
+    "compiler_artifact_executable_is_source_of_truth": true,
+    "cargo_metadata_target_directory_recorded": true,
+    "command_semantics_changed": false
+  }
+}

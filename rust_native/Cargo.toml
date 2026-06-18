@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "ultraballoondb-cli",
     "ultraballoondb-compat",
     "ultraballoondb-core",
     "ultraballoondb-lifecycle",

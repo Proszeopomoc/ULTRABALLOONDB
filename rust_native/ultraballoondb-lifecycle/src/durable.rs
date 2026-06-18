@@ -213,6 +213,26 @@ pub struct RecoveryReceipt {
     pub restart_deterministic: bool,
 }
 
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct DatabaseRecord {
+    pub logical_id: u64,
+    pub record_id: String,
+    pub node_id: u64,
+    pub payload: Vec<u8>,
+    pub payload_sha256: [u8; 32],
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct DatabaseEdge {
+    pub logical_id: u64,
+    pub src: u64,
+    pub dst: u64,
+    pub edge_type: u32,
+    pub weight: f64,
+    pub weight_million: i64,
+}
+
 pub struct DurableDatabase {
     store: PageStore,
     wal_path: PathBuf,
@@ -315,6 +335,83 @@ impl DurableDatabase {
     pub fn state_counts(&self) -> (u64, u64) {
         self.state.counts()
     }
+
+
+pub fn checkpoint_generation(&self) -> u64 {
+    self.recovery.checkpoint_generation
+}
+
+pub fn next_generation(&self) -> DurableResult<u64> {
+    self.recovery
+        .checkpoint_generation
+        .checked_add(1)
+        .ok_or_else(|| DurableError::Invalid(
+            "checkpoint generation overflow".to_string(),
+        ))
+}
+
+pub fn next_segment_sequence(&self) -> DurableResult<u64> {
+    self.recovery
+        .maximum_valid_wal_lsn
+        .checked_add(1)
+        .ok_or_else(|| DurableError::Invalid(
+            "segment sequence overflow".to_string(),
+        ))
+}
+
+pub fn committed_transaction_count(&self) -> u64 {
+    self.committed_transactions.len() as u64
+}
+
+pub fn record(
+    &self,
+    record_id: &str,
+) -> DurableResult<Option<DatabaseRecord>> {
+    self.state
+        .records
+        .get(record_id)
+        .map(|entry| decode_database_record(record_id, entry))
+        .transpose()
+}
+
+pub fn records(&self) -> DurableResult<Vec<DatabaseRecord>> {
+    self.state
+        .records
+        .iter()
+        .map(|(record_id, entry)| {
+            decode_database_record(record_id, entry)
+        })
+        .collect()
+}
+
+pub fn edge(
+    &self,
+    src: u64,
+    dst: u64,
+    edge_type: u32,
+    weight: f64,
+) -> DurableResult<Option<DatabaseEdge>> {
+    validate_edge_weight(weight)?;
+    let key = EdgeKey {
+        src,
+        dst,
+        edge_type,
+        weight_bits: weight.to_bits(),
+    };
+    self.state
+        .edges
+        .get(&key)
+        .map(decode_database_edge)
+        .transpose()
+}
+
+pub fn edges(&self) -> DurableResult<Vec<DatabaseEdge>> {
+    self.state
+        .edges
+        .values()
+        .map(decode_database_edge)
+        .collect()
+}
 
     pub fn commit_prepared(
         &mut self,
@@ -856,6 +953,121 @@ fn replay_after_checkpoint(
     }
 
     Ok((replayed, pending.len() as u64))
+}
+
+
+fn validate_edge_weight(weight: f64) -> DurableResult<()> {
+    if !weight.is_finite() || !(0.0..=1.0).contains(&weight) {
+        return Err(DurableError::Invalid(
+            "edge weight must be finite and within [0,1]".to_string(),
+        ));
+    }
+    Ok(())
+}
+
+fn decode_database_record(
+    expected_record_id: &str,
+    entry: &SegmentEntry,
+) -> DurableResult<DatabaseRecord> {
+    if entry.kind != RecordKind::Record {
+        return Err(DurableError::Invalid(
+            "record map contains a non-record entry".to_string(),
+        ));
+    }
+    let payload = &entry.payload;
+    if payload.len() < 56 {
+        return Err(DurableError::Invalid(
+            "record payload is shorter than 56 bytes".to_string(),
+        ));
+    }
+    let record_id_bytes = read_u32(payload, 0)? as usize;
+    if read_u32(payload, 4)? != 0 {
+        return Err(DurableError::Invalid(
+            "record reserved field is non-zero".to_string(),
+        ));
+    }
+    let node_id = read_u64(payload, 8)?;
+    let user_payload_bytes = usize::try_from(read_u64(payload, 16)?)
+        .map_err(|_| DurableError::Invalid(
+            "record user payload is too large".to_string(),
+        ))?;
+    let expected_user_hash = read_digest(payload, 24)?;
+    let record_id_end = 56usize
+        .checked_add(record_id_bytes)
+        .ok_or_else(|| DurableError::Invalid(
+            "record ID length overflow".to_string(),
+        ))?;
+    let payload_end = record_id_end
+        .checked_add(user_payload_bytes)
+        .ok_or_else(|| DurableError::Invalid(
+            "record payload length overflow".to_string(),
+        ))?;
+    if payload_end != payload.len() {
+        return Err(DurableError::Invalid(
+            "record payload length mismatch".to_string(),
+        ));
+    }
+    let record_id = std::str::from_utf8(&payload[56..record_id_end])
+        .map_err(|_| DurableError::Invalid(
+            "record ID is not UTF-8".to_string(),
+        ))?
+        .to_string();
+    if record_id != expected_record_id {
+        return Err(DurableError::Invalid(
+            "record map key does not match encoded record ID".to_string(),
+        ));
+    }
+    let user_payload = payload[record_id_end..].to_vec();
+    let actual_user_hash = sha256(&user_payload);
+    if actual_user_hash != expected_user_hash {
+        return Err(DurableError::Integrity {
+            context: format!("record {record_id} payload"),
+            expected: expected_user_hash,
+            actual: actual_user_hash,
+        });
+    }
+    Ok(DatabaseRecord {
+        logical_id: entry.logical_id,
+        record_id,
+        node_id,
+        payload: user_payload,
+        payload_sha256: expected_user_hash,
+    })
+}
+
+fn decode_database_edge(
+    entry: &SegmentEntry,
+) -> DurableResult<DatabaseEdge> {
+    if entry.kind != RecordKind::TypedEdge {
+        return Err(DurableError::Invalid(
+            "edge map contains a non-edge entry".to_string(),
+        ));
+    }
+    let payload = &entry.payload;
+    if payload.len() != 32 {
+        return Err(DurableError::Invalid(
+            "edge payload must be 32 bytes".to_string(),
+        ));
+    }
+    let src = read_u64(payload, 0)?;
+    let dst = read_u64(payload, 8)?;
+    let edge_type = read_u32(payload, 16)?;
+    if read_u32(payload, 20)? != 0 {
+        return Err(DurableError::Invalid(
+            "edge reserved field is non-zero".to_string(),
+        ));
+    }
+    let weight = f64::from_bits(read_u64(payload, 24)?);
+    validate_edge_weight(weight)?;
+    let weight_million = (weight * 1_000_000.0).round() as i64;
+    Ok(DatabaseEdge {
+        logical_id: entry.logical_id,
+        src,
+        dst,
+        edge_type,
+        weight,
+        weight_million,
+    })
 }
 
 fn record_id_from_put(payload: &[u8]) -> DurableResult<String> {
@@ -1647,4 +1859,55 @@ mod tests {
         drop(reopened);
         fs::remove_dir_all(root).unwrap();
     }
+
+#[test]
+fn public_snapshot_api_decodes_records_and_edges() {
+    let root = root("snapshot-api");
+    let mut database = DurableDatabase::create(&root).unwrap();
+    let mut core = TransactionCore::new(BatchLimits::default());
+    let transaction_id = TransactionId::new([9; 16]);
+    core.begin(transaction_id).unwrap();
+    core.put_record(
+        101,
+        "snapshot-record",
+        9001,
+        b"snapshot-payload",
+    )
+    .unwrap();
+    core.put_edge(
+        102,
+        9001,
+        9002,
+        77,
+        0.333333,
+    )
+    .unwrap();
+    core.prepare().unwrap();
+    core.commit_durable(&mut database, 1, 1).unwrap();
+    core.release_terminal(transaction_id).unwrap();
+
+    let record = database
+        .record("snapshot-record")
+        .unwrap()
+        .unwrap();
+    assert_eq!(record.logical_id, 101);
+    assert_eq!(record.node_id, 9001);
+    assert_eq!(record.payload, b"snapshot-payload");
+    assert_eq!(database.records().unwrap().len(), 1);
+
+    let edge = database
+        .edge(9001, 9002, 77, 0.333333)
+        .unwrap()
+        .unwrap();
+    assert_eq!(edge.logical_id, 102);
+    assert_eq!(edge.weight_million, 333333);
+    assert_eq!(database.edges().unwrap().len(), 1);
+    assert_eq!(database.next_generation().unwrap(), 1);
+    assert_eq!(database.next_segment_sequence().unwrap(), 1);
+
+    drop(database);
+    fs::remove_dir_all(root).unwrap();
+}
+
+
 }
