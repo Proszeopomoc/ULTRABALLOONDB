@@ -1,0 +1,113 @@
+{
+  "version": "V00R3A2B2_DIRECT_WAVE_CROSSOVER_STABILITY_SHADOW_ONLY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B2_DIRECT_WAVE_CROSSOVER_STABILITY_SHADOW_ONLY",
+  "run_id": "RUN_20260618_094325",
+  "exact_parity": true,
+  "execution_count": 100,
+  "series_count": 5,
+  "case_definition_count": 20,
+  "full_scan_counter": 0,
+  "crossover_count": 4,
+  "crossovers": {
+    "n1000000_d1_s4_all_t010": {
+      "crossover_batch": 128,
+      "confirmation_batch": 256,
+      "lower_tested_batch": 64,
+      "crossover_case_id": "n1000000_d1_s4_all_t010_b128",
+      "confirmation_case_id": "n1000000_d1_s4_all_t010_b256",
+      "crossover_median_speedup_p50": 1.3550076369190487,
+      "crossover_median_speedup_p95": 9.263629128531635,
+      "post_crossover_p50_regression_count": 0,
+      "tested_batches": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "classifications": [
+        "CPU_PREFERRED",
+        "CPU_PREFERRED",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN"
+      ]
+    },
+    "n1000000_d2_s1_all_t010": {
+      "crossover_batch": 256,
+      "confirmation_batch": 512,
+      "lower_tested_batch": 128,
+      "crossover_case_id": "n1000000_d2_s1_all_t010_b256",
+      "confirmation_case_id": "n1000000_d2_s1_all_t010_b512",
+      "crossover_median_speedup_p50": 1.5387223411848678,
+      "crossover_median_speedup_p95": 8.80549469071296,
+      "post_crossover_p50_regression_count": 0,
+      "tested_batches": [
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "classifications": [
+        "BOUNDARY_OR_UNSTABLE",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN"
+      ]
+    },
+    "n100000_d1_s4_all_t010": {
+      "crossover_batch": 256,
+      "confirmation_batch": 512,
+      "lower_tested_batch": 128,
+      "crossover_case_id": "n100000_d1_s4_all_t010_b256",
+      "confirmation_case_id": "n100000_d1_s4_all_t010_b512",
+      "crossover_median_speedup_p50": 1.8817550398102656,
+      "crossover_median_speedup_p95": 5.83043410123805,
+      "post_crossover_p50_regression_count": 0,
+      "tested_batches": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "classifications": [
+        "CPU_PREFERRED",
+        "CPU_PREFERRED",
+        "BOUNDARY_OR_UNSTABLE",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN"
+      ]
+    },
+    "n100000_d2_s1_all_t010": {
+      "crossover_batch": 512,
+      "confirmation_batch": 1024,
+      "lower_tested_batch": 256,
+      "crossover_case_id": "n100000_d2_s1_all_t010_b512",
+      "confirmation_case_id": "n100000_d2_s1_all_t010_b1024",
+      "crossover_median_speedup_p50": 1.553895886746182,
+      "crossover_median_speedup_p95": 4.930028271405493,
+      "post_crossover_p50_regression_count": 0,
+      "tested_batches": [
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "classifications": [
+        "BOUNDARY_OR_UNSTABLE",
+        "BOUNDARY_OR_UNSTABLE",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN",
+        "GPU_STABLE_WIN"
+      ]
+    }
+  },
+  "gpu_backend_promoted": false,
+  "core_lib_sha256": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+  "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b2_direct_wave_crossover_stability\\RUN_20260618_094325\\v00r3a2b2_direct_wave_crossover_stability_report.json",
+  "next_gate": "V00R3A2B3_GPU_SNAPSHOT_LIFECYCLE_AND_FALLBACK_SHADOW_ONLY"
+}
