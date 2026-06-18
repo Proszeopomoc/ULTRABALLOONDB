@@ -1,0 +1,17 @@
+{
+  "version": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER",
+  "run_id": "RUN_20260618_195818",
+  "new_crate": "ultraballoondb-trust",
+  "ledger_format": "ULTRABALLOONDB_TRUST_TRANSITION_LEDGER_V1",
+  "transition_count": 12,
+  "record_count": 4,
+  "prohibited_authority_rejection_count": 7,
+  "head_digest": "E14585DD95DE32CE5D37CA9BA9581D52BD86EE2A7AB5AEF8BD64DD65047A678C",
+  "append_only_prefix_preserved": true,
+  "strict_restart_replay_verified": true,
+  "automatic_repair_enabled": false,
+  "network_enabled": false,
+  "active_runtime_changed": false,
+  "next_gate": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT"
+}

@@ -7,6 +7,7 @@ members = [
     "ultraballoondb-lifecycle",
     "ultraballoondb-migrate",
     "ultraballoondb-storage",
+    "ultraballoondb-trust",
     "ultraballoondb-wal",
     "ultraballoondb_rust_core",
 ]

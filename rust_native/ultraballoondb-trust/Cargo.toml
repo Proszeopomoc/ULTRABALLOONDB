@@ -1,0 +1,17 @@
+[package]
+name = "ultraballoondb-trust"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Evidence-backed trust state transitions and append-only ledger"
+
+[dependencies]
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+
+[lib]
+name = "ultraballoondb_trust"
+path = "src/lib.rs"
+
+[[example]]
+name = "trust_transition_ledger_probe"
+path = "examples/trust_transition_ledger_probe.rs"

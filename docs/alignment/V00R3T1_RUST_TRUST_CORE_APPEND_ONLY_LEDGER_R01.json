@@ -1,0 +1,59 @@
+{
+  "version": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER_R01",
+  "status": "RUST_TRUST_CORE_APPEND_ONLY_LEDGER",
+  "requires": {
+    "b6_pass": true,
+    "b6_commit_is_exact_head": true,
+    "canonical_rust_database": true
+  },
+  "new_crate": "ultraballoondb-trust",
+  "modified_existing_crates": [],
+  "maturity_axis": [
+    "RAW",
+    "HYPOTHESIS",
+    "CANDIDATE",
+    "VERIFIED"
+  ],
+  "validity_axis": [
+    "ACTIVE",
+    "DISPUTED",
+    "EXPIRED",
+    "REVOKED",
+    "SUPERSEDED"
+  ],
+  "operations": [
+    "PROPOSE",
+    "PROMOTE",
+    "DISPUTE",
+    "REVOKE",
+    "EXPIRE",
+    "SUPERSEDE"
+  ],
+  "single_mutator": "TrustLedger::apply",
+  "ledger_format": "ULTRABALLOONDB_TRUST_TRANSITION_LEDGER_V1",
+  "automatic_repair": false,
+  "network_enabled": false,
+  "trust_neutral_sources": [
+    "RANKER",
+    "WAVE",
+    "SIMILARITY",
+    "FREQUENCY",
+    "LLM",
+    "RIGOR_MULTIPLIER"
+  ],
+  "hard_guards": {
+    "active_runtime_changed": false,
+    "cli_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT"
+}

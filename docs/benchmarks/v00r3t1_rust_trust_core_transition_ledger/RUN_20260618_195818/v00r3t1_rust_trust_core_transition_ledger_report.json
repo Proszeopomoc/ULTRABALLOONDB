@@ -1,0 +1,300 @@
+{
+  "version": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER",
+  "mode": "RUST_TRUST_CORE_APPEND_ONLY_TRANSITION_LEDGER",
+  "active_runtime_changed": false,
+  "cli_changed": false,
+  "lifecycle_changed": false,
+  "storage_crate_changed": false,
+  "wal_crate_changed": false,
+  "compat_crate_changed": false,
+  "migrate_crate_changed": false,
+  "existing_rust_core_changed": false,
+  "python_source_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT",
+  "b6_report": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\v00r3b6_native_edition_a_offline_command_surface_report.json",
+  "b6_commit_receipt": "C:\\UltraBalloonDB\\audit\\v00r3b6_native_edition_a_offline_command_surface\\RUN_20260618_194437\\v00r3b6_results_commit_receipt.json",
+  "b6_commit": "ecff7d4",
+  "b6_workspace_contract": {
+    "rust_native/Cargo.toml": {
+      "path": "rust_native/Cargo.toml",
+      "head_blob_oid": "08dabcbf5ad16678144c9663d12282f85dc09e89",
+      "git_filtered_worktree_oid": "08dabcbf5ad16678144c9663d12282f85dc09e89",
+      "git_diff_quiet": true,
+      "lf_crlf_safe": true,
+      "raw_worktree_sha256": "11279F2E97D93897AE02664554C83FBA3E44AA79DE4DD051E60F3CA4EC0AF21C"
+    },
+    "rust_native/Cargo.lock": {
+      "path": "rust_native/Cargo.lock",
+      "head_blob_oid": "9e2c8b6a75aff632fcc0eb2cff8003d34bf70288",
+      "git_filtered_worktree_oid": "9e2c8b6a75aff632fcc0eb2cff8003d34bf70288",
+      "git_diff_quiet": true,
+      "lf_crlf_safe": true,
+      "raw_worktree_sha256": "C2200F599FEB906A732DF64392AE0AC51A17BD45893F2ECB42154459F88AF73B"
+    },
+    "rust_native/ultraballoondb-cli/src/lib.rs": {
+      "path": "rust_native/ultraballoondb-cli/src/lib.rs",
+      "head_blob_oid": "7500c908cf37a5a6c2452b07662d398cbc9c5c8b",
+      "git_filtered_worktree_oid": "7500c908cf37a5a6c2452b07662d398cbc9c5c8b",
+      "git_diff_quiet": true,
+      "lf_crlf_safe": true,
+      "raw_worktree_sha256": "7D42C65B6CD88D99E2ECA04CB933FA1887FAD12AE5B1B71329F17C37B080AE21"
+    },
+    "rust_native/ultraballoondb-lifecycle/src/durable.rs": {
+      "path": "rust_native/ultraballoondb-lifecycle/src/durable.rs",
+      "head_blob_oid": "5835356bbd460ec1bb45c18b31c165ebfe34bd73",
+      "git_filtered_worktree_oid": "5835356bbd460ec1bb45c18b31c165ebfe34bd73",
+      "git_diff_quiet": true,
+      "lf_crlf_safe": true,
+      "raw_worktree_sha256": "EB1FDBCAC1E54BC627FBCA72300B7179FAEBFF685EBDD89213DEBC3E2705D734"
+    }
+  },
+  "install_plan": {
+    "rust_native/Cargo.toml": {
+      "source_relative": "install/rust_native/Cargo.toml",
+      "source_sha256": "D9C47B7DB3D44543A8CB8C35D95C359BC752FC6F091A53ED5EA2090265CA77FC",
+      "target_existed_before": true,
+      "target_tracked_before": true,
+      "target_sha256_before": "11279F2E97D93897AE02664554C83FBA3E44AA79DE4DD051E60F3CA4EC0AF21C",
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "rust_native/Cargo.lock": {
+      "source_relative": "install/rust_native/Cargo.lock",
+      "source_sha256": "B224FD70D3F5A4E6441B021645424839169C580F4BAC131252276C93ABB076A0",
+      "target_existed_before": true,
+      "target_tracked_before": true,
+      "target_sha256_before": "C2200F599FEB906A732DF64392AE0AC51A17BD45893F2ECB42154459F88AF73B",
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "rust_native/ultraballoondb-trust/Cargo.toml": {
+      "source_relative": "install/rust_native/ultraballoondb-trust/Cargo.toml",
+      "source_sha256": "DB6FF79AA82852661B21D5EC826820BBFEA1B70FA494F0DC8AB2C13F4BF76626",
+      "target_existed_before": false,
+      "target_tracked_before": false,
+      "target_sha256_before": null,
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "rust_native/ultraballoondb-trust/src/lib.rs": {
+      "source_relative": "install/rust_native/ultraballoondb-trust/src/lib.rs",
+      "source_sha256": "4DFF3D6FC4C8C1895F461BBD2C3283892716590ABEF73CEB4D8CB91F3BB4DC8F",
+      "target_existed_before": false,
+      "target_tracked_before": false,
+      "target_sha256_before": null,
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "rust_native/ultraballoondb-trust/examples/trust_transition_ledger_probe.rs": {
+      "source_relative": "install/rust_native/ultraballoondb-trust/examples/trust_transition_ledger_probe.rs",
+      "source_sha256": "E68C61313BC941A23C84835A89EC43FEF5BC825639A2846A8795B23CB71B2057",
+      "target_existed_before": false,
+      "target_tracked_before": false,
+      "target_sha256_before": null,
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json": {
+      "source_relative": "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json",
+      "source_sha256": "36DD88BCA206F04862760D3A9A5E7AA6AD1E5664EDCA084FC2A8D68C492F84B6",
+      "target_existed_before": false,
+      "target_tracked_before": false,
+      "target_sha256_before": null,
+      "identical_before": false,
+      "expected_git_change": true
+    },
+    "specs/trust/ULTRABALLOONDB_TRUST_MODEL_AND_TRANSITION_LEDGER_V1.md": {
+      "source_relative": "specs/trust/ULTRABALLOONDB_TRUST_MODEL_AND_TRANSITION_LEDGER_V1.md",
+      "source_sha256": "BEEDD11A450689C8D6FC48CAAEC3ECB0433B9D3B4486C6E0C760754BD8E1DE12",
+      "target_existed_before": false,
+      "target_tracked_before": false,
+      "target_sha256_before": null,
+      "identical_before": false,
+      "expected_git_change": true
+    }
+  },
+  "expected_install_change_paths": [
+    "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json",
+    "rust_native/Cargo.lock",
+    "rust_native/Cargo.toml",
+    "rust_native/ultraballoondb-trust/Cargo.toml",
+    "rust_native/ultraballoondb-trust/examples/trust_transition_ledger_probe.rs",
+    "rust_native/ultraballoondb-trust/src/lib.rs",
+    "specs/trust/ULTRABALLOONDB_TRUST_MODEL_AND_TRANSITION_LEDGER_V1.md"
+  ],
+  "installed_file_count": 7,
+  "installed_files": [
+    "rust_native/Cargo.toml",
+    "rust_native/Cargo.lock",
+    "rust_native/ultraballoondb-trust/Cargo.toml",
+    "rust_native/ultraballoondb-trust/src/lib.rs",
+    "rust_native/ultraballoondb-trust/examples/trust_transition_ledger_probe.rs",
+    "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json",
+    "specs/trust/ULTRABALLOONDB_TRUST_MODEL_AND_TRANSITION_LEDGER_V1.md"
+  ],
+  "installed_payload_hashes": {
+    "rust_native/Cargo.toml": "D9C47B7DB3D44543A8CB8C35D95C359BC752FC6F091A53ED5EA2090265CA77FC",
+    "rust_native/Cargo.lock": "B224FD70D3F5A4E6441B021645424839169C580F4BAC131252276C93ABB076A0",
+    "rust_native/ultraballoondb-trust/Cargo.toml": "DB6FF79AA82852661B21D5EC826820BBFEA1B70FA494F0DC8AB2C13F4BF76626",
+    "rust_native/ultraballoondb-trust/src/lib.rs": "4DFF3D6FC4C8C1895F461BBD2C3283892716590ABEF73CEB4D8CB91F3BB4DC8F",
+    "rust_native/ultraballoondb-trust/examples/trust_transition_ledger_probe.rs": "E68C61313BC941A23C84835A89EC43FEF5BC825639A2846A8795B23CB71B2057",
+    "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json": "36DD88BCA206F04862760D3A9A5E7AA6AD1E5664EDCA084FC2A8D68C492F84B6",
+    "specs/trust/ULTRABALLOONDB_TRUST_MODEL_AND_TRANSITION_LEDGER_V1.md": "BEEDD11A450689C8D6FC48CAAEC3ECB0433B9D3B4486C6E0C760754BD8E1DE12"
+  },
+  "porcelain_parser": "NUL_SAFE_RAW_BYTES_NO_GLOBAL_STRIP",
+  "cargo_check_all_targets": true,
+  "cargo_test_all_targets": true,
+  "cargo_test_stdout_tail": "\nrunning 3 tests\ntest tests::logical_ids_are_stable_and_non_zero ... ok\ntest tests::parser_rejects_duplicate_flags ... ok\ntest tests::offline_command_surface_roundtrip ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 2 tests\ntest tests::frozen_header_sizes ... ok\ntest tests::scenario_names_roundtrip ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 3 tests\ntest shared_core_contract_tests::edge_and_wave_public_contracts_are_constructible ... ok\ntest shared_core_contract_tests::fixed_record_width_contract_is_frozen ... ok\ntest shared_core_contract_tests::full_scan_counter_starts_at_zero ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 9 tests\ntest tests::delete_operations_are_deterministic ... ok\ntest tests::deterministic_batch_digest ... ok\ntest tests::duplicate_is_ignored_and_conflict_is_rejected ... ok\ntest tests::limits_are_enforced ... ok\ntest tests::single_writer_and_state_machine ... ok\ntest tests::shadow_materialization_is_verified_and_not_durable ... ok\ntest durable::tests::public_snapshot_api_decodes_records_and_edges ... ok\ntest durable::tests::uncommitted_transaction_is_ignored ... ok\ntest durable::tests::durable_commit_checkpoint_and_restart ... ok\n\ntest result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 2 tests\ntest tests::deterministic_transaction_ids_are_stable_and_distinct ... ok\ntest tests::frozen_plan_header_size ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 10 tests\ntest tests::file_header_roundtrip ... ok\ntest tests::path_traversal_head_is_rejected ... ok\ntest tests::sha256_known_vectors ... ok\ntest tests::segment_roundtrip_and_restart ... ok\ntest tests::typed_edge_negative_zero_is_canonicalized ... ok\ntest tests::trailing_bytes_are_rejected ... ok\ntest tests::record_payload_corruption_is_rejected ... ok\ntest tests::deterministic_segment_bytes ... ok\ntest tests::immutable_segment_rejects_different_content ... ok\ntest tests::head_atomic_replace_and_manifest_binding ... ok\n\ntest result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 5 tests\ntest tests::invalid_evidence_and_record_digest_are_rejected ... ok\ntest tests::promotion_is_one_step_and_evidence_only ... ok\ntest tests::supersede_requires_existing_non_terminal_record ... ok\ntest tests::revocation_preserves_append_only_history_and_restart ... ok\ntest tests::truncated_and_corrupted_ledgers_fail_closed ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 3 tests\ntest tests::roundtrip_and_monotonic_lsn ... ok\ntest tests::complete_corrupt_frame_is_rejected ... ok\ntest tests::incomplete_tail_is_repaired ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "rust_trust_probe": {
+    "pass": true,
+    "ledger_path": "C:\\UltraBalloonDB\\audit\\v00r3t1_rust_trust_core_transition_ledger\\RUN_20260618_195818\\trust_transition_ledger_v1.ubtrust",
+    "ledger_sha256": "1CE5C28DD7A9E9F7B22B6FBD4808DC40A735EBAB8B61A42E8B2F75744A52C918",
+    "ledger_bytes": 5005,
+    "append_only_prefix_bytes": 2497,
+    "append_only_prefix_preserved": true,
+    "transition_count": 12,
+    "head_digest": "E14585DD95DE32CE5D37CA9BA9581D52BD86EE2A7AB5AEF8BD64DD65047A678C",
+    "last_logical_timestamp": 1200,
+    "prohibited_authority_rejection_count": 7,
+    "prohibited_authority_rejections": [
+      {
+        "authority": "IMPORT",
+        "error": "invalid trust transition: authority IMPORT cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "RANKER",
+        "error": "invalid trust transition: authority RANKER cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "WAVE",
+        "error": "invalid trust transition: authority WAVE cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "SIMILARITY",
+        "error": "invalid trust transition: authority SIMILARITY cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "FREQUENCY",
+        "error": "invalid trust transition: authority FREQUENCY cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "LLM",
+        "error": "invalid trust transition: authority LLM cannot mutate trust through PROMOTE"
+      },
+      {
+        "authority": "RIGOR_MULTIPLIER",
+        "error": "invalid trust transition: authority RIGOR_MULTIPLIER cannot mutate trust through PROMOTE"
+      }
+    ],
+    "corruption_rejected": true,
+    "truncated_tail_rejected": true,
+    "strict_restart_replay_verified": true,
+    "evidence_required": true,
+    "provenance_required": true,
+    "record_digest_binding_verified": true,
+    "ranker_trust_neutral": true,
+    "wave_trust_neutral": true,
+    "similarity_trust_neutral": true,
+    "frequency_trust_neutral": true,
+    "llm_trust_neutral": true,
+    "rigor_multiplier_trust_neutral": true,
+    "import_never_auto_verifies": true,
+    "revocation_preserves_history": true,
+    "states": [
+      {
+        "record_id": "record-a",
+        "maturity": "VERIFIED",
+        "validity": "REVOKED",
+        "record_digest": "AA6C9827E99521C2BFC78D4F85153A116B7D5091CF668B4FE680F2E2EF27C5F1",
+        "last_transition_id": "64AC82E471437571F22672621FD4A24B56AB29DFA0FB3BF24387F6EFDFEF478A",
+        "last_sequence": 6,
+        "superseding_record_id": null
+      },
+      {
+        "record_id": "record-b",
+        "maturity": "HYPOTHESIS",
+        "validity": "SUPERSEDED",
+        "record_digest": "6E5F5A9340E98486EF0B731D0EE55D46AE775FE0BB5932CE075D4BD69732F8F2",
+        "last_transition_id": "D98BC7A2C7E355549B3E27F599C09A8F202C616B7CDE80C2CA33B92BB78F8A78",
+        "last_sequence": 10,
+        "superseding_record_id": "record-c"
+      },
+      {
+        "record_id": "record-c",
+        "maturity": "RAW",
+        "validity": "ACTIVE",
+        "record_digest": "E516A1EE2788384E964241C05190CF566889DE9D776CEEB00E29A7430E835B6F",
+        "last_transition_id": "332D5CC7016B4286D584E9310487ABCBE54B0D75BE3404CAA87D3B94268C9121",
+        "last_sequence": 9,
+        "superseding_record_id": null
+      },
+      {
+        "record_id": "record-d",
+        "maturity": "RAW",
+        "validity": "EXPIRED",
+        "record_digest": "BAD70AAFF673B21F5A9A06440325A220F0BDACB58C36F7301C9D8152B22F4968",
+        "last_transition_id": "E14585DD95DE32CE5D37CA9BA9581D52BD86EE2A7AB5AEF8BD64DD65047A678C",
+        "last_sequence": 12,
+        "superseding_record_id": null
+      }
+    ],
+    "network_enabled": false,
+    "automatic_repair_enabled": false,
+    "active_runtime_changed": false
+  },
+  "independent_python_verification": {
+    "pass": true,
+    "independent_python_verifier": true,
+    "ledger_format_v1_verified": true,
+    "frame_header_bytes": 144,
+    "transition_count": 12,
+    "record_count": 4,
+    "head_digest": "E14585DD95DE32CE5D37CA9BA9581D52BD86EE2A7AB5AEF8BD64DD65047A678C",
+    "last_logical_timestamp": 1200,
+    "contiguous_sequence_verified": true,
+    "strict_timestamp_order_verified": true,
+    "payload_sha256_verified": true,
+    "transition_hash_chain_verified": true,
+    "canonical_input_digest_verified": true,
+    "canonical_decision_digest_verified": true,
+    "semantic_replay_verified": true,
+    "evidence_and_provenance_required": true,
+    "record_digest_binding_verified": true,
+    "single_step_promotion_verified": true,
+    "import_never_auto_verifies": true,
+    "ranker_wave_similarity_frequency_llm_rigor_trust_neutral": true,
+    "append_only_prefix_preserved": true,
+    "revocation_history_preserved": true,
+    "corruption_rejected": true,
+    "truncated_tail_rejected": true,
+    "automatic_repair_enabled": false,
+    "network_enabled": false,
+    "active_runtime_changed": false,
+    "cli_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "gpu_backend_promoted": false
+  },
+  "trust_crate_implemented": true,
+  "trust_state_axes_implemented": true,
+  "single_mutator_implemented": true,
+  "append_only_transition_ledger_v1_implemented": true,
+  "ledger_flush_fsync_implemented": true,
+  "strict_replay_implemented": true,
+  "evidence_provenance_contract_implemented": true,
+  "record_digest_binding_implemented": true,
+  "input_decision_transition_digests_implemented": true,
+  "trust_neutral_signal_rejection_implemented": true,
+  "revocation_history_preserved": true,
+  "external_rust_dependency_count": 0,
+  "automatic_repair_enabled": false,
+  "network_enabled": false,
+  "legacy_balloon_db_import": false
+}
