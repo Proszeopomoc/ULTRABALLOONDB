@@ -1,0 +1,16 @@
+{
+  "version": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE",
+  "run_id": "RUN_20260618_153956",
+  "freeze_file_count": 7,
+  "canonical_owner_target": "RUST",
+  "storage_format_v1_frozen": true,
+  "wal_format_v1_frozen": true,
+  "checkpoint_recovery_v1_frozen": true,
+  "crate_ownership_v1_frozen": true,
+  "compatibility_matrix_v1_frozen": true,
+  "legacy_balloon_db_automatic_import": false,
+  "active_runtime_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY"
+}

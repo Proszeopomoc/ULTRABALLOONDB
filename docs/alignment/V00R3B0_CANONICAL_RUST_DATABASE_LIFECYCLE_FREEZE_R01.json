@@ -1,0 +1,46 @@
+{
+  "version": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE_R01",
+  "status": "TARGET_STATE_FREEZE",
+  "source_contract_hashes": {
+    "python_durable_runtime": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC",
+    "python_database_api": "13742FB25E3AFF209E9582B28B772FB7AEC5AD649F1BB8C28454E5BC131BA56C",
+    "python_unified_runtime": "564C9556F063A24FB7D3D42A26E70033CB6AA493372F0FCFFE87D10A367AD759",
+    "python_csr_mmap": "6137D6A9FEBE2C216B10A7341143DCF4FBBB80D6F73036918323220F1ADFE37C",
+    "rust_core": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "rust_binary": "864EA80857EFDDC69D0CA658A89DE051AB7499FCC005A63AB509BF267210C7FB"
+  },
+  "current_python_v00n": {
+    "wal_magic": "UBWL",
+    "wal_header": "<4sI32s",
+    "max_frame_bytes": 67108864,
+    "payload_hash": "SHA-256",
+    "checkpoint": "JSON canonical state + SHA-256",
+    "commit_ack_after_wal_fsync": true,
+    "tail_repair_only_for_incomplete_final_frame": true
+  },
+  "target": {
+    "canonical_owner": "Rust",
+    "storage_format": "ULTRABALLOONDB_STORAGE_FORMAT_V1",
+    "wal_format": "ULTRABALLOONDB_WAL_FORMAT_V1",
+    "checkpoint_recovery": "ULTRABALLOONDB_CHECKPOINT_RECOVERY_V1",
+    "python_v00n_role": "READ_ONLY_ORACLE_AND_IMPORT_SOURCE",
+    "csr_role": "DERIVED_REBUILDABLE_INDEX",
+    "gpu_role": "OPTIONAL_COMPUTE_BACKEND",
+    "active_runtime_changed": false
+  },
+  "gates": [
+    "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY",
+    "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE",
+    "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE",
+    "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE"
+  ],
+  "hard_guards": {
+    "legacy_balloon_db_import": false,
+    "big_bang_replacement": false,
+    "hidden_python_fallback": false,
+    "gpu_promotion": false,
+    "wave_semantics_change": false,
+    "runtime_source_change_in_b0": false
+  },
+  "next_gate": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY"
+}

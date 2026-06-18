@@ -1,0 +1,79 @@
+{
+  "version": "ULTRABALLOONDB_RUST_CRATE_OWNERSHIP_V1",
+  "one_canonical_lifecycle": true,
+  "crates": [
+    {
+      "name": "ultraballoondb-core",
+      "owns": [
+        "typed graph",
+        "CSR read path",
+        "Wave",
+        "subgraph"
+      ],
+      "must_not_own": [
+        "WAL",
+        "transaction commit",
+        "checkpoint publication"
+      ]
+    },
+    {
+      "name": "ultraballoondb-storage",
+      "status": "TO_IMPLEMENT_V00R3B1",
+      "owns": [
+        "Storage Format V1",
+        "segments",
+        "atomic head",
+        "integrity"
+      ]
+    },
+    {
+      "name": "ultraballoondb-wal",
+      "status": "TO_IMPLEMENT_V00R3B3",
+      "owns": [
+        "WAL V1 codec",
+        "append/fsync",
+        "strict scan",
+        "tail handling"
+      ]
+    },
+    {
+      "name": "ultraballoondb-lifecycle",
+      "status": "TO_IMPLEMENT_V00R3B2_B3",
+      "owns": [
+        "Database",
+        "Transaction",
+        "commit",
+        "checkpoint",
+        "recovery",
+        "V00N migration"
+      ]
+    },
+    {
+      "name": "ultraballoondb-gpu",
+      "owns": [
+        "optional compute backend"
+      ],
+      "must_not_own": [
+        "canonical data",
+        "transaction durability"
+      ]
+    },
+    {
+      "name": "ultraballoondb-router",
+      "owns": [
+        "backend recommendation and safety gates"
+      ],
+      "must_not_own": [
+        "query semantics",
+        "canonical data"
+      ]
+    }
+  ],
+  "dependency_direction": [
+    "ultraballoondb-lifecycle -> ultraballoondb-storage",
+    "ultraballoondb-lifecycle -> ultraballoondb-wal",
+    "ultraballoondb-lifecycle -> ultraballoondb-core",
+    "ultraballoondb-wal -> ultraballoondb-storage"
+  ],
+  "no_parallel_lifecycle_implementations": true
+}

@@ -1,0 +1,48 @@
+{
+  "version": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE",
+  "mode": "ARCHITECTURE_AND_COMPATIBILITY_FREEZE",
+  "active_runtime_changed": false,
+  "rust_source_changed": false,
+  "python_source_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY",
+  "freeze_file_count": 7,
+  "installed_files": [
+    "docs/architecture/V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_FREEZE.md",
+    "docs/alignment/V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_FREEZE_R01.json",
+    "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1.md",
+    "specs/storage/ULTRABALLOONDB_WAL_FORMAT_V1.md",
+    "specs/storage/ULTRABALLOONDB_CHECKPOINT_RECOVERY_V1.md",
+    "specs/compatibility/ULTRABALLOONDB_LIFECYCLE_COMPATIBILITY_MATRIX_V1.json",
+    "specs/architecture/ULTRABALLOONDB_RUST_CRATE_OWNERSHIP_V1.json"
+  ],
+  "source_contract_hashes_before": {
+    "python_ref/ultraballoondb_core/durable_runtime.py": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC",
+    "python_ref/ultraballoondb_core/database_api.py": "13742FB25E3AFF209E9582B28B772FB7AEC5AD649F1BB8C28454E5BC131BA56C",
+    "python_ref/ultraballoondb_core/unified_runtime.py": "564C9556F063A24FB7D3D42A26E70033CB6AA493372F0FCFFE87D10A367AD759",
+    "python_ref/ultraballoondb_core/csr_mmap_hotpath.py": "6137D6A9FEBE2C216B10A7341143DCF4FBBB80D6F73036918323220F1ADFE37C",
+    "rust_native/ultraballoondb-core/src/lib.rs": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "rust_native/ultraballoondb_rust_core/src/main.rs": "864EA80857EFDDC69D0CA658A89DE051AB7499FCC005A63AB509BF267210C7FB"
+  },
+  "source_contract_hashes_after": {
+    "python_ref/ultraballoondb_core/durable_runtime.py": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC",
+    "python_ref/ultraballoondb_core/database_api.py": "13742FB25E3AFF209E9582B28B772FB7AEC5AD649F1BB8C28454E5BC131BA56C",
+    "python_ref/ultraballoondb_core/unified_runtime.py": "564C9556F063A24FB7D3D42A26E70033CB6AA493372F0FCFFE87D10A367AD759",
+    "python_ref/ultraballoondb_core/csr_mmap_hotpath.py": "6137D6A9FEBE2C216B10A7341143DCF4FBBB80D6F73036918323220F1ADFE37C",
+    "rust_native/ultraballoondb-core/src/lib.rs": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "rust_native/ultraballoondb_rust_core/src/main.rs": "864EA80857EFDDC69D0CA658A89DE051AB7499FCC005A63AB509BF267210C7FB"
+  },
+  "b5_report": "C:\\UltraBalloonDB\\audit\\v00r3a2b5_gpu_router_live_shadow_observation\\RUN_20260618_153257\\v00r3a2b5_gpu_router_live_shadow_observation_report.json",
+  "b5_commit_receipt": "C:\\UltraBalloonDB\\audit\\v00r3a2b5_gpu_router_live_shadow_observation\\RUN_20260618_153257\\v00r3a2b5_results_commit_receipt.json",
+  "b5_commit": "3c236a9",
+  "canonical_owner_target": "RUST",
+  "python_v00n_role": "READ_ONLY_ORACLE_AND_IMPORT_SOURCE",
+  "csr_role": "DERIVED_REBUILDABLE_INDEX",
+  "legacy_balloon_db_automatic_import": false,
+  "storage_format_v1_frozen": true,
+  "wal_format_v1_frozen": true,
+  "checkpoint_recovery_v1_frozen": true,
+  "crate_ownership_v1_frozen": true,
+  "compatibility_matrix_v1_frozen": true
+}

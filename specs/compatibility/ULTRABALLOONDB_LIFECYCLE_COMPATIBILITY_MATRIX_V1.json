@@ -1,0 +1,56 @@
+{
+  "version": "ULTRABALLOONDB_LIFECYCLE_COMPATIBILITY_MATRIX_V1",
+  "product": "UltraBalloonDB",
+  "legacy_balloon_db": {
+    "classification": "SEPARATE_PRODUCT",
+    "automatic_import": false,
+    "status": "FORBIDDEN_AUTOMATIC_IMPORT"
+  },
+  "formats": [
+    {
+      "id": "PYTHON_V00N_WAL_CHECKPOINT",
+      "current_owner": "python_ref/ultraballoondb_core/durable_runtime.py",
+      "target_rust_requirement": "MUST_VERIFY_AND_IMPORT",
+      "write_after_migration": false,
+      "parity": [
+        "record payload SHA",
+        "typed edge identity",
+        "committed transaction set",
+        "last applied LSN",
+        "state SHA",
+        "uncommitted transaction rejection",
+        "truncated final tail behavior"
+      ]
+    },
+    {
+      "id": "CSR_V00P1",
+      "current_owner": "ultraballoondb-core",
+      "node_layout": "<QQQ",
+      "node_bytes": 24,
+      "edge_layout": "<QIId",
+      "edge_bytes": 24,
+      "target_rust_requirement": "MUST_READ_NATIVE",
+      "canonical": false,
+      "full_scan_counter_required": 0
+    },
+    {
+      "id": "WAVE_B2_EXACT_RESULTS",
+      "target_rust_requirement": "MUST_MATCH_EXACT",
+      "evidence": "V00R3A2B2 and V00R3A2B5",
+      "gpu_promotion": false
+    },
+    {
+      "id": "RUST_STORAGE_V1",
+      "target_rust_requirement": "CANONICAL_WRITE_FORMAT",
+      "implementation_gate": "V00R3B1",
+      "active_runtime": false
+    }
+  ],
+  "migration_rules": {
+    "source_is_read_only": true,
+    "destination_is_new_lineage": true,
+    "source_and_destination_state_sha_must_match": true,
+    "rollback_keeps_source_untouched": true,
+    "cross_product_import": false
+  }
+}
