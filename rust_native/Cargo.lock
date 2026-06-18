@@ -11,11 +11,19 @@ name = "ultraballoondb-lifecycle"
 version = "0.0.3"
 dependencies = [
  "ultraballoondb-storage",
+ "ultraballoondb-wal",
 ]
 
 [[package]]
 name = "ultraballoondb-storage"
 version = "0.0.3"
+
+[[package]]
+name = "ultraballoondb-wal"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-storage",
+]
 
 [[package]]
 name = "ultraballoondb_rust_core"

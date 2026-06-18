@@ -2,6 +2,9 @@ use std::collections::BTreeMap;
 use std::fmt;
 use std::path::PathBuf;
 
+mod durable;
+pub use durable::*;
+
 use ultraballoondb_storage::{
     hex_digest, sha256, sha256_file, IntegrityReport, PageStore, RecordKind,
     SegmentEntry, StorageError,
@@ -14,6 +17,7 @@ pub enum TransactionState {
     Active,
     Prepared,
     ShadowMaterialized,
+    DurableCommitted,
     Aborted,
 }
 
@@ -23,12 +27,18 @@ impl TransactionState {
             Self::Active => "ACTIVE",
             Self::Prepared => "PREPARED",
             Self::ShadowMaterialized => "SHADOW_MATERIALIZED",
+            Self::DurableCommitted => "DURABLE_COMMITTED",
             Self::Aborted => "ABORTED",
         }
     }
 
     pub fn is_terminal(self) -> bool {
-        matches!(self, Self::ShadowMaterialized | Self::Aborted)
+        matches!(
+            self,
+            Self::ShadowMaterialized
+                | Self::DurableCommitted
+                | Self::Aborted
+        )
     }
 }
 

@@ -3,10 +3,11 @@ name = "ultraballoondb-lifecycle"
 version.workspace = true
 edition.workspace = true
 publish.workspace = true
-description = "UltraBalloonDB deterministic write batch and single-writer transaction core"
+description = "UltraBalloonDB deterministic transaction, WAL, checkpoint and recovery lifecycle"
 
 [dependencies]
 ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-wal = { path = "../ultraballoondb-wal" }
 
 [lib]
 name = "ultraballoondb_lifecycle"
@@ -15,3 +16,7 @@ path = "src/lib.rs"
 [[example]]
 name = "transaction_core_probe"
 path = "examples/transaction_core_probe.rs"
+
+[[example]]
+name = "wal_checkpoint_recovery_probe"
+path = "examples/wal_checkpoint_recovery_probe.rs"

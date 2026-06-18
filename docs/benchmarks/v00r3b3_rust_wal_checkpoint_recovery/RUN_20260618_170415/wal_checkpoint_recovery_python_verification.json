@@ -1,0 +1,21 @@
+{
+  "pass": true,
+  "independent_python_verifier": true,
+  "wal_frame_count": 10,
+  "maximum_valid_wal_lsn": 10,
+  "checkpoint_generation": 1,
+  "checkpoint_lsn": 5,
+  "replayed_transaction_count": 1,
+  "ignored_uncommitted_count": 1,
+  "record_count": 2,
+  "edge_count": 1,
+  "state_sha256": "152C3D0A7A2E77DDED1839D4063C340E4B828750BFD7B8EFEC886E8D8807CE28",
+  "head_manifest_binding": true,
+  "manifest_checkpoint_binding": true,
+  "durable_commit": true,
+  "wal_recorded": true,
+  "wal_fsynced": true,
+  "head_published": true,
+  "restart_deterministic": true,
+  "active_runtime_changed": false
+}

@@ -1,0 +1,43 @@
+{
+  "version": "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE_R01",
+  "status": "OFFLINE_TARGET_STATE_IMPLEMENTATION",
+  "requires": {
+    "b2_pass": true,
+    "b2_commit_ancestor": true,
+    "storage_format_v1": true,
+    "transaction_core": true
+  },
+  "new_crate": "ultraballoondb-wal",
+  "modified_crate": "ultraballoondb-lifecycle",
+  "implements": [
+    "WAL Format V1 frame codec",
+    "append/flush/fsync",
+    "strict monotonic LSN scan",
+    "incomplete trailing frame repair",
+    "complete-frame corruption hard failure",
+    "durable transaction commit",
+    "checkpoint V1",
+    "manifest and atomic head publication",
+    "checkpoint plus WAL recovery",
+    "uncommitted transaction rejection",
+    "deterministic state hash",
+    "restart determinism",
+    "independent Python verification"
+  ],
+  "hard_guards": {
+    "active_runtime_changed": false,
+    "storage_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "remaining_after_b3": [
+    "B4 crash/fault injection",
+    "Python V00N migration parity",
+    "active Edition A binding",
+    "backup/restore/doctor"
+  ],
+  "next_gate": "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE"
+}
