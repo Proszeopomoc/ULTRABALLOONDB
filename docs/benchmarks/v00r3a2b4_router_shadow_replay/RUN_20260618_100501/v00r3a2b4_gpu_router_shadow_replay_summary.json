@@ -1,0 +1,26 @@
+{
+  "version": "V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES",
+  "run_id": "RUN_20260618_100501",
+  "empirical_replay_count": 20,
+  "lifecycle_replay_count": 10,
+  "adversarial_gate_count": 12,
+  "total_decision_count": 42,
+  "total_match_count": 42,
+  "false_gpu_route_count": 0,
+  "false_cpu_route_count": 0,
+  "unsafe_gpu_route_count": 0,
+  "post_result_rejection_count": 1,
+  "full_scan_counter": 0,
+  "router_installed": false,
+  "active_router_changed": false,
+  "gpu_backend_promoted": false,
+  "crossovers": {
+    "n1000000_d1_s4_all_t010": 128,
+    "n1000000_d2_s1_all_t010": 256,
+    "n100000_d1_s4_all_t010": 256,
+    "n100000_d2_s1_all_t010": 512
+  },
+  "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b4_gpu_router_shadow_replay\\RUN_20260618_100501\\v00r3a2b4_gpu_router_shadow_replay_report.json",
+  "next_gate": "V00R3A2B5_GPU_ROUTER_LIVE_SHADOW_OBSERVATION_NO_ACTIVE_ROUTING"
+}

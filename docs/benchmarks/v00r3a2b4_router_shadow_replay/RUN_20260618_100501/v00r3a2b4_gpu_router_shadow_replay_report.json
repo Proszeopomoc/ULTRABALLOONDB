@@ -1,0 +1,1230 @@
+{
+  "version": "V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES_R01",
+  "test_name": "ULTRABALLOONDB_V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES",
+  "run_id": "RUN_20260618_100501",
+  "timestamp_utc": "2026-06-18T08:05:01Z",
+  "mode": "shadow_decision_replay_only",
+  "status": "PASS_ULTRABALLOONDB_V00R3A2B4_GPU_ROUTER_SHADOW_DECISION_REPLAY_AND_SAFETY_GATES",
+  "router_installed": false,
+  "active_router_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3A2B5_GPU_ROUTER_LIVE_SHADOW_OBSERVATION_NO_ACTIVE_ROUTING",
+  "safety": {
+    "canonical_database_changed": false,
+    "storage_format_changed": false,
+    "rust_cpu_runtime_changed": false,
+    "wal_changed": false,
+    "checkpoint_changed": false,
+    "recovery_changed": false,
+    "snapshot_store_changed": false,
+    "active_router_changed": false,
+    "gpu_backend_promoted": false
+  },
+  "exact_prior_parity": true,
+  "empirical_replay_count": 20,
+  "empirical_match_count": 20,
+  "lifecycle_replay_count": 10,
+  "lifecycle_match_count": 10,
+  "adversarial_gate_count": 12,
+  "adversarial_match_count": 12,
+  "total_decision_count": 42,
+  "total_match_count": 42,
+  "false_gpu_route_count": 0,
+  "false_cpu_route_count": 0,
+  "unsafe_gpu_route_count": 0,
+  "post_result_rejection_count": 1,
+  "full_scan_counter": 0,
+  "crossovers": {
+    "n1000000_d1_s4_all_t010": 128,
+    "n1000000_d2_s1_all_t010": 256,
+    "n100000_d1_s4_all_t010": 256,
+    "n100000_d2_s1_all_t010": 512
+  },
+  "router_contract": {
+    "decision_outputs": [
+      "CPU",
+      "GPU_SHADOW_CANDIDATE"
+    ],
+    "fail_closed_gates": [
+      "UNKNOWN_PROFILE",
+      "MISSING_MEASUREMENTS",
+      "STALE_SNAPSHOT",
+      "SNAPSHOT_HASH_INVALID",
+      "GPU_UNAVAILABLE",
+      "VRAM_INSUFFICIENT",
+      "TIMEOUT_BUDGET_UNSAFE",
+      "GPU_FAULT_COOLDOWN",
+      "PARITY_TRUST_REVOKED",
+      "BELOW_STABLE_CROSSOVER"
+    ],
+    "post_result_gate": "GPU_RESULT_PARITY_MISMATCH",
+    "active_runtime_influence": false
+  },
+  "empirical_replay": [
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d1_s4_all_t010_b32",
+      "event_count": 100000,
+      "profile": "d1_s4_all_t010",
+      "batch": 32,
+      "measured_classification": "CPU_PREFERRED",
+      "measured_median_speedup_p50": 0.5244134432466708,
+      "measured_median_speedup_p95": 2.9746397694524496,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n100000_d1_s4_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d1_s4_all_t010_b64",
+      "event_count": 100000,
+      "profile": "d1_s4_all_t010",
+      "batch": 64,
+      "measured_classification": "CPU_PREFERRED",
+      "measured_median_speedup_p50": 0.8497978047371462,
+      "measured_median_speedup_p95": 3.5781655269983497,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n100000_d1_s4_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d1_s4_all_t010_b128",
+      "event_count": 100000,
+      "profile": "d1_s4_all_t010",
+      "batch": 128,
+      "measured_classification": "BOUNDARY_OR_UNSTABLE",
+      "measured_median_speedup_p50": 1.2437458490148328,
+      "measured_median_speedup_p95": 4.56021862190123,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n100000_d1_s4_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d1_s4_all_t010_b256",
+      "event_count": 100000,
+      "profile": "d1_s4_all_t010",
+      "batch": 256,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 1.8817550398102656,
+      "measured_median_speedup_p95": 5.83043410123805,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n100000_d1_s4_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d1_s4_all_t010_b512",
+      "event_count": 100000,
+      "profile": "d1_s4_all_t010",
+      "batch": 512,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 2.416536848412223,
+      "measured_median_speedup_p95": 7.145483075543599,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n100000_d1_s4_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d2_s1_all_t010_b128",
+      "event_count": 100000,
+      "profile": "d2_s1_all_t010",
+      "batch": 128,
+      "measured_classification": "BOUNDARY_OR_UNSTABLE",
+      "measured_median_speedup_p50": 1.0550080220032088,
+      "measured_median_speedup_p95": 3.7172797262617623,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n100000_d2_s1_all_t010",
+        "crossover_batch": 512
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d2_s1_all_t010_b256",
+      "event_count": 100000,
+      "profile": "d2_s1_all_t010",
+      "batch": 256,
+      "measured_classification": "BOUNDARY_OR_UNSTABLE",
+      "measured_median_speedup_p50": 1.4195444526083763,
+      "measured_median_speedup_p95": 4.797281223449447,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n100000_d2_s1_all_t010",
+        "crossover_batch": 512
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d2_s1_all_t010_b512",
+      "event_count": 100000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 1.553895886746182,
+      "measured_median_speedup_p95": 4.930028271405493,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n100000_d2_s1_all_t010",
+        "crossover_batch": 512
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d2_s1_all_t010_b1024",
+      "event_count": 100000,
+      "profile": "d2_s1_all_t010",
+      "batch": 1024,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 2.438540840602696,
+      "measured_median_speedup_p95": 5.608588129496403,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n100000_d2_s1_all_t010",
+        "crossover_batch": 512
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n100000_d2_s1_all_t010_b2048",
+      "event_count": 100000,
+      "profile": "d2_s1_all_t010",
+      "batch": 2048,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 3.0531344932339133,
+      "measured_median_speedup_p95": 5.9040652052852725,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n100000_d2_s1_all_t010",
+        "crossover_batch": 512
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d1_s4_all_t010_b32",
+      "event_count": 1000000,
+      "profile": "d1_s4_all_t010",
+      "batch": 32,
+      "measured_classification": "CPU_PREFERRED",
+      "measured_median_speedup_p50": 0.5032863849765259,
+      "measured_median_speedup_p95": 5.174008207934336,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n1000000_d1_s4_all_t010",
+        "crossover_batch": 128
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d1_s4_all_t010_b64",
+      "event_count": 1000000,
+      "profile": "d1_s4_all_t010",
+      "batch": 64,
+      "measured_classification": "CPU_PREFERRED",
+      "measured_median_speedup_p50": 0.8947368421052632,
+      "measured_median_speedup_p95": 7.221111652852267,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n1000000_d1_s4_all_t010",
+        "crossover_batch": 128
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d1_s4_all_t010_b128",
+      "event_count": 1000000,
+      "profile": "d1_s4_all_t010",
+      "batch": 128,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 1.3550076369190487,
+      "measured_median_speedup_p95": 9.263629128531635,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d1_s4_all_t010",
+        "crossover_batch": 128
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d1_s4_all_t010_b256",
+      "event_count": 1000000,
+      "profile": "d1_s4_all_t010",
+      "batch": 256,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 1.9697894905993893,
+      "measured_median_speedup_p95": 10.665384615384616,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d1_s4_all_t010",
+        "crossover_batch": 128
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d1_s4_all_t010_b512",
+      "event_count": 1000000,
+      "profile": "d1_s4_all_t010",
+      "batch": 512,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 2.9550401658460737,
+      "measured_median_speedup_p95": 12.480425055928412,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d1_s4_all_t010",
+        "crossover_batch": 128
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d2_s1_all_t010_b128",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 128,
+      "measured_classification": "BOUNDARY_OR_UNSTABLE",
+      "measured_median_speedup_p50": 1.0555047967108269,
+      "measured_median_speedup_p95": 6.206153846153846,
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "expected_backend": "CPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d2_s1_all_t010_b256",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 256,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 1.5387223411848678,
+      "measured_median_speedup_p95": 8.80549469071296,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d2_s1_all_t010_b512",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 2.1532646943829015,
+      "measured_median_speedup_p95": 10.770730614074406,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d2_s1_all_t010_b1024",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 1024,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 2.8546506372593328,
+      "measured_median_speedup_p95": 12.349924585218702,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    },
+    {
+      "source": "B2_EMPIRICAL",
+      "case_id": "n1000000_d2_s1_all_t010_b2048",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 2048,
+      "measured_classification": "GPU_STABLE_WIN",
+      "measured_median_speedup_p50": 3.591087088412112,
+      "measured_median_speedup_p95": 12.681107803529661,
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_backend": "GPU",
+      "decision_match": true
+    }
+  ],
+  "lifecycle_replay": [
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "FRESH_SNAPSHOT_V1_GPU_PARITY",
+      "source_backend": "GPU",
+      "source_fallback_reason": null,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "REUSE_SNAPSHOT_V1_GPU_PARITY",
+      "source_backend": "GPU",
+      "source_fallback_reason": null,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "STALE_AFTER_MUTATION_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "STALE_SNAPSHOT",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": false,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "CPU",
+        "reason": "STALE_SNAPSHOT",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "STALE_SNAPSHOT",
+        "post_result_rejected": false
+      },
+      "expected_reason": "STALE_SNAPSHOT",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "REBUILT_SNAPSHOT_V2_GPU_PARITY",
+      "source_backend": "GPU",
+      "source_fallback_reason": null,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "INJECTED_CUDA_FAILURE_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "INJECTED_CUDA_FAILURE",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": false,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "CPU",
+        "reason": "GPU_UNAVAILABLE",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "GPU_UNAVAILABLE",
+        "post_result_rejected": false
+      },
+      "expected_reason": "GPU_UNAVAILABLE",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "INJECTED_VRAM_OVERFLOW_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "VRAM_BUDGET_EXCEEDED",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": false,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "CPU",
+        "reason": "VRAM_INSUFFICIENT",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "VRAM_INSUFFICIENT",
+        "post_result_rejected": false
+      },
+      "expected_reason": "VRAM_INSUFFICIENT",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "INJECTED_TIMEOUT_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "TIMEOUT_BUDGET_EXCEEDED",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": false,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "CPU",
+        "reason": "TIMEOUT_BUDGET_UNSAFE",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "TIMEOUT_BUDGET_UNSAFE",
+        "post_result_rejected": false
+      },
+      "expected_reason": "TIMEOUT_BUDGET_UNSAFE",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "INJECTED_PARITY_MISMATCH_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "GPU_RESULT_PARITY_MISMATCH",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "GPU_RESULT_PARITY_MISMATCH",
+        "post_result_rejected": true
+      },
+      "expected_reason": "GPU_RESULT_PARITY_MISMATCH",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "CORRUPT_SNAPSHOT_CPU_FALLBACK",
+      "source_backend": "CPU",
+      "source_fallback_reason": "SNAPSHOT_HASH_MISMATCH",
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": false,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "CPU",
+        "reason": "SNAPSHOT_HASH_INVALID",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "SNAPSHOT_HASH_INVALID",
+        "post_result_rejected": false
+      },
+      "expected_reason": "SNAPSHOT_HASH_INVALID",
+      "decision_match": true
+    },
+    {
+      "source": "B3_LIFECYCLE",
+      "scenario": "POST_FAULT_RECOVERY_GPU_PARITY",
+      "source_backend": "GPU",
+      "source_fallback_reason": null,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "decision_match": true
+    }
+  ],
+  "adversarial_replay": [
+    {
+      "name": "HEALTHY_AT_CROSSOVER",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 256,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "GPU",
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "HEALTHY_ABOVE_CROSSOVER",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "GPU",
+      "expected_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "GPU_SHADOW_CANDIDATE",
+        "reason": "STABLE_CROSSOVER_SATISFIED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "GPU",
+        "final_reason": "GPU_RESULT_ACCEPTED_SHADOW_ONLY",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "BELOW_CROSSOVER",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 128,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "BELOW_STABLE_CROSSOVER",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "BELOW_STABLE_CROSSOVER",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "BELOW_STABLE_CROSSOVER",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "UNKNOWN_PROFILE",
+      "event_count": 1000000,
+      "profile": "unknown_profile",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "UNKNOWN_PROFILE",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "UNKNOWN_PROFILE",
+        "profile_key": "n1000000_unknown_profile",
+        "crossover_batch": null
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "UNKNOWN_PROFILE",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": false,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "MISSING_MEASUREMENTS",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "MISSING_MEASUREMENTS",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "MISSING_MEASUREMENTS",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "STALE_SNAPSHOT",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": false,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "STALE_SNAPSHOT",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "STALE_SNAPSHOT",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "STALE_SNAPSHOT",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "CORRUPT_SNAPSHOT",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": false,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "SNAPSHOT_HASH_INVALID",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "SNAPSHOT_HASH_INVALID",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "SNAPSHOT_HASH_INVALID",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "GPU_UNAVAILABLE",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": false,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "GPU_UNAVAILABLE",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "GPU_UNAVAILABLE",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "GPU_UNAVAILABLE",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "VRAM_INSUFFICIENT",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": false,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "VRAM_INSUFFICIENT",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "VRAM_INSUFFICIENT",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "VRAM_INSUFFICIENT",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "TIMEOUT_UNSAFE",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": false,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "TIMEOUT_BUDGET_UNSAFE",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "TIMEOUT_BUDGET_UNSAFE",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "TIMEOUT_BUDGET_UNSAFE",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "GPU_FAULT_COOLDOWN",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": false,
+        "parity_trust_valid": true
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "GPU_FAULT_COOLDOWN",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "GPU_FAULT_COOLDOWN",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "GPU_FAULT_COOLDOWN",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    },
+    {
+      "name": "PARITY_TRUST_REVOKED",
+      "event_count": 1000000,
+      "profile": "d2_s1_all_t010",
+      "batch": 512,
+      "state": {
+        "measurements_complete": true,
+        "snapshot_current": true,
+        "snapshot_hash_valid": true,
+        "gpu_available": true,
+        "vram_sufficient": true,
+        "timeout_budget_safe": true,
+        "gpu_fault_cooldown_clear": true,
+        "parity_trust_valid": false
+      },
+      "gpu_result_parity": true,
+      "expected_backend": "CPU",
+      "expected_reason": "PARITY_TRUST_REVOKED",
+      "source": "ADVERSARIAL_GATE",
+      "preflight": {
+        "decision": "CPU",
+        "reason": "PARITY_TRUST_REVOKED",
+        "profile_key": "n1000000_d2_s1_all_t010",
+        "crossover_batch": 256
+      },
+      "final": {
+        "final_backend": "CPU",
+        "final_reason": "PARITY_TRUST_REVOKED",
+        "post_result_rejected": false
+      },
+      "decision_match": true
+    }
+  ],
+  "binding": {
+    "canonical_owner": "Rust CPU",
+    "core_lib_sha256_before": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "core_lib_sha256_after": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "router_execution": "offline shadow replay only"
+  },
+  "prior_evidence": {
+    "v00r3a2b2_report": "C:\\UltraBalloonDB\\audit\\v00r3a2b2_direct_wave_crossover_stability\\RUN_20260618_094325\\v00r3a2b2_direct_wave_crossover_stability_report.json",
+    "v00r3a2b2_receipt": "C:\\UltraBalloonDB\\audit\\v00r3a2b2_direct_wave_crossover_stability\\RUN_20260618_094325\\v00r3a2b2_results_commit_receipt.json",
+    "v00r3a2b2_commit": "65a0afb",
+    "v00r3a2b3_report": "C:\\UltraBalloonDB\\audit\\v00r3a2b3_gpu_snapshot_lifecycle_fallback\\RUN_20260618_095605\\v00r3a2b3_gpu_snapshot_lifecycle_fallback_report.json",
+    "v00r3a2b3_receipt": "C:\\UltraBalloonDB\\audit\\v00r3a2b3_gpu_snapshot_lifecycle_fallback\\RUN_20260618_095605\\v00r3a2b3_results_commit_receipt.json",
+    "v00r3a2b3_commit": "6efef48"
+  },
+  "git": {
+    "head_before": "6efef48",
+    "origin_main_before": "6efef48",
+    "results_commit_requested": true,
+    "results_commit_hash_in_report": null,
+    "note": "Committed report is immutable; final commit data is stored in the local audit receipt."
+  },
+  "paths": {
+    "report": "C:\\UltraBalloonDB\\audit\\v00r3a2b4_gpu_router_shadow_replay\\RUN_20260618_100501\\v00r3a2b4_gpu_router_shadow_replay_report.json",
+    "summary": "C:\\UltraBalloonDB\\audit\\v00r3a2b4_gpu_router_shadow_replay\\RUN_20260618_100501\\v00r3a2b4_gpu_router_shadow_replay_summary.json",
+    "docs_report": "C:\\UltraBalloonDB\\docs\\benchmarks\\v00r3a2b4_router_shadow_replay\\RUN_20260618_100501\\v00r3a2b4_gpu_router_shadow_replay_report.json",
+    "docs_summary": "C:\\UltraBalloonDB\\docs\\benchmarks\\v00r3a2b4_router_shadow_replay\\RUN_20260618_100501\\v00r3a2b4_gpu_router_shadow_replay_summary.json"
+  }
+}
