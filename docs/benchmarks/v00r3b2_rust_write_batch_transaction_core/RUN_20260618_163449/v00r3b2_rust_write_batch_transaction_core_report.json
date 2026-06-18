@@ -1,0 +1,163 @@
+{
+  "version": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE_R02",
+  "status": "PASS_ULTRABALLOONDB_V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE",
+  "mode": "OFFLINE_ADDITIVE_TRANSACTION_CORE",
+  "durable_commit_implemented": false,
+  "wal_implemented": false,
+  "checkpoint_recovery_implemented": false,
+  "active_runtime_changed": false,
+  "storage_crate_changed": false,
+  "existing_rust_core_changed": false,
+  "python_source_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE",
+  "b1_report": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\v00r3b1_rust_storage_page_store_integrity_report.json",
+  "b1_commit_receipt": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\v00r3b1_results_commit_receipt.json",
+  "b1_commit": "48a4a15",
+  "b1_contract_hashes": {
+    "rust_native/ultraballoondb-storage/Cargo.toml": "199D3BFF44475CA9B69D87F3F2754AA91A9800B11AA18D3C15103151202F1651",
+    "rust_native/ultraballoondb-storage/src/lib.rs": "CE16F6F437C911BF296450587F6540B67F2DE3EB64AEBE6286B08D71D750CA2F",
+    "rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs": "E55D95BFE90201E67B1B7DDCFC10EDCB9D4F5F247346E2BFFC541207918D0F82",
+    "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json": "D3371FD5B00317E7E2A57DC45992C51A6071EFFDC907D250582C8636E4F8A93D",
+    "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md": "8D875DD67931B379A455E85650E39A4F0BDF4C949C84075202BA7436B18826F9",
+    "rust_native/ultraballoondb-core/src/lib.rs": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "python_ref/ultraballoondb_core/durable_runtime.py": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC"
+  },
+  "workspace_head_hashes_before": {
+    "rust_native/Cargo.toml": "45D5D6D4B300ABA60F185F087C3953E0B33AF0EFEF9981189416039969B562A8",
+    "rust_native/Cargo.lock": "A9BA6E32EE9227BCCEA305D64E5D4233DDC7AF96012B99E512C1CCB99F077D64"
+  },
+  "install_plan": {
+    "rust_native/Cargo.toml": {
+      "source_relative": "install/rust_native/Cargo.toml",
+      "source_sha256": "45D5D6D4B300ABA60F185F087C3953E0B33AF0EFEF9981189416039969B562A8",
+      "target_existed_before": true,
+      "target_sha256_before": "45D5D6D4B300ABA60F185F087C3953E0B33AF0EFEF9981189416039969B562A8",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "rust_native/Cargo.lock": {
+      "source_relative": "install/rust_native/Cargo.lock",
+      "source_sha256": "A9BA6E32EE9227BCCEA305D64E5D4233DDC7AF96012B99E512C1CCB99F077D64",
+      "target_existed_before": true,
+      "target_sha256_before": "A9BA6E32EE9227BCCEA305D64E5D4233DDC7AF96012B99E512C1CCB99F077D64",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "rust_native/ultraballoondb-lifecycle/Cargo.toml": {
+      "source_relative": "install/rust_native/ultraballoondb-lifecycle/Cargo.toml",
+      "source_sha256": "DD08E10DD87C2EA9349A63780F3AEF665D89A6C538BD52E4D9A77562255503E4",
+      "target_existed_before": true,
+      "target_sha256_before": "DD08E10DD87C2EA9349A63780F3AEF665D89A6C538BD52E4D9A77562255503E4",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "rust_native/ultraballoondb-lifecycle/src/lib.rs": {
+      "source_relative": "install/rust_native/ultraballoondb-lifecycle/src/lib.rs",
+      "source_sha256": "156B9F0FE3E313906EB26C2D7BA7247FF98A6F9BF9163E24E342ECE18344C68B",
+      "target_existed_before": true,
+      "target_sha256_before": "156B9F0FE3E313906EB26C2D7BA7247FF98A6F9BF9163E24E342ECE18344C68B",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "rust_native/ultraballoondb-lifecycle/examples/transaction_core_probe.rs": {
+      "source_relative": "install/rust_native/ultraballoondb-lifecycle/examples/transaction_core_probe.rs",
+      "source_sha256": "70F5BB26FDCDF7D687314DAC7E23C52A96D963EB69E209F00EBB1402F28ECD7A",
+      "target_existed_before": true,
+      "target_sha256_before": "70F5BB26FDCDF7D687314DAC7E23C52A96D963EB69E209F00EBB1402F28ECD7A",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "docs/alignment/V00R3B2_RUST_WRITE_BATCH_TRANSACTION_CORE_R01.json": {
+      "source_relative": "docs/alignment/V00R3B2_RUST_WRITE_BATCH_TRANSACTION_CORE_R01.json",
+      "source_sha256": "5834B2F42743C572B8A0D552E984BB3FC0DC24E4C82E933CC6B3903DA3210E77",
+      "target_existed_before": true,
+      "target_sha256_before": "5834B2F42743C572B8A0D552E984BB3FC0DC24E4C82E933CC6B3903DA3210E77",
+      "identical_before": true,
+      "expected_git_change": false
+    },
+    "specs/lifecycle/ULTRABALLOONDB_WRITE_BATCH_TRANSACTION_CORE_V1.md": {
+      "source_relative": "specs/lifecycle/ULTRABALLOONDB_WRITE_BATCH_TRANSACTION_CORE_V1.md",
+      "source_sha256": "16CB73ADE26D74048A884DD6D32638F51AA23BAF88FE0D146DE1F67C72E9874C",
+      "target_existed_before": true,
+      "target_sha256_before": "16CB73ADE26D74048A884DD6D32638F51AA23BAF88FE0D146DE1F67C72E9874C",
+      "identical_before": true,
+      "expected_git_change": false
+    }
+  },
+  "expected_install_change_paths": [],
+  "installed_file_count": 7,
+  "installed_files": [
+    "rust_native/Cargo.toml",
+    "rust_native/Cargo.lock",
+    "rust_native/ultraballoondb-lifecycle/Cargo.toml",
+    "rust_native/ultraballoondb-lifecycle/src/lib.rs",
+    "rust_native/ultraballoondb-lifecycle/examples/transaction_core_probe.rs",
+    "docs/alignment/V00R3B2_RUST_WRITE_BATCH_TRANSACTION_CORE_R01.json",
+    "specs/lifecycle/ULTRABALLOONDB_WRITE_BATCH_TRANSACTION_CORE_V1.md"
+  ],
+  "porcelain_parser": "NUL_SAFE_RAW_BYTES_NO_GLOBAL_STRIP",
+  "cargo_check_workspace": true,
+  "cargo_test_workspace": true,
+  "cargo_test_stdout_tail": "\nrunning 3 tests\ntest shared_core_contract_tests::edge_and_wave_public_contracts_are_constructible ... ok\ntest shared_core_contract_tests::full_scan_counter_starts_at_zero ... ok\ntest shared_core_contract_tests::fixed_record_width_contract_is_frozen ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 6 tests\ntest tests::delete_operations_are_deterministic ... ok\ntest tests::limits_are_enforced ... ok\ntest tests::deterministic_batch_digest ... ok\ntest tests::duplicate_is_ignored_and_conflict_is_rejected ... ok\ntest tests::single_writer_and_state_machine ... ok\ntest tests::shadow_materialization_is_verified_and_not_durable ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n\nrunning 10 tests\ntest tests::file_header_roundtrip ... ok\ntest tests::path_traversal_head_is_rejected ... ok\ntest tests::sha256_known_vectors ... ok\ntest tests::record_payload_corruption_is_rejected ... ok\ntest tests::segment_roundtrip_and_restart ... ok\ntest tests::typed_edge_negative_zero_is_canonicalized ... ok\ntest tests::immutable_segment_rejects_different_content ... ok\ntest tests::deterministic_segment_bytes ... ok\ntest tests::trailing_bytes_are_rejected ... ok\ntest tests::head_atomic_replace_and_manifest_binding ... ok\n\ntest result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "rust_transaction_probe": {
+    "pass": true,
+    "transaction_id_hex": "101112131415161718191A1B1C1D1E1F",
+    "batch_digest_sha256": "65FA82FCB5716F031926D0A1028E36C81CCCAACC37F011B6296BFF4D4CDDBC33",
+    "operation_count": 5,
+    "total_payload_bytes": 226,
+    "segment_path": "C:\\UltraBalloonDB\\audit\\v00r3b2_rust_write_batch_transaction_core\\RUN_20260618_163449\\probe_database\\segments\\SEGMENT-00000000000000000011-00000000000000000002.ubseg",
+    "segment_file_sha256": "5AB91B973B4F81F4AE3C2C1F7E5949F7FD692F8C947A6EC374AC4D0DBA6DDBA7",
+    "segment_payload_sha256": "0133774EE28AAE438507010B26EC6BD4D247308CEB58C48DD55BFDF28A58F753",
+    "segment_generation": 11,
+    "segment_sequence": 2,
+    "duplicate_ignored_count": 2,
+    "conflict_rejected": true,
+    "mutation_after_prepare_rejected": true,
+    "abort_materialization_rejected": true,
+    "state_after_materialization": "SHADOW_MATERIALIZED",
+    "durable_commit": false,
+    "wal_recorded": false,
+    "head_published": false,
+    "active_runtime_changed": false,
+    "store_segment_count": 1
+  },
+  "independent_python_verification": {
+    "pass": true,
+    "independent_python_verifier": true,
+    "transaction_id_hex": "101112131415161718191A1B1C1D1E1F",
+    "batch_digest_sha256": "65FA82FCB5716F031926D0A1028E36C81CCCAACC37F011B6296BFF4D4CDDBC33",
+    "operation_count": 5,
+    "operation_kinds": [
+      1,
+      1,
+      2,
+      3,
+      4
+    ],
+    "segment_file_sha256": "5AB91B973B4F81F4AE3C2C1F7E5949F7FD692F8C947A6EC374AC4D0DBA6DDBA7",
+    "segment_payload_sha256": "0133774EE28AAE438507010B26EC6BD4D247308CEB58C48DD55BFDF28A58F753",
+    "duplicate_ignored_count": 2,
+    "conflict_rejected": true,
+    "mutation_after_prepare_rejected": true,
+    "abort_materialization_rejected": true,
+    "durable_commit": false,
+    "wal_recorded": false,
+    "head_published": false,
+    "active_runtime_changed": false
+  },
+  "write_batch_implemented": true,
+  "single_writer_transaction_core_implemented": true,
+  "transaction_state_machine_implemented": true,
+  "put_record_implemented": true,
+  "delete_record_implemented": true,
+  "put_edge_implemented": true,
+  "delete_edge_implemented": true,
+  "idempotent_duplicate_suppression_implemented": true,
+  "conflict_rejection_implemented": true,
+  "batch_limits_implemented": true,
+  "deterministic_batch_digest_implemented": true,
+  "shadow_materialization_implemented": true,
+  "external_rust_dependency_count": 0,
+  "legacy_balloon_db_import": false
+}
