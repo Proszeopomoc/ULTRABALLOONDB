@@ -1,0 +1,44 @@
+{
+  "version": "V00R3X0_PRODUCT_IDENTITY_TRUST_CORE_AND_REPOSITORY_ARCHITECTURE_FREEZE_R02",
+  "mode": "documentation_specification_and_reference_guard_only",
+  "product": "UltraBalloonDB",
+  "core_position": {
+    "full_database_product": true,
+    "evidence_native": true,
+    "typed_topological": true,
+    "native_wave_engine": true,
+    "one_canonical_engine_multiple_editions": true,
+    "agent_is_separate_repository": true
+  },
+  "trust": {
+    "relevance_is_not_trust": true,
+    "score_is_not_evidence": true,
+    "wave_cannot_promote": true,
+    "similarity_cannot_promote": true,
+    "llm_cannot_promote": true,
+    "append_only_transitions": true,
+    "revocation_supported": true
+  },
+  "disclosure": {
+    "public_contracts": true,
+    "private_validation_thresholds_excluded": true,
+    "secret_fingerprints_excluded": true,
+    "private_keys_excluded": true
+  },
+  "licensing": {
+    "status": "DRAFT_PENDING_LEGAL_REVIEW",
+    "core_candidate": "BSL-1.1",
+    "sdk_protocol_candidate": "Apache-2.0",
+    "license_files_changed": false
+  },
+  "safety": {
+    "runtime_changed": false,
+    "rust_core_changed": false,
+    "storage_format_changed": false,
+    "wal_changed": false,
+    "checkpoint_changed": false,
+    "recovery_changed": false,
+    "router_changed": false,
+    "gpu_backend_promoted": false
+  }
+}

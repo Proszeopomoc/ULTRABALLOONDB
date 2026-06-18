@@ -1,5 +1,24 @@
 # UltraBalloonDB
 
+<!-- ULTRABALLOONDB_CORE_POSITION_V1_BEGIN -->
+## Core Position
+
+**UltraBalloonDB is a deterministic, evidence-native, typed topological database with its own durable storage model and native Wave Query Engine.**
+
+UltraBalloonDB is designed as a database product, not as an agent framework, a GraphRAG wrapper, or a CUDA benchmark. Its canonical responsibilities are:
+
+1. durable, versioned storage with integrity, WAL, checkpoint and recovery contracts;
+2. evidence lineage and auditable trust transitions;
+3. strict separation between relevance and evidentiary trust;
+4. typed topological relations and deterministic Wave queries;
+5. safe CPU/GPU execution with exact-parity gates and unconditional CPU fallback;
+6. one canonical Rust database engine delivered through native binary, PyO3, daemon and C ABI editions.
+
+**Evidence may change trust. Wave activation, similarity, frequency, ranking, agent output and LLM output may retrieve or organize data, but cannot independently promote trust.**
+
+The agent layer is a separate client product and belongs in a separate repository.
+<!-- ULTRABALLOONDB_CORE_POSITION_V1_END -->
+
 UltraBalloonDB is an original deterministic database and memory engine for agent infrastructure.
 
 It is built from BalloonDB benchmark evidence and extends the foundation toward typed topological wave memory.
