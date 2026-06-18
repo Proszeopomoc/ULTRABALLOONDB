@@ -1,0 +1,25 @@
+[package]
+name = "ultraballoondb-trust-enterprise"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Offline enterprise quorum approvals, expiry and audit profile"
+
+[dependencies]
+ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust = { path = "../ultraballoondb-trust" }
+ultraballoondb-trust-auth = { path = "../ultraballoondb-trust-auth" }
+ultraballoondb-trust-commit = { path = "../ultraballoondb-trust-commit" }
+
+[lib]
+name = "ultraballoondb_trust_enterprise"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ultraballoondb-trust-enterprise"
+path = "src/main.rs"
+
+[[example]]
+name = "trust_enterprise_approval_audit_probe"
+path = "examples/trust_enterprise_approval_audit_probe.rs"

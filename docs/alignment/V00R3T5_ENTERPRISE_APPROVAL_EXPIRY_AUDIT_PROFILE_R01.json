@@ -1,0 +1,55 @@
+{
+  "version": "V00R3T5_TRUST_MULTI_PARTY_APPROVAL_EXPIRY_AND_ENTERPRISE_AUDIT_PROFILE_R01",
+  "requires_exact_head": "5cbaacf",
+  "new_crate": "ultraballoondb-trust-enterprise",
+  "new_binary": "ultraballoondb-trust-enterprise",
+  "modified_existing_crates": [],
+  "profile": {
+    "profile_id": "ENTERPRISE_STRICT_V1",
+    "threshold": 2,
+    "approver_role": "AUDITOR",
+    "requester_excluded": true,
+    "distinct_approvers": true,
+    "max_logical_ttl": 1000,
+    "one_time_finalization": true,
+    "protected_domains": [
+      "KEY_ROTATE",
+      "POLICY_REGISTER",
+      "POLICY_REVOKE",
+      "TRUST_COMMIT"
+    ]
+  },
+  "features": {
+    "append_only_enterprise_profile_v1": true,
+    "append_only_approval_ledger_v1": true,
+    "logical_approval_expiry": true,
+    "two_distinct_auditor_quorum": true,
+    "exact_subject_binding": true,
+    "approved_key_rotation": true,
+    "approved_policy_registration": true,
+    "approved_policy_revocation": true,
+    "approved_trust_commit": true,
+    "enterprise_audit_coverage_check": true,
+    "deterministic_enterprise_audit_export": true,
+    "cli_command_count": 12
+  },
+  "hard_guards": {
+    "network_enabled": false,
+    "automatic_repair_enabled": false,
+    "active_runtime_changed": false,
+    "database_cli_changed": false,
+    "trust_auth_changed": false,
+    "trust_core_changed": false,
+    "trust_commit_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3T6_TRUST_ASYMMETRIC_KEYS_HARDWARE_BINDING_AND_ENTERPRISE_POLICY_FEDERATION"
+}

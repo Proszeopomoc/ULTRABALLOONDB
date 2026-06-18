@@ -1,0 +1,11 @@
+{
+  "schema": "ultraballoondb.trust.enterprise.audit.receipt.v1",
+  "manifest_sha256": "CF4F3E1F2CFED87201C65E024C90E0084F54DD918763947873CD95366A9266F4",
+  "summary_sha256": "E9265B149299D3B896A99813A2B246D68E65AFE89A18CE741B1A90462789B2BA",
+  "core_receipt_sha256": "49A791D67A969766C5CC26AA81A0300ED18C56B36CA5A7FE7D55B9BBD2F54CC3",
+  "root_digest": "7898A4A1FE20A779FA9FF6622C87A7686339390675E77A14938FF711E947AE0E",
+  "file_count": 23,
+  "source_unchanged": true,
+  "deterministic_format": true,
+  "enterprise_compliance_pass": true
+}
