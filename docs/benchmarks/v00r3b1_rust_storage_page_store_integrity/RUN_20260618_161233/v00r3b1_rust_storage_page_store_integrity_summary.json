@@ -1,0 +1,23 @@
+{
+  "version": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY_R03",
+  "status": "PASS_ULTRABALLOONDB_V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY",
+  "run_id": "RUN_20260618_161233",
+  "new_crate": "ultraballoondb-storage",
+  "recovery_mode": "RESUME_EXACT_R01_BYTES_AFTER_R02_HASH_EXPECTATION_BUG",
+  "stale_r01_repository_evidence_removed": true,
+  "install_payload_version": "EXACT_R01_BYTES",
+  "cargo_check_workspace": true,
+  "cargo_test_workspace": true,
+  "rust_probe_pass": true,
+  "independent_python_verifier_pass": true,
+  "probe_segment_count": 2,
+  "probe_head_generation": 2,
+  "probe_head_replacement_verified": true,
+  "storage_format_v1_implemented": true,
+  "transaction_core_implemented": false,
+  "wal_implemented": false,
+  "checkpoint_recovery_implemented": false,
+  "active_runtime_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE"
+}

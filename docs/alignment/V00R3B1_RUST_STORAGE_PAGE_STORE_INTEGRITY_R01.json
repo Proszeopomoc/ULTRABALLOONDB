@@ -1,0 +1,37 @@
+{
+  "version": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY_R01",
+  "status": "OFFLINE_ADDITIVE_IMPLEMENTATION",
+  "b0_required": true,
+  "canonical_target_owner": "Rust",
+  "new_crate": "ultraballoondb-storage",
+  "implements": [
+    "Storage Format V1 file header",
+    "Storage Format V1 segment entry header",
+    "immutable segment page store",
+    "immutable manifest",
+    "atomic CURRENT.ubhead",
+    "SHA-256 integrity",
+    "record and typed-edge semantic validation",
+    "restart verification",
+    "independent Python format verification"
+  ],
+  "does_not_implement": [
+    "transactions",
+    "WAL",
+    "checkpoint",
+    "recovery",
+    "Python V00N migration",
+    "active runtime binding",
+    "GPU routing",
+    "Trust Core"
+  ],
+  "hard_guards": {
+    "legacy_balloon_db_import": false,
+    "active_runtime_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE"
+}

@@ -1,0 +1,151 @@
+{
+  "version": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY_R03",
+  "status": "PASS_ULTRABALLOONDB_V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY",
+  "mode": "OFFLINE_ADDITIVE_RUST_STORAGE_IMPLEMENTATION",
+  "active_runtime_changed": false,
+  "existing_rust_core_changed": false,
+  "python_source_changed": false,
+  "gpu_backend_promoted": false,
+  "next_gate": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE",
+  "b0_report": "C:\\UltraBalloonDB\\audit\\v00r3b0_canonical_rust_lifecycle_freeze\\RUN_20260618_153956\\v00r3b0_canonical_rust_lifecycle_freeze_report.json",
+  "b0_commit_receipt": "C:\\UltraBalloonDB\\audit\\v00r3b0_canonical_rust_lifecycle_freeze\\RUN_20260618_153956\\v00r3b0_freeze_commit_receipt.json",
+  "b0_commit": "8508904",
+  "installed_file_count": 7,
+  "installed_files": [
+    "rust_native/Cargo.toml",
+    "rust_native/Cargo.lock",
+    "rust_native/ultraballoondb-storage/Cargo.toml",
+    "rust_native/ultraballoondb-storage/src/lib.rs",
+    "rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs",
+    "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json",
+    "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md"
+  ],
+  "recovery": {
+    "recovery_mode": "RESUME_EXACT_R01_BYTES_AFTER_R02_HASH_EXPECTATION_BUG",
+    "original_r01_failure_report": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_160248\\v00r3b1_rust_storage_page_store_integrity_report.json",
+    "original_r01_failure_error": "unexpected repository changes after B1:\nexpected=['docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/storage_v1_python_verification.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_report.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_summary.json', 'rust_native/Cargo.lock', 'rust_native/Cargo.toml', 'rust_native/ultraballoondb-storage/Cargo.toml', 'rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs', 'rust_native/ultraballoondb-storage/src/lib.rs', 'specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md']\nactual=['docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/storage_v1_python_verification.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_report.json', 'docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_summary.json', 'rust_native/Cargo.toml', 'rust_native/ultraballoondb-storage/Cargo.toml', 'rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs', 'rust_native/ultraballoondb-storage/src/lib.rs', 'specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md', 'ust_native/Cargo.lock']",
+    "latest_recovery_failure_report": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_160855\\v00r3b1_rust_storage_page_store_integrity_report.json",
+    "latest_recovery_failure_error": "recoverable R01 target hash mismatch: docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json expected=EDD9CCAF5A9CB555B0403F207F0094FD0DF935A6BCEDBF458D608B030445E61F actual=D3371FD5B00317E7E2A57DC45992C51A6071EFFDC907D250582C8636E4F8A93D",
+    "initial_changed_paths": [
+      "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json",
+      "docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/storage_v1_python_verification.json",
+      "docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_report.json",
+      "docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_160248/v00r3b1_rust_storage_page_store_integrity_summary.json",
+      "rust_native/Cargo.lock",
+      "rust_native/Cargo.toml",
+      "rust_native/ultraballoondb-storage/Cargo.toml",
+      "rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs",
+      "rust_native/ultraballoondb-storage/src/lib.rs",
+      "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md"
+    ],
+    "exact_r01_install_hashes": {
+      "rust_native/Cargo.toml": "F325580EAA83BDD9615B07CBAE20B2C51C11B1407409EB3E891AB34CFFF6130E",
+      "rust_native/Cargo.lock": "5CA655733461EC4612B37A952E024E626B5FDF3D83B0418A6D1430B59C0D141E",
+      "rust_native/ultraballoondb-storage/Cargo.toml": "199D3BFF44475CA9B69D87F3F2754AA91A9800B11AA18D3C15103151202F1651",
+      "rust_native/ultraballoondb-storage/src/lib.rs": "CE16F6F437C911BF296450587F6540B67F2DE3EB64AEBE6286B08D71D750CA2F",
+      "rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs": "E55D95BFE90201E67B1B7DDCFC10EDCB9D4F5F247346E2BFFC541207918D0F82",
+      "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json": "D3371FD5B00317E7E2A57DC45992C51A6071EFFDC907D250582C8636E4F8A93D",
+      "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md": "8D875DD67931B379A455E85650E39A4F0BDF4C949C84075202BA7436B18826F9"
+    },
+    "stale_r01_repository_evidence_removed": true,
+    "remaining_install_paths": [
+      "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json",
+      "rust_native/Cargo.lock",
+      "rust_native/Cargo.toml",
+      "rust_native/ultraballoondb-storage/Cargo.toml",
+      "rust_native/ultraballoondb-storage/examples/storage_v1_probe.rs",
+      "rust_native/ultraballoondb-storage/src/lib.rs",
+      "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1_IMPLEMENTATION_PROFILE_B1.md"
+    ]
+  },
+  "porcelain_parser": "NUL_SAFE_RAW_BYTES_NO_GLOBAL_STRIP",
+  "install_payload_version": "EXACT_R01_BYTES",
+  "current_contract_hashes_before": {
+    "rust_native/ultraballoondb-core/src/lib.rs": "582AD8A98F5CE463EDA607300484674075092D5553B45D9AA84DC9E0FDBB33AF",
+    "rust_native/ultraballoondb_rust_core/src/main.rs": "864EA80857EFDDC69D0CA658A89DE051AB7499FCC005A63AB509BF267210C7FB",
+    "python_ref/ultraballoondb_core/durable_runtime.py": "D7E67E57167C6D1EA0D505639A2D533AF7E7483C032700E64183F6B8477085AC"
+  },
+  "b0_spec_hashes": {
+    "docs/architecture/V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_FREEZE.md": "2689901336FF74545B0C80A077D05A6E595479E8863A4D2CEBE4D81E0605620F",
+    "specs/storage/ULTRABALLOONDB_STORAGE_FORMAT_V1.md": "68E5FD70BFC01E99C051D0AA6726D5653FD83815C673218D6E4DFAA2853C8CAA",
+    "specs/storage/ULTRABALLOONDB_WAL_FORMAT_V1.md": "9155F367D526AF19E992FE5848982D25E313F6F4346A2D315F3129C99F049151",
+    "specs/storage/ULTRABALLOONDB_CHECKPOINT_RECOVERY_V1.md": "5DE4342D59880CC3837ADE034DB32ED68452FD63EF628DE89743BCC358AB4D6B",
+    "specs/compatibility/ULTRABALLOONDB_LIFECYCLE_COMPATIBILITY_MATRIX_V1.json": "9C2A70451E340BA0D8430FDF5550EB7D98DD0974739BC8A50AB92833219A0114",
+    "specs/architecture/ULTRABALLOONDB_RUST_CRATE_OWNERSHIP_V1.json": "2F43658445FE1F10EAA283E0C8F712E7B1144AA4AF356890D71EB31BF267E4D2"
+  },
+  "cargo_check_workspace": true,
+  "cargo_test_workspace": true,
+  "cargo_test_stdout_tail": "\nrunning 3 tests\ntest shared_core_contract_tests::edge_and_wave_public_contracts_are_constructible ... ok\ntest shared_core_contract_tests::fixed_record_width_contract_is_frozen ... ok\ntest shared_core_contract_tests::full_scan_counter_starts_at_zero ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 10 tests\ntest tests::file_header_roundtrip ... ok\ntest tests::path_traversal_head_is_rejected ... ok\ntest tests::sha256_known_vectors ... ok\ntest tests::segment_roundtrip_and_restart ... ok\ntest tests::record_payload_corruption_is_rejected ... ok\ntest tests::typed_edge_negative_zero_is_canonicalized ... ok\ntest tests::immutable_segment_rejects_different_content ... ok\ntest tests::trailing_bytes_are_rejected ... ok\ntest tests::deterministic_segment_bytes ... ok\ntest tests::head_atomic_replace_and_manifest_binding ... ok\n\ntest result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "rust_storage_probe": {
+    "pass": true,
+    "database_root": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database",
+    "segment_count": 2,
+    "head_generation": 2,
+    "head_replacement_verified": true,
+    "segment1_path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\segments\\SEGMENT-00000000000000000001-00000000000000000000.ubseg",
+    "segment1_sha256": "4DEB64F35FCD2FF179207E0EF45839A1DF38F79FDC8CCD5A91424490D8682B96",
+    "segment1_item_count": 3,
+    "segment2_path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\segments\\SEGMENT-00000000000000000002-00000000000000000000.ubseg",
+    "segment2_sha256": "39E7F8763B1E6CFDFFAF78D9945489237F96D934C2C9FB74EEA1C92813B59A47",
+    "segment2_item_count": 2,
+    "manifest_path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\manifests\\MANIFEST-00000000000000000002.ubmeta",
+    "manifest_sha256": "351FA2372F5B82EB90D9B2A5DB07CA15E7FC1601995EBC582F42EFD2FCE95D1E",
+    "head_path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\CURRENT.ubhead"
+  },
+  "independent_python_verification": {
+    "pass": true,
+    "independent_python_verifier": true,
+    "segment_count": 2,
+    "total_record_count": 5,
+    "head_generation": 2,
+    "head_manifest_binding": true,
+    "segment1": {
+      "generation": 1,
+      "payload_bytes": 296,
+      "item_count": 3,
+      "payload_hash": "C7CECEDB3B68FAC3438D098F5EF1B42D1DE96E5B6355DB6636E63B9DE5883CC0",
+      "path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\segments\\SEGMENT-00000000000000000001-00000000000000000000.ubseg",
+      "parsed_item_count": 3,
+      "file_sha256": "4DEB64F35FCD2FF179207E0EF45839A1DF38F79FDC8CCD5A91424490D8682B96"
+    },
+    "segment2": {
+      "generation": 2,
+      "payload_bytes": 216,
+      "item_count": 2,
+      "payload_hash": "B5EB99BCA73FE1DBA050B5162E7B036087784268DBBCEF0FE702E9832E817885",
+      "path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\segments\\SEGMENT-00000000000000000002-00000000000000000000.ubseg",
+      "parsed_item_count": 2,
+      "file_sha256": "39E7F8763B1E6CFDFFAF78D9945489237F96D934C2C9FB74EEA1C92813B59A47"
+    },
+    "manifest": {
+      "generation": 2,
+      "payload_bytes": 157,
+      "item_count": 1,
+      "payload_hash": "CBFB92100594FF38F64E78DB1D1824AFF6D7E279F5B92BE04D1B8E4BD2CFABCA",
+      "path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\manifests\\MANIFEST-00000000000000000002.ubmeta",
+      "file_sha256": "351FA2372F5B82EB90D9B2A5DB07CA15E7FC1601995EBC582F42EFD2FCE95D1E"
+    },
+    "head": {
+      "generation": 2,
+      "payload_bytes": 88,
+      "item_count": 1,
+      "payload_hash": "A7D6B8270543AF59E1B3262F19643F2B95826F70CDA866782B1DCE0079C3B0C6",
+      "path": "C:\\UltraBalloonDB\\audit\\v00r3b1_rust_storage_page_store_integrity\\RUN_20260618_161233\\probe_database\\CURRENT.ubhead",
+      "manifest_filename": "MANIFEST-00000000000000000002.ubmeta",
+      "manifest_sha256": "351FA2372F5B82EB90D9B2A5DB07CA15E7FC1601995EBC582F42EFD2FCE95D1E",
+      "file_sha256": "6FB1F259013FB18EF84DB9F8C2A6264432F91249BB50A08EC621799DA2A53A97"
+    }
+  },
+  "storage_format_v1_implemented": true,
+  "immutable_segment_store_implemented": true,
+  "atomic_head_implemented": true,
+  "manifest_binding_implemented": true,
+  "record_integrity_implemented": true,
+  "typed_edge_integrity_implemented": true,
+  "restart_verification_implemented": true,
+  "external_rust_dependency_count": 0,
+  "transaction_core_implemented": false,
+  "wal_implemented": false,
+  "checkpoint_recovery_implemented": false,
+  "legacy_balloon_db_import": false
+}
