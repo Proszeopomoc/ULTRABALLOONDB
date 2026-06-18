@@ -1,0 +1,45 @@
+{
+  "version": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE_R01",
+  "status": "OFFLINE_ADDITIVE_IMPLEMENTATION",
+  "requires": {
+    "b1_pass": true,
+    "b1_commit_ancestor": true,
+    "storage_format_v1": true
+  },
+  "new_crate": "ultraballoondb-lifecycle",
+  "implements": [
+    "deterministic WriteBatch",
+    "single-writer TransactionCore",
+    "ACTIVE/PREPARED/SHADOW_MATERIALIZED/ABORTED state machine",
+    "put/delete record",
+    "put/delete typed edge",
+    "idempotent duplicate suppression",
+    "domain and logical ID conflict rejection",
+    "operation and payload limits",
+    "deterministic transaction batch digest",
+    "shadow segment materialization through ultraballoondb-storage",
+    "independent Python verification"
+  ],
+  "does_not_implement": [
+    "durable commit",
+    "WAL",
+    "checkpoint",
+    "recovery",
+    "active runtime binding",
+    "GPU routing",
+    "Trust Core"
+  ],
+  "hard_guards": {
+    "durable_commit_claimed": false,
+    "wal_recorded": false,
+    "head_published": false,
+    "legacy_balloon_db_import": false,
+    "active_runtime_changed": false,
+    "storage_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE"
+}

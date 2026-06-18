@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "ultraballoondb-core",
+    "ultraballoondb-lifecycle",
     "ultraballoondb-storage",
     "ultraballoondb_rust_core",
 ]

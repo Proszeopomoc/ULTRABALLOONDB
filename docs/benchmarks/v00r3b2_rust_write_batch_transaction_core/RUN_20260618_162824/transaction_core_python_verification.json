@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "independent_python_verifier": true,
+  "transaction_id_hex": "101112131415161718191A1B1C1D1E1F",
+  "batch_digest_sha256": "65FA82FCB5716F031926D0A1028E36C81CCCAACC37F011B6296BFF4D4CDDBC33",
+  "operation_count": 5,
+  "operation_kinds": [
+    1,
+    1,
+    2,
+    3,
+    4
+  ],
+  "segment_file_sha256": "5AB91B973B4F81F4AE3C2C1F7E5949F7FD692F8C947A6EC374AC4D0DBA6DDBA7",
+  "segment_payload_sha256": "0133774EE28AAE438507010B26EC6BD4D247308CEB58C48DD55BFDF28A58F753",
+  "duplicate_ignored_count": 2,
+  "conflict_rejected": true,
+  "mutation_after_prepare_rejected": true,
+  "abort_materialization_rejected": true,
+  "durable_commit": false,
+  "wal_recorded": false,
+  "head_published": false,
+  "active_runtime_changed": false
+}

@@ -7,6 +7,13 @@ name = "ultraballoondb-core"
 version = "0.0.3"
 
 [[package]]
+name = "ultraballoondb-lifecycle"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-storage",
+]
+
+[[package]]
 name = "ultraballoondb-storage"
 version = "0.0.3"
 
