@@ -1,0 +1,62 @@
+{
+  "version": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT_R03",
+  "status": "RECOVERABLE_EXACTLY_ONCE_TRUST_COCOMMIT",
+  "requires": {
+    "t1_pass": true,
+    "t1_exact_head": true,
+    "canonical_rust_database": true,
+    "trust_ledger_v1": true
+  },
+  "new_crate": "ultraballoondb-trust-commit",
+  "modified_crates": [],
+  "features": {
+    "canonical_record_digest_binding": true,
+    "caller_supplied_record_digest": false,
+    "append_only_policy_registry": true,
+    "immutable_policy_versions": true,
+    "append_only_commit_journal": true,
+    "database_binding_record": true,
+    "recoverable_exactly_once_cocommit": true,
+    "mandatory_recovery_before_use": true
+  },
+  "hard_guards": {
+    "network_enabled": false,
+    "automatic_repair_enabled": false,
+    "active_runtime_changed": false,
+    "cli_changed": false,
+    "trust_core_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "legacy_balloon_db_import": false,
+    "gpu_backend_promoted": false,
+    "external_rust_dependencies": false
+  },
+  "next_gate": "V00R3T3_TRUST_POLICY_AUTHORIZATION_SIGNATURES_AND_CLI_SURFACE",
+  "r02_fix": {
+    "r01_stopped_during_cargo_check": true,
+    "r01_rollback_success": true,
+    "repository_changed_by_r01": false,
+    "rust_error": "E0502",
+    "scope": "probe_corruption_helper_only",
+    "corrupt_index_stored_before_mutation": true,
+    "protocol_semantics_changed": false,
+    "expected_probe_counts_changed": false
+  },
+  "r03_fix": {
+    "r02_reached_rust_probe": true,
+    "r02_rollback_success": true,
+    "repository_changed_by_r02": false,
+    "failure": "immutable_segment_sequence_collision",
+    "durable_database_reopened_before_each_binding_commit": true,
+    "repair_trailing_enabled": false,
+    "generation_refreshed_from_current_checkpoint": true,
+    "segment_sequence_refreshed_from_current_wal": true,
+    "protocol_semantics_changed": false,
+    "expected_probe_counts_changed": false
+  }
+}

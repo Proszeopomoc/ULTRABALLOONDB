@@ -1,0 +1,19 @@
+[package]
+name = "ultraballoondb-trust-commit"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Canonical record binding, policy registry and recoverable trust co-commit"
+
+[dependencies]
+ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust = { path = "../ultraballoondb-trust" }
+
+[lib]
+name = "ultraballoondb_trust_commit"
+path = "src/lib.rs"
+
+[[example]]
+name = "trust_record_binding_cocommit_probe"
+path = "examples/trust_record_binding_cocommit_probe.rs"
