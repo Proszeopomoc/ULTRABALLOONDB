@@ -1,0 +1,20 @@
+{
+  "abi_version": 1,
+  "artifact_count": 28,
+  "cabi_dynamic_load_probe": true,
+  "checksums_verified": true,
+  "exact_file_set_verified": true,
+  "manifest_verified": true,
+  "native_cli_version_probe": true,
+  "pass": true,
+  "production_ready": false,
+  "protocol_version": 1,
+  "pyo3_fresh_process_import_probe": true,
+  "release_sha256": "5C35081C44AD24219F640FF4B0BBA054711E28CF71B4FB9BD16CBB69D1514821",
+  "release_size_bytes": 5209669,
+  "release_zip": "C:\\UltraBalloonDB\\audit\\v00r3g1_release_packaging\\RUN_20260619_150326\\UltraBalloonDB-0.0.3-windows-x86_64-pre1.zip",
+  "signed": false,
+  "symlinks_absent": true,
+  "unsafe_paths_absent": true,
+  "version": "V00R3G1_RELEASE_PACKAGING_R01"
+}

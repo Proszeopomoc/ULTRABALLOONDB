@@ -1,0 +1,10 @@
+{
+  "active_runtime_changed": false,
+  "artifact_count": 28,
+  "next_gate": "V00R3Z9_FINAL_CLOSURE_AUDIT",
+  "production_ready": false,
+  "release_sha256": "5C35081C44AD24219F640FF4B0BBA054711E28CF71B4FB9BD16CBB69D1514821",
+  "release_size_bytes": 5209669,
+  "signed": false,
+  "status": "PASS_ULTRABALLOONDB_V00R3G1_RELEASE_PACKAGING"
+}
