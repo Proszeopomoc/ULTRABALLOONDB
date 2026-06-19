@@ -197,6 +197,258 @@ impl AsymmetricKeyRegistry {
         self.states.values().filter(|state| state.active).count()
     }
 
+
+    pub fn enroll_new_key_with_provider(
+        &mut self,
+        provider: &dyn crate::SigningProvider,
+        requirement: crate::ProviderRequirement,
+        key_id: &str,
+        role_mask: u16,
+        provider_key_name: &str,
+        logical_timestamp: u64,
+        nonce: &str,
+    ) -> Result<KeyEventReceipt> {
+        validate_identifier("key_id", key_id)?;
+        validate_identifier("provider_key_name", provider_key_name)?;
+        validate_identifier("nonce", nonce)?;
+        if role_mask == 0 || self.states.contains_key(key_id) {
+            return Err(AsymmetricError::Invalid(
+                "role mask zero or key ID already exists".to_string(),
+            ));
+        }
+        let capabilities = crate::enforce_provider_requirement(provider, requirement)?;
+        let material = provider.create_key(provider_key_name)?;
+        if material.provider_name != capabilities.provider_name
+            || !material.private_export_rejected
+        {
+            return Err(AsymmetricError::Integrity(
+                "provider material does not match admitted capabilities".to_string(),
+            ));
+        }
+        validate_public_blob(&material.public_blob)?;
+        let public_key_digest = sha256(&material.public_blob);
+        let subject_digest = registry_event_subject_digest(
+            AsymmetricKeyEventKind::Enroll,
+            role_mask,
+            logical_timestamp,
+            1,
+            key_id,
+            &capabilities.provider_name,
+            provider_key_name,
+            public_key_digest,
+            [0; 32],
+            nonce,
+        )?;
+        let signature_new = provider.sign(provider_key_name, &subject_digest)?;
+        if !provider.verify(&material.public_blob, &subject_digest, &signature_new)? {
+            return Err(AsymmetricError::Integrity(
+                "provider enrollment proof failed".to_string(),
+            ));
+        }
+        let event = AsymmetricKeyEvent {
+            sequence: 0,
+            kind: AsymmetricKeyEventKind::Enroll,
+            role_mask,
+            logical_timestamp,
+            generation: 1,
+            key_id: key_id.to_string(),
+            provider_name: capabilities.provider_name,
+            provider_key_name: provider_key_name.to_string(),
+            public_blob: material.public_blob,
+            public_key_digest,
+            previous_public_key_digest: [0; 32],
+            provider_key_name_digest: sha256(provider_key_name.as_bytes()),
+            subject_digest,
+            signature_old: [0; 64],
+            signature_new,
+            nonce: nonce.to_string(),
+            previous_digest: [0; 32],
+            frame_digest: [0; 32],
+        };
+        let appended = self.append(event)?;
+        Ok(KeyEventReceipt {
+            changed: true,
+            sequence: appended.sequence,
+            event_kind: appended.kind,
+            key_id: appended.key_id,
+            generation: appended.generation,
+            public_key_digest: appended.public_key_digest,
+            frame_digest: appended.frame_digest,
+            private_export_rejected: material.private_export_rejected,
+        })
+    }
+
+    pub fn rotate_to_new_key_with_providers(
+        &mut self,
+        old_provider: &dyn crate::SigningProvider,
+        new_provider: &dyn crate::SigningProvider,
+        new_requirement: crate::ProviderRequirement,
+        key_id: &str,
+        old_provider_key_name: &str,
+        new_provider_key_name: &str,
+        logical_timestamp: u64,
+        nonce: &str,
+    ) -> Result<KeyEventReceipt> {
+        validate_identifier("key_id", key_id)?;
+        validate_identifier("old_provider_key_name", old_provider_key_name)?;
+        validate_identifier("new_provider_key_name", new_provider_key_name)?;
+        validate_identifier("nonce", nonce)?;
+        let current = self.states.get(key_id).cloned().ok_or_else(|| {
+            AsymmetricError::Invalid(format!("asymmetric key not found: {key_id}"))
+        })?;
+        if !current.active
+            || current.provider_name != old_provider.capabilities().provider_name
+            || current.provider_key_name != old_provider_key_name
+        {
+            return Err(AsymmetricError::Invalid(
+                "old provider does not match active registry state".to_string(),
+            ));
+        }
+        let new_capabilities = crate::enforce_provider_requirement(new_provider, new_requirement)?;
+        let material = new_provider.create_key(new_provider_key_name)?;
+        if material.provider_name != new_capabilities.provider_name
+            || !material.private_export_rejected
+        {
+            return Err(AsymmetricError::Integrity(
+                "new provider material mismatch".to_string(),
+            ));
+        }
+        let new_public_digest = sha256(&material.public_blob);
+        if new_public_digest == current.public_key_digest {
+            return Err(AsymmetricError::Invalid(
+                "rotation public key did not change".to_string(),
+            ));
+        }
+        let generation = current.generation.checked_add(1).ok_or_else(|| {
+            AsymmetricError::Invalid("key generation overflow".to_string())
+        })?;
+        let subject_digest = registry_event_subject_digest(
+            AsymmetricKeyEventKind::Rotate,
+            current.role_mask,
+            logical_timestamp,
+            generation,
+            key_id,
+            &new_capabilities.provider_name,
+            new_provider_key_name,
+            new_public_digest,
+            current.public_key_digest,
+            nonce,
+        )?;
+        let signature_old = old_provider.sign(old_provider_key_name, &subject_digest)?;
+        let signature_new = new_provider.sign(new_provider_key_name, &subject_digest)?;
+        if !old_provider.verify(&current.public_blob, &subject_digest, &signature_old)?
+            || !new_provider.verify(&material.public_blob, &subject_digest, &signature_new)?
+        {
+            return Err(AsymmetricError::Integrity(
+                "provider-neutral dual-proof rotation failed".to_string(),
+            ));
+        }
+        let event = AsymmetricKeyEvent {
+            sequence: 0,
+            kind: AsymmetricKeyEventKind::Rotate,
+            role_mask: current.role_mask,
+            logical_timestamp,
+            generation,
+            key_id: key_id.to_string(),
+            provider_name: new_capabilities.provider_name,
+            provider_key_name: new_provider_key_name.to_string(),
+            public_blob: material.public_blob,
+            public_key_digest: new_public_digest,
+            previous_public_key_digest: current.public_key_digest,
+            provider_key_name_digest: sha256(new_provider_key_name.as_bytes()),
+            subject_digest,
+            signature_old,
+            signature_new,
+            nonce: nonce.to_string(),
+            previous_digest: [0; 32],
+            frame_digest: [0; 32],
+        };
+        let appended = self.append(event)?;
+        Ok(KeyEventReceipt {
+            changed: true,
+            sequence: appended.sequence,
+            event_kind: appended.kind,
+            key_id: appended.key_id,
+            generation: appended.generation,
+            public_key_digest: appended.public_key_digest,
+            frame_digest: appended.frame_digest,
+            private_export_rejected: material.private_export_rejected,
+        })
+    }
+
+    pub fn revoke_with_provider(
+        &mut self,
+        provider: &dyn crate::SigningProvider,
+        key_id: &str,
+        provider_key_name: &str,
+        logical_timestamp: u64,
+        nonce: &str,
+    ) -> Result<KeyEventReceipt> {
+        validate_identifier("key_id", key_id)?;
+        validate_identifier("provider_key_name", provider_key_name)?;
+        validate_identifier("nonce", nonce)?;
+        let current = self.states.get(key_id).cloned().ok_or_else(|| {
+            AsymmetricError::Invalid(format!("asymmetric key not found: {key_id}"))
+        })?;
+        if !current.active
+            || current.provider_name != provider.capabilities().provider_name
+            || current.provider_key_name != provider_key_name
+        {
+            return Err(AsymmetricError::Invalid(
+                "provider does not match active registry state".to_string(),
+            ));
+        }
+        let subject_digest = registry_event_subject_digest(
+            AsymmetricKeyEventKind::Revoke,
+            current.role_mask,
+            logical_timestamp,
+            current.generation,
+            key_id,
+            &current.provider_name,
+            provider_key_name,
+            current.public_key_digest,
+            current.public_key_digest,
+            nonce,
+        )?;
+        let signature_old = provider.sign(provider_key_name, &subject_digest)?;
+        if !provider.verify(&current.public_blob, &subject_digest, &signature_old)? {
+            return Err(AsymmetricError::Integrity(
+                "provider revocation proof failed".to_string(),
+            ));
+        }
+        let event = AsymmetricKeyEvent {
+            sequence: 0,
+            kind: AsymmetricKeyEventKind::Revoke,
+            role_mask: current.role_mask,
+            logical_timestamp,
+            generation: current.generation,
+            key_id: key_id.to_string(),
+            provider_name: current.provider_name.clone(),
+            provider_key_name: current.provider_key_name.clone(),
+            public_blob: current.public_blob.clone(),
+            public_key_digest: current.public_key_digest,
+            previous_public_key_digest: current.public_key_digest,
+            provider_key_name_digest: sha256(provider_key_name.as_bytes()),
+            subject_digest,
+            signature_old,
+            signature_new: [0; 64],
+            nonce: nonce.to_string(),
+            previous_digest: [0; 32],
+            frame_digest: [0; 32],
+        };
+        let appended = self.append(event)?;
+        Ok(KeyEventReceipt {
+            changed: true,
+            sequence: appended.sequence,
+            event_kind: appended.kind,
+            key_id: appended.key_id,
+            generation: appended.generation,
+            public_key_digest: appended.public_key_digest,
+            frame_digest: appended.frame_digest,
+            private_export_rejected: true,
+        })
+    }
+
     pub fn enroll_new_provider_key(
         &mut self,
         key_id: &str,
@@ -671,8 +923,7 @@ fn validate_event(
     )?;
     validate_identifier("nonce", &event.nonce)?;
     validate_public_blob(&event.public_blob)?;
-    if event.provider_name != SOFTWARE_KSP
-        || event.role_mask == 0
+    if event.role_mask == 0
         || event.logical_timestamp == 0
         || event.generation == 0
         || event.public_key_digest

@@ -109,6 +109,96 @@ impl AsymmetricAuthorizationLedger {
         self.events.len()
     }
 
+
+    pub fn authorize_with_provider(
+        &mut self,
+        registry: &AsymmetricKeyRegistry,
+        provider: &dyn crate::SigningProvider,
+        requirement: crate::ProviderRequirement,
+        domain_code: u8,
+        required_role_mask: u16,
+        subject_digest: [u8; 32],
+        key_id: &str,
+        provider_key_name: &str,
+        logical_timestamp: u64,
+        nonce: &str,
+    ) -> Result<AuthorizationReceipt> {
+        validate_identifier("key_id", key_id)?;
+        validate_identifier("provider_key_name", provider_key_name)?;
+        validate_identifier("nonce", nonce)?;
+        if domain_code == 0
+            || required_role_mask == 0
+            || subject_digest == [0; 32]
+            || logical_timestamp == 0
+        {
+            return Err(AsymmetricError::Invalid(
+                "invalid asymmetric authorization fields".to_string(),
+            ));
+        }
+        let capabilities = crate::enforce_provider_requirement(provider, requirement)?;
+        let state = registry.get(key_id).ok_or_else(|| {
+            AsymmetricError::Invalid(format!("asymmetric key not found: {key_id}"))
+        })?;
+        if !state.has_role(required_role_mask)
+            || state.provider_name != capabilities.provider_name
+            || state.provider_key_name != provider_key_name
+        {
+            return Err(AsymmetricError::Invalid(
+                "provider or role does not match active registry state".to_string(),
+            ));
+        }
+        let live_public_blob = provider.export_public(provider_key_name)?;
+        if sha256(&live_public_blob) != state.public_key_digest
+            || live_public_blob != state.public_blob
+        {
+            return Err(AsymmetricError::Integrity(
+                "provider public key does not match registry".to_string(),
+            ));
+        }
+        let authorization_digest = authorization_message_digest(
+            domain_code,
+            required_role_mask,
+            subject_digest,
+            registry.head_digest(),
+            state.public_key_digest,
+            logical_timestamp,
+            key_id,
+            nonce,
+        )?;
+        let signature = provider.sign(provider_key_name, &authorization_digest)?;
+        if !provider.verify(&state.public_blob, &authorization_digest, &signature)? {
+            return Err(AsymmetricError::Integrity(
+                "provider authorization signature failed".to_string(),
+            ));
+        }
+        let event_id = authorization_event_id(authorization_digest, signature);
+        let event = AsymmetricAuthorization {
+            sequence: 0,
+            domain_code,
+            required_role_mask,
+            logical_timestamp,
+            key_id: key_id.to_string(),
+            nonce: nonce.to_string(),
+            subject_digest,
+            key_registry_head: registry.head_digest(),
+            public_key_digest: state.public_key_digest,
+            authorization_digest,
+            authorization_event_id: event_id,
+            signature,
+            previous_digest: [0; 32],
+            frame_digest: [0; 32],
+        };
+        let appended = self.append(event, registry)?;
+        Ok(AuthorizationReceipt {
+            changed: true,
+            sequence: appended.sequence,
+            key_id: appended.key_id,
+            authorization_digest: appended.authorization_digest,
+            authorization_event_id: appended.authorization_event_id,
+            frame_digest: appended.frame_digest,
+        })
+    }
+
     pub fn authorize(
         &mut self,
         registry: &AsymmetricKeyRegistry,

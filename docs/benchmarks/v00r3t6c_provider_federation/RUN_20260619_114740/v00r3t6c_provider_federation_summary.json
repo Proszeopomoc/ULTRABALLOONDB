@@ -1,0 +1,15 @@
+{
+  "version": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R06",
+  "status": "PASS_ULTRABALLOONDB_V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION",
+  "base_commit": "6ce6dd2",
+  "key_event_count": 8,
+  "authorization_event_count": 9,
+  "federation_event_count": 7,
+  "configured_active_authority_count": 2,
+  "accepted_bundle_version": 2,
+  "hardware_required_rejected": true,
+  "tpm_required_rejected": true,
+  "hardware_bound": false,
+  "tpm_used": false,
+  "next_gate": "V00R3P0_PROVENANCE_CORE"
+}

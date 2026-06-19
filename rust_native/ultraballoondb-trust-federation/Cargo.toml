@@ -1,0 +1,18 @@
+[package]
+name = "ultraballoondb-trust-federation"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB append-only enterprise policy federation core"
+
+[dependencies]
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust-asymmetric = { path = "../ultraballoondb-trust-asymmetric" }
+
+[lib]
+name = "ultraballoondb_trust_federation"
+path = "src/lib.rs"
+
+[[example]]
+name = "provider_federation_probe"
+path = "examples/provider_federation_probe.rs"

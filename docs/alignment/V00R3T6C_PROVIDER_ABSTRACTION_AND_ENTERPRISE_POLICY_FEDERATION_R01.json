@@ -1,0 +1,36 @@
+{
+  "version": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R01",
+  "base_commit": "6ce6dd2",
+  "previous_gate": "PASS_ULTRABALLOONDB_V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE",
+  "new_crate": "ultraballoondb-trust-federation",
+  "new_append_only_file": "enterprise-federation.ubfed",
+  "provider_abstraction": {
+    "software_cng_adapter": true,
+    "hardware_provider_contract": true,
+    "tpm_provider_contract": true,
+    "hardware_required_fails_closed_when_unavailable": true,
+    "tpm_required_fails_closed_when_unavailable": true,
+    "silent_software_fallback": false
+  },
+  "enterprise_federation": {
+    "namespace_policy": true,
+    "controller_authorization_reference": true,
+    "authority_enrollment_and_revocation": true,
+    "weighted_quorum": true,
+    "authorization_event_reuse_forbidden": true,
+    "bundle_parent_chain": true,
+    "historical_t6b_replay": true
+  },
+  "boundaries": {
+    "active_runtime_changed": false,
+    "database_cli_changed": false,
+    "storage_format_changed": false,
+    "wal_changed": false,
+    "lifecycle_changed": false,
+    "network_used_by_runtime": false,
+    "hardware_bound_claimed": false,
+    "tpm_used_claimed": false,
+    "private_key_bytes_persisted_by_ultraballoondb": false
+  },
+  "next_gate": "V00R3P0_PROVENANCE_CORE"
+}

@@ -1,6 +1,7 @@
 mod cng;
 mod cli;
 mod ledger;
+mod provider;
 mod registry;
 
 use std::fmt;
@@ -21,6 +22,11 @@ pub use ledger::{
     authorization_message_digest, AsymmetricAuthorization,
     AsymmetricAuthorizationLedger, AuthorizationReceipt,
 };
+pub use provider::{
+    enforce_provider_requirement, select_provider, ProviderCapabilities,
+    ProviderClass, ProviderRequirement, SigningProvider,
+    SoftwareCngProvider, UnavailableProvider,
+};
 pub use registry::{
     registry_event_subject_digest, AsymmetricKeyEvent,
     AsymmetricKeyEventKind, AsymmetricKeyRegistry,
@@ -28,7 +34,7 @@ pub use registry::{
 };
 
 pub const VERSION: &str =
-    "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE_R01";
+    "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R01";
 pub const COMMAND_SCHEMA: &str =
     "ultraballoondb.trust.asymmetric.command.v1";
 

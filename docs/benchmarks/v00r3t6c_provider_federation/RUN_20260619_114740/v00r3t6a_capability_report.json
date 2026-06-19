@@ -1,0 +1,198 @@
+{
+  "version": "V00R3T6A_ASYMMETRIC_PLATFORM_HARDWARE_CAPABILITY_INTAKE_READ_ONLY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3T6A_ASYMMETRIC_PLATFORM_HARDWARE_CAPABILITY_INTAKE_READ_ONLY",
+  "mode": "READ_ONLY_CAPABILITY_INTAKE",
+  "repo_root": "C:\\UltraBalloonDB",
+  "head": "34fcf2db409cc8111ffab8fa62f6b0af3db89368",
+  "short_head": "34fcf2d",
+  "origin_main": "34fcf2db409cc8111ffab8fa62f6b0af3db89368",
+  "repository_clean_before": true,
+  "repository_clean_after": true,
+  "t5_report": "C:\\UltraBalloonDB\\audit\\v00r3t5_enterprise_approval_expiry_audit\\RUN_20260619_000304\\v00r3t5_enterprise_approval_expiry_audit_report.json",
+  "t5_commit_receipt": "C:\\UltraBalloonDB\\audit\\v00r3t5_enterprise_approval_expiry_audit\\RUN_20260619_000304\\v00r3t5_results_commit_receipt.json",
+  "t5_commit": "34fcf2d",
+  "system": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "powershell_probe": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "\n[pscustomobject]@{\n    os = [System.Environment]::OSVersion.VersionString\n    os_architecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()\n    process_architecture = [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString()\n    framework = [System.Runtime.InteropServices.RuntimeInformation]::FrameworkDescription\n    powershell_version = $PSVersionTable.PSVersion.ToString()\n} | ConvertTo-Json -Compress\n"
+      ],
+      "returncode": 0,
+      "stdout": "{\"os\":\"Microsoft Windows NT 10.0.26200.0\",\"os_architecture\":\"X64\",\"process_architecture\":\"X64\",\"framework\":\".NET Framework 4.8.9325.0\",\"powershell_version\":\"5.1.26100.8655\"}\n",
+      "stderr": "",
+      "parsed": {
+        "os": "Microsoft Windows NT 10.0.26200.0",
+        "os_architecture": "X64",
+        "process_architecture": "X64",
+        "framework": ".NET Framework 4.8.9325.0",
+        "powershell_version": "5.1.26100.8655"
+      }
+    }
+  },
+  "tpm": {
+    "get_tpm": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "\n$command = Get-Command Get-Tpm -ErrorAction SilentlyContinue\nif ($null -eq $command) {\n    [pscustomobject]@{\n        command_available = $false\n        success = $false\n        error = \"Get-Tpm unavailable\"\n    } | ConvertTo-Json -Compress\n    exit 0\n}\ntry {\n    $value = Get-Tpm\n    [pscustomobject]@{\n        command_available = $true\n        success = $true\n        tpm_present = [bool]$value.TpmPresent\n        tpm_ready = [bool]$value.TpmReady\n        tpm_enabled = [bool]$value.TpmEnabled\n        tpm_activated = [bool]$value.TpmActivated\n        tpm_owned = [bool]$value.TpmOwned\n        restart_pending = [bool]$value.RestartPending\n        manufacturer_id = [string]$value.ManufacturerIdTxt\n        manufacturer_version = [string]$value.ManufacturerVersion\n        auto_provisioning = [string]$value.AutoProvisioning\n    } | ConvertTo-Json -Compress\n} catch {\n    [pscustomobject]@{\n        command_available = $true\n        success = $false\n        error = $_.Exception.Message\n    } | ConvertTo-Json -Compress\n}\n"
+      ],
+      "returncode": 0,
+      "stdout": "{\"command_available\":true,\"success\":true,\"tpm_present\":false,\"tpm_ready\":false,\"tpm_enabled\":false,\"tpm_activated\":false,\"tpm_owned\":false,\"restart_pending\":false,\"manufacturer_id\":\"\",\"manufacturer_version\":\"\",\"auto_provisioning\":\"\"}\n",
+      "stderr": "",
+      "parsed": {
+        "command_available": true,
+        "success": true,
+        "tpm_present": false,
+        "tpm_ready": false,
+        "tpm_enabled": false,
+        "tpm_activated": false,
+        "tpm_owned": false,
+        "restart_pending": false,
+        "manufacturer_id": "",
+        "manufacturer_version": "",
+        "auto_provisioning": ""
+      }
+    },
+    "cim": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "\ntry {\n    $values = @(\n        Get-CimInstance `\n            -Namespace \"root/CIMV2/Security/MicrosoftTpm\" `\n            -ClassName \"Win32_Tpm\" `\n            -ErrorAction Stop |\n        ForEach-Object {\n            [pscustomobject]@{\n                manufacturer_id = [string]$_.ManufacturerId\n                manufacturer_version = [string]$_.ManufacturerVersion\n                spec_version = [string]$_.SpecVersion\n                is_enabled_initial = [bool]$_.IsEnabled_InitialValue\n                is_activated_initial = [bool]$_.IsActivated_InitialValue\n                is_owned_initial = [bool]$_.IsOwned_InitialValue\n            }\n        }\n    )\n    [pscustomobject]@{\n        success = $true\n        count = $values.Count\n        values = $values\n    } | ConvertTo-Json -Depth 6 -Compress\n} catch {\n    [pscustomobject]@{\n        success = $false\n        count = 0\n        values = @()\n        error = $_.Exception.Message\n    } | ConvertTo-Json -Depth 4 -Compress\n}\n"
+      ],
+      "returncode": 0,
+      "stdout": "{\"success\":false,\"count\":0,\"values\":[],\"error\":\"Access denied \"}\n",
+      "stderr": "",
+      "parsed": {
+        "success": false,
+        "count": 0,
+        "values": [],
+        "error": "Access denied "
+      }
+    },
+    "ready": false
+  },
+  "crypto": {
+    "ncrypt_bcrypt_probe": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "\n$ErrorActionPreference = \"Stop\"\n$source = @\"\nusing System;\nusing System.Runtime.InteropServices;\n\npublic static class UbdbCryptoProbe\n{\n    [DllImport(\"ncrypt.dll\", CharSet = CharSet.Unicode)]\n    public static extern int NCryptOpenStorageProvider(\n        out IntPtr phProvider,\n        string pszProviderName,\n        uint dwFlags\n    );\n\n    [DllImport(\"ncrypt.dll\")]\n    public static extern int NCryptFreeObject(IntPtr hObject);\n\n    [DllImport(\"bcrypt.dll\", CharSet = CharSet.Unicode)]\n    public static extern int BCryptOpenAlgorithmProvider(\n        out IntPtr phAlgorithm,\n        string pszAlgId,\n        string pszImplementation,\n        uint dwFlags\n    );\n\n    [DllImport(\"bcrypt.dll\")]\n    public static extern int BCryptCloseAlgorithmProvider(\n        IntPtr hAlgorithm,\n        uint dwFlags\n    );\n}\n\"@\nAdd-Type -TypeDefinition $source -Language CSharp\n\n$providers = @(\n    \"Microsoft Software Key Storage Provider\",\n    \"Microsoft Platform Crypto Provider\",\n    \"Microsoft Smart Card Key Storage Provider\"\n)\n\n$providerResults = foreach ($name in $providers) {\n    $handle = [IntPtr]::Zero\n    $status = [UbdbCryptoProbe]::NCryptOpenStorageProvider(\n        [ref]$handle,\n        $name,\n        0\n    )\n    if ($handle -ne [IntPtr]::Zero) {\n        [void][UbdbCryptoProbe]::NCryptFreeObject($handle)\n    }\n    [pscustomobject]@{\n        name = $name\n        status = $status\n        available = ($status -eq 0)\n    }\n}\n\n$algorithms = @(\"ECDSA_P256\", \"ECDH_P256\", \"SHA256\")\n$algorithmResults = foreach ($name in $algorithms) {\n    $handle = [IntPtr]::Zero\n    $status = [UbdbCryptoProbe]::BCryptOpenAlgorithmProvider(\n        [ref]$handle,\n        $name,\n        $null,\n        0\n    )\n    if ($handle -ne [IntPtr]::Zero) {\n        [void][UbdbCryptoProbe]::BCryptCloseAlgorithmProvider(\n            $handle,\n            0\n        )\n    }\n    [pscustomobject]@{\n        name = $name\n        status = $status\n        available = ($status -eq 0)\n    }\n}\n\n[pscustomobject]@{\n    providers = @($providerResults)\n    algorithms = @($algorithmResults)\n    private_key_created = $false\n    private_key_opened = $false\n} | ConvertTo-Json -Depth 6 -Compress\n"
+      ],
+      "returncode": 0,
+      "stdout": "{\"providers\":[{\"name\":\"Microsoft Software Key Storage Provider\",\"status\":0,\"available\":true},{\"name\":\"Microsoft Platform Crypto Provider\",\"status\":0,\"available\":true},{\"name\":\"Microsoft Smart Card Key Storage Provider\",\"status\":0,\"available\":true}],\"algorithms\":[{\"name\":\"ECDSA_P256\",\"status\":0,\"available\":true},{\"name\":\"ECDH_P256\",\"status\":0,\"available\":true},{\"name\":\"SHA256\",\"status\":0,\"available\":true}],\"private_key_created\":false,\"private_key_opened\":false}\n",
+      "stderr": "",
+      "parsed": {
+        "providers": [
+          {
+            "name": "Microsoft Software Key Storage Provider",
+            "status": 0,
+            "available": true
+          },
+          {
+            "name": "Microsoft Platform Crypto Provider",
+            "status": 0,
+            "available": true
+          },
+          {
+            "name": "Microsoft Smart Card Key Storage Provider",
+            "status": 0,
+            "available": true
+          }
+        ],
+        "algorithms": [
+          {
+            "name": "ECDSA_P256",
+            "status": 0,
+            "available": true
+          },
+          {
+            "name": "ECDH_P256",
+            "status": 0,
+            "available": true
+          },
+          {
+            "name": "SHA256",
+            "status": 0,
+            "available": true
+          }
+        ],
+        "private_key_created": false,
+        "private_key_opened": false
+      }
+    },
+    "certutil_csplist": {
+      "command": [
+        "certutil.exe",
+        "-csplist"
+      ],
+      "returncode": 2147500033,
+      "stdout": "Provider Name: Microsoft Base Cryptographic Provider v1.0\nProvider Type: 1 - PROV_RSA_FULL\n\nProvider Name: Microsoft Base DSS and Diffie-Hellman Cryptographic Provider\nProvider Type: 13 - PROV_DSS_DH\n\nProvider Name: Microsoft Base DSS Cryptographic Provider\nProvider Type: 3 - PROV_DSS\n\nProvider Name: Microsoft Base Smart Card Crypto Provider\nProvider Type: 1 - PROV_RSA_FULL\n\nProvider Name: Microsoft DH SChannel Cryptographic Provider\nProvider Type: 18 - PROV_DH_SCHANNEL\n\nProvider Name: Microsoft Enhanced Cryptographic Provider v1.0\nProvider Type: 1 - PROV_RSA_FULL\n\nProvider Name: Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider\nProvider Type: 13 - PROV_DSS_DH\n\nProvider Name: Microsoft Enhanced RSA and AES Cryptographic Provider\nProvider Type: 24 - PROV_RSA_AES\n\nProvider Name: Microsoft RSA SChannel Cryptographic Provider\nProvider Type: 12 - PROV_RSA_SCHANNEL\n\nProvider Name: Microsoft Strong Cryptographic Provider\nProvider Type: 1 - PROV_RSA_FULL\n\nProvider Name: Microsoft Software Key Storage Provider\n\nProvider Name: Microsoft Passport Key Storage Provider\n\nProvider Name: Microsoft Platform Crypto Provider\n\nProvider Name: Microsoft Pluton Cryptographic Provider\nMicrosoft Pluton Cryptographic Provider: Nie zaimplementowano.\n\nProvider Name: Microsoft Smart Card Key Storage Provider\nCertUtil: -csplist command FAILED: 0x80004001 (-2147467263 E_NOTIMPL)\nCertUtil: Nie zaimplementowano.\n",
+      "stderr": ""
+    },
+    "software_provider_ready": true,
+    "platform_provider_ready": false,
+    "private_key_created": false,
+    "private_key_opened": false
+  },
+  "rust": {
+    "rustc": {
+      "command": [
+        "rustc",
+        "-vV"
+      ],
+      "returncode": 0,
+      "stdout": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: x86_64-pc-windows-msvc\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "stderr": ""
+    },
+    "cargo": {
+      "command": [
+        "cargo",
+        "-vV"
+      ],
+      "returncode": 0,
+      "stdout": "cargo 1.96.0 (30a34c682 2026-05-25)\nrelease: 1.96.0\ncommit-hash: 30a34c6821b57de0aaec83a901aca39f88f6778c\ncommit-date: 2026-05-25\nhost: x86_64-pc-windows-msvc\nlibgit2: 1.9.2 (sys:0.20.4 vendored)\nlibcurl: 8.19.0-DEV (sys:0.4.87+curl-8.19.0 vendored ssl:Schannel)\nos: Windows 10.0.26200 (Windows 11 Professional) [64-bit]\n",
+      "stderr": ""
+    },
+    "installed_targets": {
+      "command": [
+        "rustup",
+        "target",
+        "list",
+        "--installed"
+      ],
+      "returncode": 0,
+      "stdout": "x86_64-pc-windows-msvc\n",
+      "stderr": ""
+    }
+  },
+  "source_manifest": "C:\\UltraBalloonDB\\audit\\v00r3t6a_asymmetric_hardware_capability_intake\\RUN_20260619_002227\\source_manifest.json",
+  "source_count": 18,
+  "provider_decision": "WINDOWS_CNG_SOFTWARE_READY_TPM_UNAVAILABLE",
+  "next_gate": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE",
+  "writes_repository": false,
+  "writes_runtime": false,
+  "creates_keys": false,
+  "opens_private_keys": false,
+  "modifies_database": false,
+  "modifies_trust_ledgers": false,
+  "commit": false,
+  "push": false,
+  "evidence_zip": "C:\\UltraBalloonDB\\audit\\v00r3t6a_asymmetric_hardware_capability_intake\\RUN_20260619_002227\\V00R3T6A_EVIDENCE_RUN_20260619_002227.zip",
+  "evidence_zip_sha256": "94C36380ED744A0215AE08CB972218818E82827669C9C35EA91A653FB8644BC1"
+}

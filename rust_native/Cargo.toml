@@ -12,6 +12,7 @@ members = [
     "ultraballoondb-trust-auth",
     "ultraballoondb-trust-enterprise",
     "ultraballoondb-trust-asymmetric",
+    "ultraballoondb-trust-federation",
     "ultraballoondb-wal",
     "ultraballoondb_rust_core",
 ]

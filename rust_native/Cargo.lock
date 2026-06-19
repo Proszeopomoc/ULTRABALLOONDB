@@ -50,12 +50,30 @@ dependencies = [
  "ultraballoondb-storage",
 ]
 
+
 [[package]]
 name = "ultraballoondb-trust-asymmetric"
 version = "0.0.3"
 dependencies = [
  "ultraballoondb-storage",
  "ultraballoondb-trust-auth",
+]
+
+[[package]]
+name = "ultraballoondb-trust-federation"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-storage",
+ "ultraballoondb-trust-asymmetric",
+]
+
+[[package]]
+name = "ultraballoondb-trust-commit"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-lifecycle",
+ "ultraballoondb-storage",
+ "ultraballoondb-trust",
 ]
 
 [[package]]
@@ -68,14 +86,6 @@ dependencies = [
  "ultraballoondb-trust-commit",
 ]
 
-[[package]]
-name = "ultraballoondb-trust-commit"
-version = "0.0.3"
-dependencies = [
- "ultraballoondb-lifecycle",
- "ultraballoondb-storage",
- "ultraballoondb-trust",
-]
 
 [[package]]
 name = "ultraballoondb-trust-enterprise"
