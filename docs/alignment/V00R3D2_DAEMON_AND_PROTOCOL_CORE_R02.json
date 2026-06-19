@@ -1,0 +1,39 @@
+{
+  "milestone": "V00R3D2_DAEMON_AND_PROTOCOL_CORE_R02",
+  "purpose": "Bounded loopback-first daemon and deterministic binary protocol core",
+  "base_gate": "resolved exact C1 commit receipt plus HEAD==origin/main",
+  "new_crate": "ultraballoondb-daemon",
+  "protocol_version": 1,
+  "request_kinds": [
+    "HELLO",
+    "PING",
+    "HEALTH",
+    "CAPABILITIES",
+    "READ",
+    "WRITE",
+    "CLOSE"
+  ],
+  "hard_guards": [
+    "loopback_only_default",
+    "hello_first",
+    "strict_increasing_request_id",
+    "bounded_frame",
+    "bounded_connection_budget",
+    "digest_validation",
+    "reserved_zero",
+    "unknown_kind_rejected"
+  ],
+  "active_runtime_changed": false,
+  "database_cli_changed": false,
+  "storage_format_changed": false,
+  "wal_changed": false,
+  "lifecycle_changed": false,
+  "production_service_installed": false,
+  "next_gate": "V00R3D3_C_ABI",
+  "targeted_fix": [
+    "separate_prehello_fail_closed_test_session",
+    "ready_session_request_id_monotonicity_test",
+    "windows_json_path_escaping_in_probe"
+  ],
+  "protocol_state_machine_changed": false
+}

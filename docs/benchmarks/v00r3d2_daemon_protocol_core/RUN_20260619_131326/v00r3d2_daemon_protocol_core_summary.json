@@ -1,0 +1,13 @@
+{
+  "version": "V00R3D2_DAEMON_AND_PROTOCOL_CORE_R02",
+  "status": "PASS_ULTRABALLOONDB_V00R3D2_DAEMON_AND_PROTOCOL_CORE",
+  "resolved_base_commit": "1fba5c70891fbcb2065ad27c0f799968b74a711d",
+  "protocol_version": 1,
+  "transcript_record_count": 14,
+  "request_count": 7,
+  "read_count": 1,
+  "write_count": 1,
+  "loopback_only": true,
+  "production_service_installed": false,
+  "next_gate": "V00R3D3_C_ABI"
+}

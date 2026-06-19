@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "record_count": 14,
+  "alternating_request_response": true,
+  "request_ids_strict": true,
+  "kinds_match": true,
+  "loopback_only": true,
+  "production_service_installed": false,
+  "transcript_sha256": "B62B864E58F2E104A6C8E36232255E49A6E23EF0105FCEAFE47825971CC7725B"
+}

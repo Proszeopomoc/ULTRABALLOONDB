@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "protocol_version": 1,
+  "loopback_only": true,
+  "loopback_connection_succeeded": true,
+  "production_service_installed": false,
+  "active_runtime_changed": false,
+  "protocol_sequence_ok": true,
+  "strict_request_id_monotonicity": true,
+  "hello_required": true,
+  "tamper_rejected": true,
+  "oversized_frame_rejected": true,
+  "non_loopback_bind_rejected": true,
+  "request_count": 7,
+  "read_count": 1,
+  "write_count": 1,
+  "transcript_file": "C:\\UltraBalloonDB\\audit\\v00r3d2_daemon_protocol_core\\RUN_20260619_131326\\probe_state\\daemon-protocol-transcript.ubdtr"
+}

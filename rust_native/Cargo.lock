@@ -3,6 +3,13 @@
 version = 4
 
 [[package]]
+name = "ultraballoondb-daemon"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-storage",
+]
+
+[[package]]
 name = "ultraballoondb-backup"
 version = "0.0.3"
 dependencies = [
