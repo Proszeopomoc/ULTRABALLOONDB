@@ -1,0 +1,15 @@
+{
+  "artifact_count": 28,
+  "checksums_verified": true,
+  "exact_file_set_verified": true,
+  "manifest_verified": true,
+  "pass": true,
+  "production_ready": false,
+  "release_sha256": "5C35081C44AD24219F640FF4B0BBA054711E28CF71B4FB9BD16CBB69D1514821",
+  "release_size_bytes": 5209669,
+  "release_zip": "C:\\UltraBalloonDB\\docs\\releases\\v00r3g1\\RUN_20260619_150326\\UltraBalloonDB-0.0.3-windows-x86_64-pre1.zip",
+  "signed": false,
+  "symlinks_absent": true,
+  "unsafe_paths_absent": true,
+  "version": "V00R3G1_RELEASE_PACKAGING_R01"
+}

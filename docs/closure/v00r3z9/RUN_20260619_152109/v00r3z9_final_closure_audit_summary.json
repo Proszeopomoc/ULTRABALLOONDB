@@ -1,0 +1,11 @@
+{
+  "closure_class": "ENGINEERING_PRE_RELEASE_CLOSED",
+  "critical_milestones_passed": 22,
+  "hardware_bound": false,
+  "next_gate": "NONE_V00R3_PRE_RELEASE_CLOSED",
+  "production_ready": false,
+  "release_sha256": "5C35081C44AD24219F640FF4B0BBA054711E28CF71B4FB9BD16CBB69D1514821",
+  "signed": false,
+  "source_head": "448ffc93face12d8be26d7fe1272c649c733bf42",
+  "status": "PASS_ULTRABALLOONDB_V00R3Z9_FINAL_CLOSURE_AUDIT"
+}

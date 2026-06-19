@@ -1,0 +1,329 @@
+{
+  "critical_milestone_count": 22,
+  "entries": [
+    {
+      "alignment_milestone": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE_R01",
+      "alignment_path": "docs/alignment/V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_FREEZE_R01.json",
+      "alignment_sha256": "F2CC9EF4E7C306FA31F9CB7E168941FEB12E06DCF21BEC593D52ED65C098FDF2",
+      "dimension": "canonical_lifecycle_freeze",
+      "id": "V00R3B0",
+      "report_path": "docs/architecture/freezes/v00r3b0/RUN_20260618_153956/v00r3b0_canonical_rust_lifecycle_freeze_report.json",
+      "report_sha256": "56A468920488305889E13DBCB44B9A18C6FEE2543F977C9D4941358F793B0D46",
+      "status": "PASS_ULTRABALLOONDB_V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE",
+      "version": "V00R3B0_CANONICAL_RUST_DATABASE_LIFECYCLE_ARCHITECTURE_AND_COMPATIBILITY_FREEZE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY_R01",
+      "alignment_path": "docs/alignment/V00R3B1_RUST_STORAGE_PAGE_STORE_INTEGRITY_R01.json",
+      "alignment_sha256": "D3371FD5B00317E7E2A57DC45992C51A6071EFFDC907D250582C8636E4F8A93D",
+      "dimension": "storage_integrity",
+      "id": "V00R3B1",
+      "report_path": "docs/benchmarks/v00r3b1_rust_storage_page_store_integrity/RUN_20260618_161233/v00r3b1_rust_storage_page_store_integrity_report.json",
+      "report_sha256": "5D4D8CF909A5FF409D3B85E89640F8578E38EA0EA64430275D7E987D7E1F4A77",
+      "status": "PASS_ULTRABALLOONDB_V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY",
+      "version": "V00R3B1_RUST_STORAGE_FORMAT_PAGE_STORE_AND_INTEGRITY_R03"
+    },
+    {
+      "alignment_milestone": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE_R01",
+      "alignment_path": "docs/alignment/V00R3B2_RUST_WRITE_BATCH_TRANSACTION_CORE_R01.json",
+      "alignment_sha256": "5834B2F42743C572B8A0D552E984BB3FC0DC24E4C82E933CC6B3903DA3210E77",
+      "dimension": "transactions",
+      "id": "V00R3B2",
+      "report_path": "docs/benchmarks/v00r3b2_rust_write_batch_transaction_core/RUN_20260618_164237/v00r3b2_rust_write_batch_transaction_core_report.json",
+      "report_sha256": "C13D7392B77B51C3B1EF6BE244920BD4DB370B9B0C8B185997D11824171FA5C2",
+      "status": "PASS_ULTRABALLOONDB_V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE",
+      "version": "V00R3B2_RUST_WRITE_BATCH_AND_TRANSACTION_CORE_R02"
+    },
+    {
+      "alignment_milestone": "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE_R01",
+      "alignment_path": "docs/alignment/V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_R01.json",
+      "alignment_sha256": "1FB85A2C0DB082A9478C9790D09E8A30468B2E2349D728553876A0065AE1D635",
+      "dimension": "wal_checkpoint_recovery",
+      "id": "V00R3B3",
+      "report_path": "docs/benchmarks/v00r3b3_rust_wal_checkpoint_recovery/RUN_20260618_170415/v00r3b3_rust_wal_checkpoint_recovery_report.json",
+      "report_sha256": "89ACEBC2A77A53B42DF75E223B757DF67B542B0421B7257C3EE1A291B045140A",
+      "status": "PASS_ULTRABALLOONDB_V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE",
+      "version": "V00R3B3_RUST_WAL_CHECKPOINT_RECOVERY_TARGET_STATE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE_R01",
+      "alignment_path": "docs/alignment/V00R3B4_CRASH_CONSISTENCY_FORMAT_COMPATIBILITY_R01.json",
+      "alignment_sha256": "BA905BD77498A5CCD67F0C93D000375B32BD771985F4EE675D2AAC603F355E8A",
+      "dimension": "crash_consistency_compatibility",
+      "id": "V00R3B4",
+      "report_path": "docs/benchmarks/v00r3b4_crash_consistency_format_compatibility/RUN_20260618_171525/v00r3b4_crash_consistency_format_compatibility_report.json",
+      "report_sha256": "67BE41E3B85E9B55F89418FE87BF1847D4A68CC4852180A1462F70DC53072538",
+      "status": "PASS_ULTRABALLOONDB_V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE",
+      "version": "V00R3B4_CRASH_CONSISTENCY_AND_FORMAT_COMPATIBILITY_SUITE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY_R01",
+      "alignment_path": "docs/alignment/V00R3B5_PYTHON_V00N_TO_RUST_MIGRATION_PARITY_R01.json",
+      "alignment_sha256": "D8744F2A80DA157BABC9BC8C687A97686C440D80F839BFC5CF854783D04CC76C",
+      "dimension": "python_migration_parity",
+      "id": "V00R3B5",
+      "report_path": "docs/benchmarks/v00r3b5_python_v00n_to_rust_migration_parity/RUN_20260618_173238/v00r3b5_python_v00n_to_rust_migration_parity_report.json",
+      "report_sha256": "975690E10E5118C0113B15F716C7E59DFD099B0000DA3864D880E533DF279135",
+      "status": "PASS_ULTRABALLOONDB_V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY",
+      "version": "V00R3B5_PYTHON_V00N_TO_CANONICAL_RUST_MIGRATION_PARITY_R01"
+    },
+    {
+      "alignment_milestone": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05",
+      "alignment_path": "docs/alignment/V00R3B6_NATIVE_EDITION_A_OFFLINE_COMMAND_SURFACE_R05.json",
+      "alignment_sha256": "1F3AA626D5A839A3E6A51060055E87910772C78A4DD075AA4638C43D6714A3A7",
+      "dimension": "native_edition_a",
+      "id": "V00R3B6",
+      "report_path": "docs/benchmarks/v00r3b6_native_edition_a_offline_command_surface/RUN_20260618_194437/v00r3b6_native_edition_a_offline_command_surface_report.json",
+      "report_sha256": "25372929E99912B1FB307959285C75F77A1FB107E06434EE39ABEE151C169EEE",
+      "status": "PASS_ULTRABALLOONDB_V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE",
+      "version": "V00R3B6_NATIVE_EDITION_A_OFFLINE_DATABASE_COMMAND_SURFACE_R05"
+    },
+    {
+      "alignment_milestone": "V00R3X0_PRODUCT_IDENTITY_TRUST_CORE_AND_REPOSITORY_ARCHITECTURE_FREEZE_R02",
+      "alignment_path": "docs/alignment/V00R3X0_PRODUCT_IDENTITY_TRUST_ARCHITECTURE_FREEZE_R02.json",
+      "alignment_sha256": "B6C13A3E868C9F585C9AC437766ED1CBD326952F33A752793670EB4662ABAF93",
+      "dimension": "product_identity_trust_freeze",
+      "id": "V00R3X0",
+      "report_path": "docs/benchmarks/v00r3x0_product_identity_trust_architecture_freeze/RUN_20260618_123223/v00r3x0_product_identity_trust_architecture_freeze_report.json",
+      "report_sha256": "D52CBD97802AEE2693F4368A2ABBFFD5004607D555A068505D2EA3C5E7B33970",
+      "status": "PASS_ULTRABALLOONDB_V00R3X0_PRODUCT_IDENTITY_TRUST_CORE_AND_REPOSITORY_ARCHITECTURE_FREEZE",
+      "version": "V00R3X0_PRODUCT_IDENTITY_TRUST_CORE_AND_REPOSITORY_ARCHITECTURE_FREEZE_R02"
+    },
+    {
+      "alignment_milestone": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER_R01",
+      "alignment_path": "docs/alignment/V00R3T1_RUST_TRUST_CORE_APPEND_ONLY_LEDGER_R01.json",
+      "alignment_sha256": "36DD88BCA206F04862760D3A9A5E7AA6AD1E5664EDCA084FC2A8D68C492F84B6",
+      "dimension": "trust_ledger",
+      "id": "V00R3T1",
+      "report_path": "docs/benchmarks/v00r3t1_rust_trust_core_transition_ledger/RUN_20260618_195818/v00r3t1_rust_trust_core_transition_ledger_report.json",
+      "report_sha256": "1386ACC0E7488C0DE73CBB957CB27DE06AD8FCF4FEDB7900A88FB132F60B0D67",
+      "status": "PASS_ULTRABALLOONDB_V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER",
+      "version": "V00R3T1_RUST_TRUST_CORE_AND_APPEND_ONLY_TRANSITION_LEDGER_R01"
+    },
+    {
+      "alignment_milestone": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT_R03",
+      "alignment_path": "docs/alignment/V00R3T2_TRUST_RECORD_BINDING_POLICY_COCOMMIT_R03.json",
+      "alignment_sha256": "B29783F848B14A11DA53C73C8E7407C4253AEAF1769595C43F2E8D4A48F4BFA3",
+      "dimension": "trust_record_binding_cocommit",
+      "id": "V00R3T2",
+      "report_path": "docs/benchmarks/v00r3t2_trust_record_binding_policy_cocommit/RUN_20260618_220730/v00r3t2_trust_record_binding_policy_cocommit_report.json",
+      "report_sha256": "6324E620A82AE21DCD20BDB993D16F7A16D503297C980CA1BD81B9CC4D2D1E79",
+      "status": "PASS_ULTRABALLOONDB_V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT",
+      "version": "V00R3T2_TRUST_RECORD_BINDING_POLICY_REGISTRY_AND_TRANSACTIONAL_COMMIT_R03"
+    },
+    {
+      "alignment_milestone": "V00R3T3_TRUST_POLICY_AUTHORIZATION_SIGNATURES_AND_CLI_SURFACE_R01",
+      "alignment_path": "docs/alignment/V00R3T3_TRUST_AUTHORIZATION_SIGNATURES_CLI_R01.json",
+      "alignment_sha256": "862C4429AC281E313BE2146B18607DA607C062C56737886BA06C9C8F80A6D170",
+      "dimension": "trust_authorization_cli",
+      "id": "V00R3T3",
+      "report_path": "docs/benchmarks/v00r3t3_trust_authorization_signatures_cli/RUN_20260618_222932/v00r3t3_trust_authorization_signatures_cli_report.json",
+      "report_sha256": "F6BCB330620F82A9F7E70F5EDB0E3B591D25057C4122046BE6943EC4BF61C333",
+      "status": "PASS_ULTRABALLOONDB_V00R3T3_TRUST_POLICY_AUTHORIZATION_SIGNATURES_AND_CLI_SURFACE",
+      "version": "V00R3T3_TRUST_POLICY_AUTHORIZATION_SIGNATURES_AND_CLI_SURFACE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3T4_TRUST_KEY_ROTATION_POLICY_REVOCATION_AND_OFFLINE_AUDIT_EXPORT_R01",
+      "alignment_path": "docs/alignment/V00R3T4_TRUST_GOVERNANCE_ROTATION_REVOCATION_AUDIT_R01.json",
+      "alignment_sha256": "3607CFF767FA152ECCCFF7B9225B38546DB8AD8BF8FAA5FD42C0B5E78D6E7810",
+      "dimension": "trust_governance_audit",
+      "id": "V00R3T4",
+      "report_path": "docs/benchmarks/v00r3t4_trust_governance_rotation_revocation_audit/RUN_20260618_230721/v00r3t4_trust_governance_rotation_revocation_audit_report.json",
+      "report_sha256": "19B6F9C7D45BED4327E14255FDE75C01990BA310CD3ADE78B5C7C0076613EF3E",
+      "status": "PASS_ULTRABALLOONDB_V00R3T4_TRUST_KEY_ROTATION_POLICY_REVOCATION_AND_OFFLINE_AUDIT_EXPORT",
+      "version": "V00R3T4_TRUST_KEY_ROTATION_POLICY_REVOCATION_AND_OFFLINE_AUDIT_EXPORT_R01"
+    },
+    {
+      "alignment_milestone": "V00R3T5_TRUST_MULTI_PARTY_APPROVAL_EXPIRY_AND_ENTERPRISE_AUDIT_PROFILE_R01",
+      "alignment_path": "docs/alignment/V00R3T5_ENTERPRISE_APPROVAL_EXPIRY_AUDIT_PROFILE_R01.json",
+      "alignment_sha256": "4ED2940096B063584D26C751DE85342DA79482A1531DBFE7C4272DDADF297E50",
+      "dimension": "enterprise_approval_profile",
+      "id": "V00R3T5",
+      "report_path": "docs/benchmarks/v00r3t5_enterprise_approval_expiry_audit/RUN_20260619_000304/v00r3t5_enterprise_approval_expiry_audit_report.json",
+      "report_sha256": "BF54CFBA785DABAB2DCAEED10C027498835BA0A5CB0CA9927E4C74F90695B228",
+      "status": "PASS_ULTRABALLOONDB_V00R3T5_TRUST_MULTI_PARTY_APPROVAL_EXPIRY_AND_ENTERPRISE_AUDIT_PROFILE",
+      "version": "V00R3T5_TRUST_MULTI_PARTY_APPROVAL_EXPIRY_AND_ENTERPRISE_AUDIT_PROFILE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE_R01",
+      "alignment_path": "docs/alignment/V00R3T6B_ASYMMETRIC_SOFTWARE_CNG_SIGNATURE_CORE_R01.json",
+      "alignment_sha256": "3106403908F91F412941359483E3724B82FBA65E62940155048148ECB30B71B8",
+      "dimension": "software_cng_asymmetric",
+      "id": "V00R3T6B",
+      "report_path": "docs/benchmarks/v00r3t6b_asymmetric_software_cng/RUN_20260619_091907/v00r3t6b_asymmetric_software_cng_report.json",
+      "report_sha256": "3F73AC9DD0443E8D52DC27AC3AB68D0A0C48A672ADBA5DB6B660B7D5133A35F6",
+      "status": "PASS_ULTRABALLOONDB_V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE",
+      "version": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R01",
+      "alignment_path": "docs/alignment/V00R3T6C_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R01.json",
+      "alignment_sha256": "178928FFFA3B6C21E6FE2385638591E1F74EA65C9891D49C061127A5C66490A5",
+      "dimension": "provider_abstraction_federation",
+      "id": "V00R3T6C",
+      "report_path": "docs/benchmarks/v00r3t6c_provider_federation/RUN_20260619_114740/v00r3t6c_provider_federation_report.json",
+      "report_sha256": "A6E356B60DF47FB4138E0EF3AF4DB487C27215F30317D196D30A2E09399BF0BC",
+      "status": "PASS_ULTRABALLOONDB_V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION",
+      "version": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION_R06"
+    },
+    {
+      "alignment_milestone": "V00R3P0_PROVENANCE_CORE_R01",
+      "alignment_path": "docs/alignment/V00R3P0_PROVENANCE_CORE_R01.json",
+      "alignment_sha256": "FC61476895BFCDCB1A70DEB97A97D1941ADCDA8A59E4811430AA0D6279920E78",
+      "dimension": "provenance",
+      "id": "V00R3P0",
+      "report_path": "docs/benchmarks/v00r3p0_provenance_core/RUN_20260619_122743/v00r3p0_provenance_core_report.json",
+      "report_sha256": "D42306E541442C94371A0FD5DF2D7BCBF60F2DCB966D2B47B88E07ACDEE359AF",
+      "status": "PASS_ULTRABALLOONDB_V00R3P0_PROVENANCE_CORE",
+      "version": "V00R3P0_PROVENANCE_CORE_R01"
+    },
+    {
+      "alignment_milestone": "V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN_R01",
+      "alignment_path": "docs/alignment/V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN_R01.json",
+      "alignment_sha256": "D2F15A8C2007FEE784C3DB77975133D52FA34D03B170B56ACEAB91D3598AFFFE",
+      "dimension": "backup_restore_upgrade_dry_run",
+      "id": "V00R3C1",
+      "report_path": "docs/benchmarks/v00r3c1_backup_restore_upgrade_dry_run/RUN_20260619_125730/v00r3c1_backup_restore_upgrade_dry_run_report.json",
+      "report_sha256": "91E18A5D37C7E62021FF18A85AD8083ADBC60319AD9443887F4BEBA98CFB6525",
+      "status": "PASS_ULTRABALLOONDB_V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN",
+      "version": "V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN_R02"
+    },
+    {
+      "alignment_milestone": "V00R3D2_DAEMON_AND_PROTOCOL_CORE_R02",
+      "alignment_path": "docs/alignment/V00R3D2_DAEMON_AND_PROTOCOL_CORE_R02.json",
+      "alignment_sha256": "C1E1BD675ACB289E15CCB171820B62A9C2F24B2AD59B45AA523A5D0A60E1E62A",
+      "dimension": "daemon_protocol_core",
+      "id": "V00R3D2",
+      "report_path": "docs/benchmarks/v00r3d2_daemon_protocol_core/RUN_20260619_131326/v00r3d2_daemon_protocol_core_report.json",
+      "report_sha256": "E3749A5DEEB0723E0BF635A59D987FD3918E362EBC735355B0F9AA15CCE0985D",
+      "status": "PASS_ULTRABALLOONDB_V00R3D2_DAEMON_AND_PROTOCOL_CORE",
+      "version": "V00R3D2_DAEMON_AND_PROTOCOL_CORE_R02"
+    },
+    {
+      "alignment_milestone": "V00R3D3_C_ABI_R02",
+      "alignment_path": "docs/alignment/V00R3D3_C_ABI_R02.json",
+      "alignment_sha256": "7429D80433B08DA76AF4C5C9DC6C3F071EDB3575EA89DD9A926897A296814B6C",
+      "dimension": "c_abi",
+      "id": "V00R3D3",
+      "report_path": "docs/benchmarks/v00r3d3_c_abi/RUN_20260619_133956/v00r3d3_c_abi_report.json",
+      "report_sha256": "3A7DCE1F14EE5C309FD0FAD7CB5AABB5307D906D090A0305040CFF754DE6D40E",
+      "status": "PASS_ULTRABALLOONDB_V00R3D3_C_ABI",
+      "version": "V00R3D3_C_ABI_R02"
+    },
+    {
+      "alignment_milestone": "V00R3D4_PYO3_R01",
+      "alignment_path": "docs/alignment/V00R3D4_PYO3_R01.json",
+      "alignment_sha256": "56FE95B4559753CFEA234179F6418D762B34624AAD5669E121A0092817A2E310",
+      "dimension": "pyo3",
+      "id": "V00R3D4",
+      "report_path": "docs/benchmarks/v00r3d4_pyo3/RUN_20260619_135515/v00r3d4_pyo3_report.json",
+      "report_sha256": "A5D9F04275DF06166FBC5F92BCDCCA4E06B70C381DF68E9681D107CD718226B2",
+      "status": "PASS_ULTRABALLOONDB_V00R3D4_PYO3",
+      "version": "V00R3D4_PYO3_R01"
+    },
+    {
+      "alignment_milestone": "V00R3E1_OBSERVABILITY_AND_SECURITY_R01",
+      "alignment_path": "docs/alignment/V00R3E1_OBSERVABILITY_AND_SECURITY_R01.json",
+      "alignment_sha256": "EC6C90B310D3235E3C54469EAD92654F7252E5365F526D86CA5A4725D1481194",
+      "dimension": "observability_security",
+      "id": "V00R3E1",
+      "report_path": "docs/benchmarks/v00r3e1_observability_security/RUN_20260619_141837/v00r3e1_observability_security_report.json",
+      "report_sha256": "EBF7D1C05D28FA976DAABC51FDAD8E26589FF6C0DB95CBF81743BCB215520A98",
+      "status": "PASS_ULTRABALLOONDB_V00R3E1_OBSERVABILITY_AND_SECURITY",
+      "version": "V00R3E1_OBSERVABILITY_AND_SECURITY_R01"
+    },
+    {
+      "alignment_milestone": "V00R3G1_RELEASE_PACKAGING_R01",
+      "alignment_path": "docs/alignment/V00R3G1_RELEASE_PACKAGING_R01.json",
+      "alignment_sha256": "E9BD6D44A8A1E89496D80398238B8DE3AA1614554FD80F9C3CCFC80E523EE7DB",
+      "dimension": "release_packaging",
+      "id": "V00R3G1",
+      "report_path": "docs/releases/v00r3g1/RUN_20260619_150326/v00r3g1_release_packaging_report.json",
+      "report_sha256": "66201E338784D13855A75375A2E95FBA02CA2FB2EFA9BA1F65C260CD51C047E3",
+      "status": "PASS_ULTRABALLOONDB_V00R3G1_RELEASE_PACKAGING",
+      "version": "V00R3G1_RELEASE_PACKAGING_R01"
+    }
+  ],
+  "recent_commit_chain": [
+    {
+      "commit": "448ffc93face12d8be26d7fe1272c649c733bf42",
+      "subject": "UltraBalloonDB V00R3G1 release packaging"
+    },
+    {
+      "commit": "a67ff484589bed2736c5ad18744be02588c42c16",
+      "subject": "UltraBalloonDB V00R3E1 observability and security"
+    },
+    {
+      "commit": "0f890d7a854b5d36454a6b6ec13d0a9a03a465de",
+      "subject": "UltraBalloonDB V00R3D4 PyO3"
+    },
+    {
+      "commit": "cc06461cf3b25d40b42ed37823482fc02c38e9e6",
+      "subject": "UltraBalloonDB V00R3D3 C ABI"
+    },
+    {
+      "commit": "7753d2b8223b6d25c41d14c2d7f303e25cf923e5",
+      "subject": "UltraBalloonDB V00R3D2 daemon and protocol core"
+    },
+    {
+      "commit": "1fba5c70891fbcb2065ad27c0f799968b74a711d",
+      "subject": "UltraBalloonDB V00R3C1 backup restore upgrade dry run"
+    },
+    {
+      "commit": "1ad23b2ee4ba7145ba1102cbbbf0c5c76c358d54",
+      "subject": "UltraBalloonDB V00R3P0 provenance core"
+    },
+    {
+      "commit": "d866ed023ff5af5b13001391997d312e3bb7289b",
+      "subject": "UltraBalloonDB V00R3T6C provider abstraction and enterprise federation"
+    },
+    {
+      "commit": "6ce6dd25e7605a3fd941f3e2d55173f6a6fde678",
+      "subject": "UltraBalloonDB V00R3T6B asymmetric software CNG core"
+    },
+    {
+      "commit": "34fcf2db409cc8111ffab8fa62f6b0af3db89368",
+      "subject": "UltraBalloonDB V00R3T5 enterprise approvals audit profile"
+    },
+    {
+      "commit": "5cbaacf8c9f9f27553848db3da2fe00f0e9fcbf2",
+      "subject": "UltraBalloonDB V00R3T4 trust governance audit export"
+    },
+    {
+      "commit": "378cd5858f31bd842d274e2daf08a3044d9721ee",
+      "subject": "UltraBalloonDB V00R3T3 trust authorization signatures CLI"
+    },
+    {
+      "commit": "88304e097144dd0ecbc83eb6554d8b07230e3b72",
+      "subject": "UltraBalloonDB V00R3T2 trust record binding policy co-commit"
+    },
+    {
+      "commit": "c3122db99b82e08592cef51d00c36fa72db7abc9",
+      "subject": "UltraBalloonDB V00R3T1 Rust trust core transition ledger"
+    },
+    {
+      "commit": "ecff7d4705fae5a51f6943d8cc8eb390ee242ed5",
+      "subject": "UltraBalloonDB V00R3B6 native Edition A offline command surface"
+    },
+    {
+      "commit": "1544dd41ce6d2a29c953d38feb30390f39f755c7",
+      "subject": "UltraBalloonDB V00R3B5 Python V00N to Rust migration parity"
+    },
+    {
+      "commit": "692e4240af1a361e20a8a98ec775c49aaa6940f0",
+      "subject": "UltraBalloonDB V00R3B4 crash consistency and Format V1 suite"
+    },
+    {
+      "commit": "4c469aad7ac86889ca689f526228a339ad2fa021",
+      "subject": "UltraBalloonDB V00R3B3 Rust WAL checkpoint recovery"
+    },
+    {
+      "commit": "5c912f28a9f315ceb96b2a4a84da6283dd988e0d",
+      "subject": "UltraBalloonDB V00R3B2 Rust write batch and transaction core"
+    }
+  ],
+  "release_sha256": "5C35081C44AD24219F640FF4B0BBA054711E28CF71B4FB9BD16CBB69D1514821",
+  "source_head": "448ffc93face12d8be26d7fe1272c649c733bf42",
+  "source_tree": "1099b72a1d4fbc3cffe35140152b6ecc9975ab0b",
+  "version": "V00R3Z9_CLOSURE_EVIDENCE_MANIFEST_V1"
+}
