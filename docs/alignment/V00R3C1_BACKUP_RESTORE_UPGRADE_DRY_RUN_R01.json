@@ -1,0 +1,41 @@
+{
+  "version": "V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN_R01",
+  "base_commit": "1ad23b2ee4ba7145ba1102cbbbf0c5c76c358d54",
+  "previous_gate": "PASS_ULTRABALLOONDB_V00R3P0_PROVENANCE_CORE",
+  "new_crate": "ultraballoondb-backup",
+  "formats": {
+    "backup_manifest": "backup-manifest.ubbackup",
+    "restore_receipt": "restore-receipt.ubrestore"
+  },
+  "contract": {
+    "offline_explicit_file_set": true,
+    "source_files_read_only": true,
+    "stable_double_read_copy_verification": true,
+    "content_addressed_manifest": true,
+    "strict_payload_replay": true,
+    "path_traversal_rejected": true,
+    "symlink_rejected": true,
+    "tamper_and_truncation_rejected": true,
+    "extra_payload_file_rejected": true,
+    "restore_dry_run_no_writes": true,
+    "upgrade_dry_run_no_writes": true,
+    "downgrade_rejected": true,
+    "restore_requires_absent_destination": true,
+    "restore_staging_atomic_rename": true,
+    "provenance_head_digest_bound": true
+  },
+  "boundaries": {
+    "active_runtime_changed": false,
+    "database_cli_changed": false,
+    "storage_format_changed": false,
+    "wal_changed": false,
+    "lifecycle_changed": false,
+    "online_backup": false,
+    "active_database_overwrite": false,
+    "in_place_restore": false,
+    "upgrade_execution": false,
+    "network_used_by_runtime": false,
+    "automatic_repair": false
+  },
+  "next_gate": "V00R3D2_DAEMON_AND_PROTOCOL_CORE"
+}

@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "manifest_verified": true,
+  "payload_verified": true,
+  "restore_verified": true,
+  "receipt_verified": true,
+  "probe_contract_verified": true,
+  "cross_artifact_consistency": true,
+  "file_count": 5,
+  "total_bytes": 2097313,
+  "source_schema_version": 3,
+  "target_schema_version": 5,
+  "manifest_digest": "87D31B8FC7EC888AF6E6DB0DEC563970A6A272CD16AC1DF6531B3DEFCB39F59C",
+  "restore_plan_digest": "5EA4A0C617DCF9A5E0F67657B0D493F1A78B877B1CF72A02F370471D24C55752",
+  "upgrade_plan_digest": "4BA94750E2D1B140C6495D1708A22A461B0F890208172C4CD650BE1481866035",
+  "receipt_digest": "D4AC22EBAA0709529CE99996B8C7217ADD43EFFF38C2DBDA3D1F230B880BDD6A"
+}
