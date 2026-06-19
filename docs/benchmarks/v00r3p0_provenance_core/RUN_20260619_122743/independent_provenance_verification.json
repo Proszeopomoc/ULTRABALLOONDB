@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "provenance_event_count": 2,
+  "source_count": 1,
+  "imported_count": 0,
+  "derived_count": 1,
+  "unique_authorization_count": 2,
+  "object_count": 2,
+  "head_sha256": "23E14F08E0892A79F11A42C0344D002ED013169750D98C30DA3FA7815D675B5E",
+  "frame_chain_verified": true,
+  "subject_and_provenance_ids_verified": true,
+  "parents_prior_sorted_unique_verified": true,
+  "object_version_progression_verified": true,
+  "authorization_sequence_single_use_verified": true,
+  "raw_source_locator_absent_by_format": true,
+  "tamper_and_truncation_rejected_by_rust_probe": true
+}

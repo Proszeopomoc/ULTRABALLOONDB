@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "provenance_event_count": 2,
+  "lineage_event_count": 2,
+  "source_sequence": 1,
+  "derived_sequence": 2,
+  "source_provenance_id": "99587EBED0F4A91CE7E61A7FFAC2C16D29874DA42758D152CA745B32D2E50345",
+  "derived_provenance_id": "14163E88AD08162E563568EDF7E05435FAD6E47E6097C7394E41A5FA5D35AD27",
+  "provenance_head_sha256": "23E14F08E0892A79F11A42C0344D002ED013169750D98C30DA3FA7815D675B5E",
+  "federation_policy_digest": "9DAF6C8D3B80B06FA9D438243870F77F0B844194C95D99E2480D7C93B4FA86C2",
+  "federation_bundle_digest": "8800375C89006A7614788633546E3493D075397D2EB6FCADB22FC44D8A8042CD",
+  "duplicate_authorization_rejected": true,
+  "tamper_rejected": true,
+  "truncation_rejected": true,
+  "raw_source_locator_persisted": false,
+  "active_runtime_changed": false,
+  "storage_format_changed": false,
+  "wal_changed": false
+}

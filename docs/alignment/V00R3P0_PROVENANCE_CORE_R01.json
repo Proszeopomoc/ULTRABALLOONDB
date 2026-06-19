@@ -1,0 +1,31 @@
+{
+  "version": "V00R3P0_PROVENANCE_CORE_R01",
+  "base_commit": "d866ed023ff5af5b13001391997d312e3bb7289b",
+  "previous_gate": "PASS_ULTRABALLOONDB_V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION",
+  "new_crate": "ultraballoondb-provenance",
+  "new_append_only_file": "provenance-core.ubprov",
+  "provenance_contract": {
+    "source_imported_and_derived_records": true,
+    "content_and_operation_digests": true,
+    "raw_source_locator_not_persisted": true,
+    "parent_lineage_dag": true,
+    "strict_object_version_progression": true,
+    "authorization_sequence_single_use": true,
+    "t6b_signature_binding": true,
+    "t6c_policy_and_bundle_binding": true,
+    "append_only_sha256_frame_chain": true,
+    "strict_replay": true,
+    "tamper_and_truncation_rejection": true
+  },
+  "boundaries": {
+    "active_runtime_changed": false,
+    "database_cli_changed": false,
+    "storage_format_changed": false,
+    "wal_changed": false,
+    "lifecycle_changed": false,
+    "network_used_by_runtime": false,
+    "automatic_repair": false,
+    "policy_promotion": false
+  },
+  "next_gate": "V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN"
+}

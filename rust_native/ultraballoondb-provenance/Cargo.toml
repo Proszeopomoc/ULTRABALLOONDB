@@ -1,0 +1,19 @@
+[package]
+name = "ultraballoondb-provenance"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB append-only signed provenance core"
+
+[dependencies]
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust-asymmetric = { path = "../ultraballoondb-trust-asymmetric" }
+ultraballoondb-trust-federation = { path = "../ultraballoondb-trust-federation" }
+
+[lib]
+name = "ultraballoondb_provenance"
+path = "src/lib.rs"
+
+[[example]]
+name = "provenance_core_probe"
+path = "examples/provenance_core_probe.rs"

@@ -1,0 +1,9 @@
+{
+  "version": "V00R3P0_PROVENANCE_CORE_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3P0_PROVENANCE_CORE",
+  "base_commit": "d866ed023ff5af5b13001391997d312e3bb7289b",
+  "provenance_event_count": 2,
+  "derived_count": 1,
+  "unique_authorization_count": 2,
+  "next_gate": "V00R3C1_BACKUP_RESTORE_UPGRADE_DRY_RUN"
+}

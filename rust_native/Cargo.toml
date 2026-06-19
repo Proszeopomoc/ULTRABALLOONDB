@@ -6,6 +6,7 @@ members = [
     "ultraballoondb-core",
     "ultraballoondb-lifecycle",
     "ultraballoondb-migrate",
+    "ultraballoondb-provenance",
     "ultraballoondb-storage",
     "ultraballoondb-trust",
     "ultraballoondb-trust-commit",
