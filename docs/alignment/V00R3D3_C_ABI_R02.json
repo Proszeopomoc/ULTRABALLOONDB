@@ -1,0 +1,37 @@
+{
+  "milestone": "V00R3D3_C_ABI_R02",
+  "purpose": "Stable versioned C ABI over the committed D2 daemon protocol core",
+  "required_exact_head": "7753d2b8223b6d25c41d14c2d7f303e25cf923e5",
+  "required_subject": "UltraBalloonDB V00R3D2 daemon and protocol core",
+  "new_crate": "ultraballoondb-cabi",
+  "public_header": "rust_native/ultraballoondb-cabi/include/ultraballoondb.h",
+  "abi_version": 1,
+  "protocol_version": 1,
+  "ownership": [
+    "opaque_handle",
+    "caller_owned_request_buffer",
+    "caller_owned_response_buffer",
+    "borrowed_callback_views_copied_before_return"
+  ],
+  "hard_guards": [
+    "versioned_symbols",
+    "struct_size_validation",
+    "abi_version_validation",
+    "reserved_zero",
+    "null_pointer_rejection",
+    "buffer_too_small_no_session_mutation",
+    "panic_guard",
+    "exact_once_handle_destroy_contract"
+  ],
+  "active_runtime_changed": false,
+  "database_cli_changed": false,
+  "storage_format_changed": false,
+  "wal_changed": false,
+  "lifecycle_changed": false,
+  "production_service_installed": false,
+  "network_listener_exposed": false,
+  "next_gate": "V00R3D4_PYO3",
+  "targeted_fix": "unit_test_sets_payload_limits_consistent_with_4096_byte_frame_and_adds_invalid_config_regression",
+  "protocol_state_machine_changed": false,
+  "public_c_abi_changed": false
+}

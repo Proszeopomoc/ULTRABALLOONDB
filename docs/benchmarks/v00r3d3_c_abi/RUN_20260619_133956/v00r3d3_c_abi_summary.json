@@ -1,0 +1,12 @@
+{
+  "version": "V00R3D3_C_ABI_R02",
+  "status": "PASS_ULTRABALLOONDB_V00R3D3_C_ABI",
+  "resolved_base_commit": "7753d2b8223b6d25c41d14c2d7f303e25cf923e5",
+  "abi_version": 1,
+  "protocol_version": 1,
+  "record_count": 14,
+  "library_sha256": "E52F6E9809BC38F7461A5B718B69345A912C2D783163C957BE34956DC3876505",
+  "header_sha256": "8652FFD8B25094C8D9ACC13FF4C07F8D48658084C9766B249180F3BC8B4AB4F7",
+  "active_runtime_changed": false,
+  "next_gate": "V00R3D4_PYO3"
+}

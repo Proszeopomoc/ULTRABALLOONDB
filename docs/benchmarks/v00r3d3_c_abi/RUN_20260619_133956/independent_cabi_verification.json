@@ -1,0 +1,9 @@
+{
+  "version": "V00R3D3_C_ABI_INDEPENDENT_VERIFIER_V1",
+  "pass": true,
+  "transcript_verified": true,
+  "header_contract_verified": true,
+  "probe_contract_verified": true,
+  "record_count": 14,
+  "header_sha256": "8652FFD8B25094C8D9ACC13FF4C07F8D48658084C9766B249180F3BC8B4AB4F7"
+}
