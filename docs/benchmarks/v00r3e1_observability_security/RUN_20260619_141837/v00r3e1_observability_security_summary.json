@@ -1,0 +1,11 @@
+{
+  "version": "V00R3E1_OBSERVABILITY_AND_SECURITY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3E1_OBSERVABILITY_AND_SECURITY",
+  "resolved_base_commit": "0f890d7a854b5d36454a6b6ec13d0a9a03a465de",
+  "new_crate": "ultraballoondb-observability-security",
+  "audit_event_count": 5,
+  "audit_sha256": "F70DDB61848B439280D95480EA2DC2A66E7B21BB44A17AD5F9BFDB621D4158F4",
+  "metrics_sha256": "6704FB4F4BB43FA3C1CE6749FEDA2CAF20DE2384EEF4A62ACFCCC9F96B24E013",
+  "active_runtime_changed": false,
+  "next_gate": "V00R3G1_RELEASE_PACKAGING"
+}

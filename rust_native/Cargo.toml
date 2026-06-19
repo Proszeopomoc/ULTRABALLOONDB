@@ -3,6 +3,7 @@ resolver = "2"
 members = [
     "ultraballoondb-cabi",
     "ultraballoondb-pyo3",
+    "ultraballoondb-observability-security",
     "ultraballoondb-daemon",
     "ultraballoondb-backup",
     "ultraballoondb-cli",

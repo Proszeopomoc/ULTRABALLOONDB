@@ -1,0 +1,22 @@
+# TYPE ultraballoondb_operations_total counter
+ultraballoondb_operations_total 5
+# TYPE ultraballoondb_operations_accepted_total counter
+ultraballoondb_operations_accepted_total 3
+# TYPE ultraballoondb_operations_rejected_total counter
+ultraballoondb_operations_rejected_total 1
+# TYPE ultraballoondb_backend_errors_total counter
+ultraballoondb_backend_errors_total 1
+# TYPE ultraballoondb_health_operations_total counter
+ultraballoondb_health_operations_total 1
+# TYPE ultraballoondb_read_operations_total counter
+ultraballoondb_read_operations_total 3
+# TYPE ultraballoondb_write_operations_total counter
+ultraballoondb_write_operations_total 1
+# TYPE ultraballoondb_request_bytes_total counter
+ultraballoondb_request_bytes_total 102
+# TYPE ultraballoondb_response_bytes_total counter
+ultraballoondb_response_bytes_total 30
+# TYPE ultraballoondb_audit_events_total counter
+ultraballoondb_audit_events_total 5
+# TYPE ultraballoondb_audit_available gauge
+ultraballoondb_audit_available 1

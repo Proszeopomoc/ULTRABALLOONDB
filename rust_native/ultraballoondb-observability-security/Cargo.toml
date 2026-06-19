@@ -1,0 +1,10 @@
+[package]
+name = "ultraballoondb-observability-security"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB bounded observability and security shell"
+
+[dependencies]
+ultraballoondb-daemon = { path = "../ultraballoondb-daemon" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }

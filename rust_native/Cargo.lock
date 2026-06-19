@@ -219,6 +219,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "ultraballoondb-observability-security"
+version = "0.0.3"
+dependencies = [
+ "ultraballoondb-daemon",
+ "ultraballoondb-storage",
+]
+
+[[package]]
 name = "ultraballoondb-provenance"
 version = "0.0.3"
 dependencies = [
