@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "version": "V00R3D4_PYO3_R01",
+  "abi_version": 1,
+  "protocol_version": 1,
+  "record_count": 16,
+  "transcript_sha256": "6CB34678382027E358A2F4A72C88E465B1C21750080495F3190F5B8392CA05E0",
+  "stub_sha256": "FCA3FF31676DB05E7989AC4AD0042E2D1C073D2392FC74E0D0079F4D0E9480D4",
+  "cross_artifact_consistency": true
+}

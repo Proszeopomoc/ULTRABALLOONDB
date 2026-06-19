@@ -1,0 +1,16 @@
+[package]
+name = "ultraballoondb-pyo3"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB Python extension over the stable D3 C ABI"
+
+[dependencies]
+pyo3 = { version = "=0.24.2", features = ["extension-module", "abi3-py38"] }
+ultraballoondb-cabi = { path = "../ultraballoondb-cabi" }
+ultraballoondb-daemon = { path = "../ultraballoondb-daemon" }
+
+[lib]
+name = "ultraballoondb_native"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
