@@ -1,0 +1,22 @@
+[package]
+name = "ultraballoondb-trust-asymmetric"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "UltraBalloonDB asymmetric ECDSA P-256 registry and authorization core"
+
+[dependencies]
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust-auth = { path = "../ultraballoondb-trust-auth" }
+
+[lib]
+name = "ultraballoondb_trust_asymmetric"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ultraballoondb-trust-asymmetric"
+path = "src/main.rs"
+
+[[example]]
+name = "asymmetric_software_cng_probe"
+path = "examples/asymmetric_software_cng_probe.rs"

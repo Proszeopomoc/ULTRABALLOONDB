@@ -1,0 +1,42 @@
+{
+  "version": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE_R01",
+  "requires_exact_head": "34fcf2d",
+  "requires_t6a_decision": "WINDOWS_CNG_SOFTWARE_READY_TPM_UNAVAILABLE",
+  "new_crate": "ultraballoondb-trust-asymmetric",
+  "new_binary": "ultraballoondb-trust-asymmetric",
+  "modified_existing_crates": [],
+  "provider": "Microsoft Software Key Storage Provider",
+  "algorithm": "ECDSA_P256",
+  "hash": "SHA256",
+  "hardware_bound": false,
+  "tpm_required": false,
+  "private_key_persisted_by_ultraballoondb": false,
+  "features": {
+    "append_only_public_key_registry_v1": true,
+    "append_only_asymmetric_authorization_ledger_v1": true,
+    "dual_proof_rotation": true,
+    "revocation": true,
+    "domain_separated_signatures": true,
+    "private_export_rejection": true,
+    "cli_command_count": 10
+  },
+  "hard_guards": {
+    "network_enabled": false,
+    "automatic_repair_enabled": false,
+    "active_runtime_changed": false,
+    "database_cli_changed": false,
+    "trust_auth_changed": false,
+    "trust_core_changed": false,
+    "trust_commit_changed": false,
+    "trust_enterprise_changed": false,
+    "lifecycle_changed": false,
+    "storage_crate_changed": false,
+    "wal_crate_changed": false,
+    "compat_crate_changed": false,
+    "migrate_crate_changed": false,
+    "existing_rust_core_changed": false,
+    "python_source_changed": false,
+    "gpu_backend_promoted": false
+  },
+  "next_gate": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION"
+}

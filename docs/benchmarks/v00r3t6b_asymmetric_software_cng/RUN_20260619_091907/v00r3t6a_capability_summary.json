@@ -1,0 +1,17 @@
+{
+  "version": "V00R3T6A_ASYMMETRIC_PLATFORM_HARDWARE_CAPABILITY_INTAKE_READ_ONLY_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3T6A_ASYMMETRIC_PLATFORM_HARDWARE_CAPABILITY_INTAKE_READ_ONLY",
+  "head": "34fcf2d",
+  "t5_commit": "34fcf2d",
+  "tpm_ready": false,
+  "software_cng_ready": true,
+  "platform_cng_tpm_ready": false,
+  "provider_decision": "WINDOWS_CNG_SOFTWARE_READY_TPM_UNAVAILABLE",
+  "source_count": 18,
+  "creates_keys": false,
+  "opens_private_keys": false,
+  "repository_changed": false,
+  "next_gate": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE",
+  "evidence_zip": "C:\\UltraBalloonDB\\audit\\v00r3t6a_asymmetric_hardware_capability_intake\\RUN_20260619_002227\\V00R3T6A_EVIDENCE_RUN_20260619_002227.zip",
+  "evidence_zip_sha256": "94C36380ED744A0215AE08CB972218818E82827669C9C35EA91A653FB8644BC1"
+}

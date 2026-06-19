@@ -1,0 +1,17 @@
+{
+  "version": "V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE_R01",
+  "status": "PASS_ULTRABALLOONDB_V00R3T6B_ASYMMETRIC_PUBLIC_KEY_REGISTRY_AND_SOFTWARE_CNG_SIGNATURE_CORE",
+  "provider": "Microsoft Software Key Storage Provider",
+  "algorithm": "ECDSA_P256",
+  "hardware_bound": false,
+  "key_event_count": 3,
+  "active_key_count": 0,
+  "authorization_count": 2,
+  "key_registry_sha256": "FAFC38F12A9A67C75BA40D23676AADAB942A7A7572312E62BAB796E2F0E75925",
+  "authorization_ledger_sha256": "2859B9A4284141B9322E6AB98A3C2BE1A029F65636B190D8D1CF60743C28EA60",
+  "release_binary_sha256": "A348DD3EA904DF6F3B16397F5E487A009979F1FFC278BC73C6E845B9DF571A74",
+  "private_export_rejected": true,
+  "provider_cleanup_complete": true,
+  "private_key_persisted_by_ultraballoondb": false,
+  "next_gate": "V00R3T6C_HARDWARE_PROVIDER_ABSTRACTION_AND_ENTERPRISE_POLICY_FEDERATION"
+}
