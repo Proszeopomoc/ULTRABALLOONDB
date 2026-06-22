@@ -1,0 +1,270 @@
+{
+  "schema": "ultraballoondb.rust_crate_ownership.v2",
+  "version": "V00R4_0A_OWNERSHIP_V2_R01",
+  "bound_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "canonical_rules": {
+    "query_core": "ultraballoondb-core",
+    "storage_owner": "ultraballoondb-storage",
+    "wal_owner": "ultraballoondb-wal",
+    "transaction_recovery_owner": "ultraballoondb-lifecycle",
+    "python_role": "REFERENCE_AND_PARITY_ORACLE_ONLY",
+    "gpu_role": "DERIVED_READ_ONLY_ACCELERATOR_CPU_FALLBACK",
+    "semantic_role": "DERIVED_L8_RECORD_ID_AND_TRUST_NEUTRAL"
+  },
+  "groups": {
+    "KEEP_CORE": [
+      "ultraballoondb-core",
+      "ultraballoondb-lifecycle",
+      "ultraballoondb-storage",
+      "ultraballoondb-wal"
+    ],
+    "KEEP_SUPPORT": [
+      "ultraballoondb-backup",
+      "ultraballoondb-cabi",
+      "ultraballoondb-cli",
+      "ultraballoondb-compat",
+      "ultraballoondb-daemon",
+      "ultraballoondb-migrate",
+      "ultraballoondb-observability-security",
+      "ultraballoondb-pyo3"
+    ],
+    "FREEZE_PERIMETER": [
+      "ultraballoondb-provenance",
+      "ultraballoondb-trust",
+      "ultraballoondb-trust-asymmetric",
+      "ultraballoondb-trust-auth",
+      "ultraballoondb-trust-commit",
+      "ultraballoondb-trust-enterprise",
+      "ultraballoondb-trust-federation"
+    ],
+    "CONTROLLED_RETIREMENT": [
+      "ultraballoondb_rust_core"
+    ]
+  },
+  "crates": [
+    {
+      "package_name": "ultraballoondb-backup",
+      "relative_root": "rust_native/ultraballoondb-backup",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 1160,
+      "local_dependencies": [
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-cabi",
+      "relative_root": "rust_native/ultraballoondb-cabi",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 438,
+      "local_dependencies": [
+        "ultraballoondb-daemon"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-cli",
+      "relative_root": "rust_native/ultraballoondb-cli",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 1388,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-compat",
+      "relative_root": "rust_native/ultraballoondb-compat",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 716,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage",
+        "ultraballoondb-wal"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-core",
+      "relative_root": "rust_native/ultraballoondb-core",
+      "action": "KEEP_CORE",
+      "rust_line_count_at_adjudication": 1076,
+      "local_dependencies": [],
+      "compatibility_audit_required": false
+    },
+    {
+      "package_name": "ultraballoondb-daemon",
+      "relative_root": "rust_native/ultraballoondb-daemon",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 510,
+      "local_dependencies": [
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-lifecycle",
+      "relative_root": "rust_native/ultraballoondb-lifecycle",
+      "action": "KEEP_CORE",
+      "rust_line_count_at_adjudication": 3201,
+      "local_dependencies": [
+        "ultraballoondb-storage",
+        "ultraballoondb-wal"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-migrate",
+      "relative_root": "rust_native/ultraballoondb-migrate",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 830,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-observability-security",
+      "relative_root": "rust_native/ultraballoondb-observability-security",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 1255,
+      "local_dependencies": [
+        "ultraballoondb-daemon",
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-provenance",
+      "relative_root": "rust_native/ultraballoondb-provenance",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 1087,
+      "local_dependencies": [
+        "ultraballoondb-storage",
+        "ultraballoondb-trust-asymmetric",
+        "ultraballoondb-trust-federation"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-pyo3",
+      "relative_root": "rust_native/ultraballoondb-pyo3",
+      "action": "KEEP_SUPPORT",
+      "rust_line_count_at_adjudication": 469,
+      "local_dependencies": [
+        "ultraballoondb-cabi",
+        "ultraballoondb-daemon"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-storage",
+      "relative_root": "rust_native/ultraballoondb-storage",
+      "action": "KEEP_CORE",
+      "rust_line_count_at_adjudication": 1694,
+      "local_dependencies": [],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust",
+      "relative_root": "rust_native/ultraballoondb-trust",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 1914,
+      "local_dependencies": [
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust-asymmetric",
+      "relative_root": "rust_native/ultraballoondb-trust-asymmetric",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 4912,
+      "local_dependencies": [
+        "ultraballoondb-storage",
+        "ultraballoondb-trust-auth"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust-auth",
+      "relative_root": "rust_native/ultraballoondb-trust-auth",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 6842,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage",
+        "ultraballoondb-trust",
+        "ultraballoondb-trust-commit"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust-commit",
+      "relative_root": "rust_native/ultraballoondb-trust-commit",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 3011,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage",
+        "ultraballoondb-trust"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust-enterprise",
+      "relative_root": "rust_native/ultraballoondb-trust-enterprise",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 5735,
+      "local_dependencies": [
+        "ultraballoondb-lifecycle",
+        "ultraballoondb-storage",
+        "ultraballoondb-trust",
+        "ultraballoondb-trust-auth",
+        "ultraballoondb-trust-commit"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-trust-federation",
+      "relative_root": "rust_native/ultraballoondb-trust-federation",
+      "action": "FREEZE_PERIMETER",
+      "rust_line_count_at_adjudication": 1761,
+      "local_dependencies": [
+        "ultraballoondb-storage",
+        "ultraballoondb-trust-asymmetric"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb-wal",
+      "relative_root": "rust_native/ultraballoondb-wal",
+      "action": "KEEP_CORE",
+      "rust_line_count_at_adjudication": 468,
+      "local_dependencies": [
+        "ultraballoondb-storage"
+      ],
+      "compatibility_audit_required": true
+    },
+    {
+      "package_name": "ultraballoondb_rust_core",
+      "relative_root": "rust_native/ultraballoondb_rust_core",
+      "action": "CONTROLLED_RETIREMENT",
+      "rust_line_count_at_adjudication": 3,
+      "local_dependencies": [
+        "ultraballoondb-core"
+      ],
+      "compatibility_audit_required": true
+    }
+  ],
+  "prohibited_duplicate_ownership": [
+    "second canonical storage engine",
+    "second WAL implementation",
+    "second transaction/recovery owner",
+    "delivery-specific Wave implementation",
+    "delivery-specific semantic implementation",
+    "delivery-specific CPU/GPU router"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "milestone": "V00R4_0A_RECONCILIATION_ADJUDICATION_R01",
+  "role": "GOVERNANCE_AND_PLAN_ONLY",
+  "required_exact_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "required_origin_main": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "required_baseline_ancestor": "118bdde3d6e6b2e8eaeee6a2bb8ad73cf16b4d11",
+  "required_preexisting_worktree_status_sha256": "2AEBF89E6B93A9130A3BC79E38F23E67E2E9F97A80D70B8ADA3149E799531524",
+  "required_preexisting_overlay": {
+    "schema": "ultraballoondb.r4_0.worktree_overlay_manifest.v1",
+    "working_tree_clean": false,
+    "entry_count": 1,
+    "staged_change_count": 0,
+    "unstaged_change_count": 0,
+    "untracked_path_count": 1,
+    "entries": [
+      {
+        "path": "backups/v00r3x1_conceptual_lineage/RUN_20260622_013843/README.md",
+        "staged": [],
+        "unstaged": [],
+        "untracked": true,
+        "old_paths": [],
+        "worktree": {
+          "path": "backups/v00r3x1_conceptual_lineage/RUN_20260622_013843/README.md",
+          "exists": true,
+          "is_file": true,
+          "is_dir": false,
+          "is_symlink": false,
+          "size_bytes": 3953,
+          "sha256": "A3665F83124DECFE824DDE89C3E6FBC7F2856E9BA7BC43CA8D0FDD9A350E3D00"
+        }
+      }
+    ]
+  },
+  "runtime_impact": "NONE",
+  "rust_source_changed": false,
+  "storage_format_changed": false,
+  "wal_changed": false,
+  "trust_semantics_changed": false,
+  "gpu_promoted": false,
+  "semantic_implemented": false,
+  "next_gate": "V00R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT_READ_ONLY"
+}

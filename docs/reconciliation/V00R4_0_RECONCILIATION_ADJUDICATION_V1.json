@@ -1,0 +1,69 @@
+{
+  "schema": "ultraballoondb.v00r4_0a.reconciliation_adjudication.v1",
+  "version": "V00R4_0A_RECONCILIATION_ADJUDICATION_R01",
+  "baseline": "118bdde3d6e6b2e8eaeee6a2bb8ad73cf16b4d11",
+  "adjudicated_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "origin_main": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "commit_count_after_baseline": 25,
+  "changed_path_count": 281,
+  "rust_crate_count": 20,
+  "crate_actions": {
+    "KEEP_CORE": [
+      "ultraballoondb-core",
+      "ultraballoondb-lifecycle",
+      "ultraballoondb-storage",
+      "ultraballoondb-wal"
+    ],
+    "KEEP_SUPPORT": [
+      "ultraballoondb-backup",
+      "ultraballoondb-cabi",
+      "ultraballoondb-cli",
+      "ultraballoondb-compat",
+      "ultraballoondb-daemon",
+      "ultraballoondb-migrate",
+      "ultraballoondb-observability-security",
+      "ultraballoondb-pyo3"
+    ],
+    "FREEZE_PERIMETER": [
+      "ultraballoondb-provenance",
+      "ultraballoondb-trust",
+      "ultraballoondb-trust-asymmetric",
+      "ultraballoondb-trust-auth",
+      "ultraballoondb-trust-commit",
+      "ultraballoondb-trust-enterprise",
+      "ultraballoondb-trust-federation"
+    ],
+    "CONTROLLED_RETIREMENT": [
+      "ultraballoondb_rust_core"
+    ]
+  },
+  "historical_milestones_present": {
+    "T6C": "d866ed023ff5af5b13001391997d312e3bb7289b",
+    "P0": "1ad23b2ee4ba7145ba1102cbbbf0c5c76c358d54",
+    "C1": "1fba5c70891fbcb2065ad27c0f799968b74a711d",
+    "D2": "7753d2b8223b6d25c41d14c2d7f303e25cf923e5",
+    "D3": "cc06461cf3b25d40b42ed37823482fc02c38e9e6",
+    "D4": "0f890d7a854b5d36454a6b6ec13d0a9a03a465de",
+    "E1": "a67ff484589bed2736c5ad18744be02588c42c16",
+    "G1": "448ffc93face12d8be26d7fe1272c649c733bf42",
+    "Z9": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2"
+  },
+  "historical_closure_adjudication": {
+    "status": "VALID_ENGINEERING_PRE_RELEASE_CLOSURE_ONLY",
+    "not_v00r4_product_closure": true,
+    "reason": [
+      "semantic L8 absent",
+      "GPU backend absent",
+      "active CPU/GPU router absent",
+      "hybrid query absent",
+      "fresh V00R4 re-derivation not performed"
+    ]
+  },
+  "missing_product_pillars": {
+    "semantic_l8": "ABSENT",
+    "gpu_backend": "SHADOW_OR_EVIDENCE_ONLY",
+    "cpu_gpu_router": "SHADOW_OR_EVIDENCE_ONLY",
+    "hybrid_query": "ABSENT"
+  },
+  "next_gate": "V00R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT_READ_ONLY"
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "ultraballoondb.v00r4.freeze_manifest.v2",
+  "version": "V00R4_0A_FREEZE_MANIFEST_R01",
+  "bound_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "frozen_until": [
+    "PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY or R4_1B_NOT_REQUIRED_PROVEN",
+    "PASS_R4_2_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY",
+    "PASS_R4_3_NATIVE_L8_SEMANTIC_QUALITY_AND_IDENTITY_INVARIANCE",
+    "PASS_R4_4_ONE_STORE_DUAL_MODE_QUERY"
+  ],
+  "frozen_crates": [
+    "ultraballoondb-provenance",
+    "ultraballoondb-trust",
+    "ultraballoondb-trust-asymmetric",
+    "ultraballoondb-trust-auth",
+    "ultraballoondb-trust-commit",
+    "ultraballoondb-trust-enterprise",
+    "ultraballoondb-trust-federation"
+  ],
+  "preserve_without_extension": true,
+  "support_components_preserved": [
+    "ultraballoondb-backup",
+    "ultraballoondb-cabi",
+    "ultraballoondb-cli",
+    "ultraballoondb-compat",
+    "ultraballoondb-daemon",
+    "ultraballoondb-migrate",
+    "ultraballoondb-observability-security",
+    "ultraballoondb-pyo3"
+  ],
+  "prohibited_before_unfreeze": [
+    "new trust or federation feature",
+    "new provenance policy feature",
+    "new release perimeter unrelated to R4 core gaps",
+    "active GPU promotion without current exact parity",
+    "similarity or Wave based trust promotion",
+    "destructive Git history reset",
+    "deletion of post-baseline code without conflict proof"
+  ]
+}

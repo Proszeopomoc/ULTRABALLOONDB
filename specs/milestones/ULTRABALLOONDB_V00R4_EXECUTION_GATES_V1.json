@@ -1,0 +1,55 @@
+{
+  "schema": "ultraballoondb.v00r4.execution_gates.v1",
+  "version": "V00R4_EXECUTION_GATES_R01",
+  "bound_head_before_plan_install": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
+  "gates": [
+    {
+      "order": 1,
+      "id": "R4.0A",
+      "marker": "PASS_V00R4_0A_SINGLE_SOURCE_PLAN_INSTALLED",
+      "mode": "GOVERNANCE_ONLY"
+    },
+    {
+      "order": 2,
+      "id": "R4.1A",
+      "marker": "PASS_R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT",
+      "mode": "READ_ONLY_REDERIVATION"
+    },
+    {
+      "order": 3,
+      "id": "R4.1B",
+      "marker": "PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY",
+      "mode": "TARGETED_CODE_ONLY_IF_REQUIRED"
+    },
+    {
+      "order": 4,
+      "id": "R4.2",
+      "marker": "PASS_R4_2_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY",
+      "mode": "SHADOW_THEN_CONTROLLED_PROMOTION"
+    },
+    {
+      "order": 5,
+      "id": "R4.3",
+      "marker": "PASS_R4_3_NATIVE_L8_SEMANTIC_QUALITY_AND_IDENTITY_INVARIANCE",
+      "mode": "DERIVED_FIRST"
+    },
+    {
+      "order": 6,
+      "id": "R4.4",
+      "marker": "PASS_R4_4_ONE_STORE_DUAL_MODE_QUERY",
+      "mode": "INTEGRATION"
+    },
+    {
+      "order": 7,
+      "id": "R4.5",
+      "marker": "PASS_R4_5_EXISTING_COMPONENT_CONFORMANCE_AND_REINTEGRATION",
+      "mode": "COMPATIBILITY"
+    },
+    {
+      "order": 8,
+      "id": "R4.6",
+      "marker": "PASS_V00R4_FINAL_REDERIVED_PRODUCT_CLOSURE",
+      "mode": "FRESH_RELEASE_AUDIT"
+    }
+  ]
+}
