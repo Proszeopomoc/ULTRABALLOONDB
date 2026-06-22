@@ -1,0 +1,37 @@
+{
+  "schema": "ultraballoondb.milestone.v1",
+  "milestone": "V00R4_6C_DETERMINISTIC_PE_PROFILE_INTEGRATION_AND_FINAL_CLOSURE",
+  "base_head": "d0626f95e6b3a38bcdd1495963d3f3bba8164bad",
+  "profile": {
+    "target": "x86_64-pc-windows-msvc",
+    "link_argument": "/Brepro",
+    "selected_shadow_profile": "BREPRO_ONLY"
+  },
+  "required_evidence": {
+    "r4_6a_report_sha256": "6865A14D5E0E02C5CD0C9AF39E87BE7C144BF626FBEF49058596DC70F9E5A8AF",
+    "r4_6a_evidence_zip_sha256": "09F2C60D11E7E55FAEEBBCF51F85CDE1028152226C3362B6E795B05027B3D8D3",
+    "r4_6b_report_sha256": "C7C488D80CD008916C3D7C7B5977D94F8F31FE30E379E604457CB440D708BBF3",
+    "r4_6b_evidence_zip_sha256": "9D751C05B5F49D0B2283C5ED67D157DC21C53AFD691B42C0F873C13AADD5BF81"
+  },
+  "closure_requirements": {
+    "cargo_check_workspace_all_targets": true,
+    "cargo_test_workspace_all_targets": true,
+    "r4_1b_snapshot_inventory": true,
+    "r4_2_exact_vector_identity": true,
+    "r4_3_topological_semantic_hybrid": true,
+    "r4_4_gpu_exact_parity_fallback": true,
+    "release_artifact_count": 10,
+    "release_all_byte_identical": true,
+    "cli_version_smoke": true,
+    "repository_surface_exact": true,
+    "git_commit_and_push": true
+  },
+  "forbidden_changes": {
+    "storage_format": false,
+    "wal_format": false,
+    "record_format": false,
+    "vector_column_format": false,
+    "trust_semantics": false,
+    "ann_in_canonical_path": false
+  }
+}

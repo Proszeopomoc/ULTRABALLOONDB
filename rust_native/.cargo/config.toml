@@ -1,2 +1,5 @@
 [build]
 target-dir = "ultraballoondb_rust_core/target"
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "link-arg=/Brepro"]
