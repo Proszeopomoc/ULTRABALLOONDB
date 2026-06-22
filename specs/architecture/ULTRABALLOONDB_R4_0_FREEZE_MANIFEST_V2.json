@@ -1,12 +1,11 @@
 {
   "schema": "ultraballoondb.v00r4.freeze_manifest.v2",
-  "version": "V00R4_0A_FREEZE_MANIFEST_R01",
+  "version": "V00R4_1B_FREEZE_MANIFEST_UPDATE_R01",
   "bound_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
   "frozen_until": [
-    "PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY or R4_1B_NOT_REQUIRED_PROVEN",
-    "PASS_R4_2_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY",
-    "PASS_R4_3_NATIVE_L8_SEMANTIC_QUALITY_AND_IDENTITY_INVARIANCE",
-    "PASS_R4_4_ONE_STORE_DUAL_MODE_QUERY"
+    "PASS_R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
+    "PASS_R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY",
+    "PASS_R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY"
   ],
   "frozen_crates": [
     "ultraballoondb-provenance",
@@ -36,5 +35,8 @@
     "similarity or Wave based trust promotion",
     "destructive Git history reset",
     "deletion of post-baseline code without conflict proof"
-  ]
+  ],
+  "bound_head_before_r4_1b": "6db91fc8f2903bd90691356d3a33c4073789cead",
+  "current_gate": "V00R4_1B_TARGETED_CANONICAL_CORE_GAP_CLOSURE",
+  "current_gate_after_validated_install": "V00R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION"
 }

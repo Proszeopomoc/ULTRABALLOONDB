@@ -5,6 +5,9 @@ use std::path::PathBuf;
 mod durable;
 pub use durable::*;
 
+mod snapshot_inventory;
+pub use snapshot_inventory::*;
+
 use ultraballoondb_storage::{
     hex_digest, sha256, sha256_file, IntegrityReport, PageStore, RecordKind,
     SegmentEntry, StorageError,

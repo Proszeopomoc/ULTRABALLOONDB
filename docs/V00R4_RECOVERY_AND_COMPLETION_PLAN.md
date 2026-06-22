@@ -192,14 +192,31 @@ Gate:
 PASS_R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT
 ```
 
+
 ### R4.1B — targeted canonical-core gap closure
 
-Execute only if R4.1A finds gaps.
+R4.1A passed by fresh execution at HEAD
+`6db91fc8f2903bd90691356d3a33c4073789cead`.
 
-- extend existing core/storage/WAL/lifecycle ownership;
-- do not build a second database engine;
-- preserve formats unless an explicit versioned migration is supplied;
-- Python remains the independent reference oracle.
+Proven gaps:
+
+```text
+L4 = no unambiguous versioned Rust read snapshot
+L6 = no Rust derived-artifact crystallization/inventory
+```
+
+R4.1B implements only:
+
+- immutable borrow-scoped `ReadSnapshot`;
+- deterministic snapshot descriptor bound to the current state;
+- persistent derived-artifact inventory;
+- artifact SHA and source-snapshot binding;
+- restart recovery of interrupted inventory replacement;
+- stale-artifact invalidation after canonical state changes;
+- corruption and path-traversal rejection.
+
+It does not implement vectors, semantic ranking, ANN, GPU routing or trust
+promotion.
 
 Gate:
 
@@ -207,48 +224,85 @@ Gate:
 PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY
 ```
 
-If R4.1A proves full coverage, R4.1B is recorded as `NOT_REQUIRED_PROVEN`.
+### R4.2 — model-agnostic Vector Store foundation
 
-### R4.2 — CPU/GPU productionization
+Implement VS1 and VS2 over the completed L4/L6 contracts.
 
-Reuse B1–B5 evidence.
+VS1:
 
-- rederive parity and crossover against the adjudicated Rust core;
-- implement read-only GPU backend;
-- implement deterministic router;
-- run live shadow;
-- promote only after exact parity and fallback fault injection.
+- `VectorSpaceDescriptor` and deterministic `space_id`;
+- external and UltraBalloon-native origins share one storage contract;
+- durable vector attachments outside the payload hash;
+- bulk idempotent import;
+- WAL/checkpoint/recovery/backup coverage;
+- record identity and trust invariance.
+
+VS2:
+
+- canonical exact CPU cosine scan;
+- deterministic top-k and tie-breaking;
+- independent exact-cosine verifier;
+- migration-faithfulness report;
+- no ANN in the canonical path.
 
 Gate:
 
 ```text
-PASS_R4_2_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY
+PASS_R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION
 ```
 
-### R4.3 — native semantic L8
+### R4.3 — graph, trust and native structural semantics
 
-- define versioned native feature schema;
-- implement deterministic coordinate derivation;
-- implement exact similarity baseline;
-- implement `find_similar`;
-- prove ID invariance, determinism and trust neutrality;
-- benchmark quality honestly;
-- optimize index only after exact baseline.
+VS3:
+
+- anchor/scope/typed-edge filters;
+- Wave candidate narrowing;
+- relation and path evidence;
+- trust filtering without trust mutation.
+
+VS4:
+
+- native UltraBalloon structural vector space derived from typed graph,
+  bounded Wave evidence and G-family/co-occurrence structure;
+- same vector column/query contracts as external model spaces;
+- deterministic rebuild and record-ID invariance.
+
+VS5:
+
+- TOPOLOGICAL, SEMANTIC and HYBRID modes;
+- content similarity and structural similarity remain separately reported;
+- trust remains a filter/result property, never a similarity component;
+- honest quality and migration benchmark.
 
 Gate:
 
 ```text
-PASS_R4_3_NATIVE_L8_SEMANTIC_QUALITY_AND_IDENTITY_INVARIANCE
+PASS_R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY
 ```
 
-### R4.4 — dual-mode query integration
+### R4.4 — CPU/GPU productionization
 
-Integrate TOPOLOGICAL, SEMANTIC and HYBRID over one record set.
+Reuse B1–B5 evidence, but rederive separate crossover models for:
+
+```text
+Wave workload   = frontier, edges, depth, seed_count
+Vector workload = candidate_count, dimension, query_batch
+```
+
+Required:
+
+- canonical CPU result remains the source of truth;
+- read-only GPU snapshots are registered in L6;
+- snapshot compatibility is checked against L4;
+- deterministic router;
+- exact CPU/GPU parity;
+- stale snapshot, VRAM and GPU failure fallback;
+- ANN remains optional, explicit and approximate.
 
 Gate:
 
 ```text
-PASS_R4_4_ONE_STORE_DUAL_MODE_QUERY
+PASS_R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY
 ```
 
 ### R4.5 — existing component conformance and perimeter reintegration
@@ -303,4 +357,29 @@ V00R4 is complete only when:
 
 ```text
 V00R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT_READ_ONLY
+```
+
+
+## 7. Current execution state
+
+```text
+R4.0A = PASS, commit 6db91fc8f2903bd90691356d3a33c4073789cead
+R4.1A = PASS, evidence SHA256
+          76693824A34E20A4756EE5F74185C6F1178CCDB19E3F9E1A350F0E03BDD7B1B0
+R4.1A workspace crates = 20
+R4.1A duplicate ownership conflicts = 0
+R4.1A exact gaps = L4 and L6
+R4.1B = PASS when this commit is installed after full local validation
+R4.2 = next gate
+```
+
+The build order is therefore:
+
+```text
+R4.1B core snapshot/inventory
+-> R4.2 exact model-agnostic Vector Store
+-> R4.3 graph/trust/native semantic HYBRID
+-> R4.4 CPU/GPU acceleration
+-> R4.5 existing component conformance
+-> R4.6 final re-derived closure
 ```

@@ -20,3 +20,7 @@ path = "examples/transaction_core_probe.rs"
 [[example]]
 name = "wal_checkpoint_recovery_probe"
 path = "examples/wal_checkpoint_recovery_probe.rs"
+
+[[example]]
+name = "r4_1b_snapshot_inventory_probe"
+path = "examples/r4_1b_snapshot_inventory_probe.rs"

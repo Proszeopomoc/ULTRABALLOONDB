@@ -1,0 +1,33 @@
+{
+  "milestone": "V00R4_1B_TARGETED_CANONICAL_CORE_GAP_CLOSURE_R03",
+  "required_head": "6db91fc8f2903bd90691356d3a33c4073789cead",
+  "source_of_gap_truth": "R4_1A_CORE_GAP_AUDIT_EVIDENCE_RUN_20260622_113102.zip",
+  "exact_gaps": [
+    "L4",
+    "L6"
+  ],
+  "allowed_existing_files_modified": [
+    "rust_native/ultraballoondb-lifecycle/Cargo.toml",
+    "rust_native/ultraballoondb-lifecycle/src/lib.rs",
+    "docs/V00R4_RECOVERY_AND_COMPLETION_PLAN.md",
+    "specs/milestones/ULTRABALLOONDB_V00R4_EXECUTION_GATES_V1.json",
+    "specs/architecture/ULTRABALLOONDB_R4_0_FREEZE_MANIFEST_V2.json"
+  ],
+  "allowed_new_files": [
+    "rust_native/ultraballoondb-lifecycle/src/snapshot_inventory.rs",
+    "rust_native/ultraballoondb-lifecycle/examples/r4_1b_snapshot_inventory_probe.rs",
+    "specs/core/READ_SNAPSHOT_AND_DERIVED_ARTIFACT_INVENTORY_V1.md",
+    "specs/milestones/V00R4_1B_TARGETED_CANONICAL_CORE_GAP_CLOSURE_V1.json",
+    "docs/alignment/V00R4_1B_TARGETED_CANONICAL_CORE_GAP_CLOSURE_V1.json"
+  ],
+  "prohibited": [
+    "new workspace crate",
+    "semantic implementation",
+    "vector storage implementation",
+    "GPU backend or router activation",
+    "trust change",
+    "record/storage/WAL format change"
+  ],
+  "r02_formatter_recovery_fix": true,
+  "r03_evidence_bound_deterministic_recovery": true
+}

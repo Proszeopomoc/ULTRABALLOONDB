@@ -1,0 +1,41 @@
+{
+  "schema": "ultraballoondb.v00r4_1b.targeted_gap_closure.v1",
+  "version": "V00R4_1B_TARGETED_CANONICAL_CORE_GAP_CLOSURE_R03",
+  "required_head": "6db91fc8f2903bd90691356d3a33c4073789cead",
+  "r4_1a_evidence_sha256": "76693824A34E20A4756EE5F74185C6F1178CCDB19E3F9E1A350F0E03BDD7B1B0",
+  "gaps_closed": [
+    {
+      "layer": "L4",
+      "name": "versioned borrow-scoped ReadSnapshot"
+    },
+    {
+      "layer": "L6",
+      "name": "persistent derived-artifact inventory"
+    }
+  ],
+  "modified_crates": [
+    "ultraballoondb-lifecycle"
+  ],
+  "workspace_member_added": false,
+  "storage_format_changed": false,
+  "wal_format_changed": false,
+  "canonical_record_format_changed": false,
+  "trust_changed": false,
+  "semantic_implemented": false,
+  "gpu_promoted": false,
+  "required_gates": [
+    "cargo fmt check",
+    "cargo check workspace all targets offline locked",
+    "cargo test workspace all targets offline locked",
+    "storage probe and independent verifier",
+    "transaction probe and independent verifier",
+    "WAL/recovery probe and independent verifier",
+    "R4.1B snapshot/inventory probe and independent verifier",
+    "exact intended change-set",
+    "preexisting worktree overlay preserved"
+  ],
+  "pass_marker": "PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY",
+  "next_gate": "V00R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
+  "r02_formatter_recovery_fix": true,
+  "r03_evidence_bound_deterministic_recovery": true
+}
