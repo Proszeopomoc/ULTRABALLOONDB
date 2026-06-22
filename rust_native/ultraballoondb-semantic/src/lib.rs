@@ -1613,3 +1613,6 @@ mod tests {
         assert!(vector_bits_equal(&decoded.vectors, &[1.0, 0.0, 0.0]));
     }
 }
+
+mod hybrid;
+pub use hybrid::*;

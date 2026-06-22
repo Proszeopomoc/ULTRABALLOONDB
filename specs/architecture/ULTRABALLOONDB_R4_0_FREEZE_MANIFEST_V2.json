@@ -1,6 +1,6 @@
 {
   "schema": "ultraballoondb.v00r4.freeze_manifest.v2",
-  "version": "V00R4_2_FREEZE_MANIFEST_UPDATE_R01",
+  "version": "V00R4_3_FREEZE_MANIFEST_UPDATE_R01",
   "bound_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
   "frozen_until": [
     "PASS_R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
@@ -29,19 +29,24 @@
   ],
   "prohibited_before_unfreeze": [
     "ANN promotion before exact reference benchmark",
+    "ANN promotion before explicit approximate-retrieval gate",
+    "GPU active routing before R4.4 exact parity",
     "GPU vector routing before exact CPU canonical result",
     "active GPU promotion without current exact parity",
     "deletion of post-baseline code without conflict proof",
     "destructive Git history reset",
     "graph or similarity based trust transition",
+    "merging trust into semantic or hybrid score",
     "native structural semantic promotion before R4.3",
     "new provenance policy feature",
     "new release perimeter unrelated to R4 core gaps",
     "new trust or federation feature",
-    "similarity or Wave based trust promotion"
+    "similarity or Wave based trust promotion",
+    "trust transition from Wave, similarity, native semantics or hybrid rank"
   ],
   "bound_head_before_r4_1b": "6db91fc8f2903bd90691356d3a33c4073789cead",
-  "current_gate": "V00R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
-  "current_gate_after_validated_install": "V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY",
-  "bound_head_before_r4_2": "572386fda8774aae3cec527bfc214162996427d9"
+  "current_gate": "V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY",
+  "current_gate_after_validated_install": "V00R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY",
+  "bound_head_before_r4_2": "572386fda8774aae3cec527bfc214162996427d9",
+  "bound_head_before_r4_3": "66eb526aad7b1394269d0c66a1a37f5ce0672884"
 }

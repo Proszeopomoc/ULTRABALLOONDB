@@ -248,8 +248,10 @@ dependencies = [
 name = "ultraballoondb-semantic"
 version = "0.1.0"
 dependencies = [
+ "ultraballoondb-core",
  "ultraballoondb-lifecycle",
  "ultraballoondb-storage",
+ "ultraballoondb-trust",
 ]
 
 [[package]]

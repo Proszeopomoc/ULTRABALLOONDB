@@ -1,0 +1,30 @@
+{
+  "milestone": "V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY_R01",
+  "required_head": "66eb526aad7b1394269d0c66a1a37f5ce0672884",
+  "allowed_existing_files_modified": [
+    "rust_native/ultraballoondb-semantic/Cargo.toml",
+    "rust_native/ultraballoondb-semantic/src/lib.rs",
+    "rust_native/Cargo.lock",
+    "docs/V00R4_RECOVERY_AND_COMPLETION_PLAN.md",
+    "specs/architecture/ULTRABALLOONDB_RUST_CRATE_OWNERSHIP_V2.json",
+    "specs/architecture/ULTRABALLOONDB_R4_0_FREEZE_MANIFEST_V2.json",
+    "specs/milestones/ULTRABALLOONDB_V00R4_EXECUTION_GATES_V1.json"
+  ],
+  "allowed_new_files": [
+    "rust_native/ultraballoondb-semantic/src/hybrid.rs",
+    "rust_native/ultraballoondb-semantic/examples/semantic_hybrid_v1_probe.rs",
+    "specs/semantic/SEMANTIC_HYBRID_QUERY_V1.md",
+    "specs/milestones/V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY_V1.json",
+    "docs/alignment/V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY_V1.json"
+  ],
+  "prohibited": [
+    "new workspace crate",
+    "duplicate Wave implementation",
+    "canonical record/storage/WAL format change",
+    "trust ledger write from query code",
+    "trust score contribution",
+    "ANN",
+    "GPU activation",
+    "global cargo fmt"
+  ]
+}

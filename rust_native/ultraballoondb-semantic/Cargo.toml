@@ -7,7 +7,13 @@ publish = false
 [dependencies]
 ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
 ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-core = { path = "../ultraballoondb-core" }
+ultraballoondb-trust = { path = "../ultraballoondb-trust" }
 
 [[example]]
 name = "vector_store_v1_probe"
 path = "examples/vector_store_v1_probe.rs"
+
+[[example]]
+name = "semantic_hybrid_v1_probe"
+path = "examples/semantic_hybrid_v1_probe.rs"

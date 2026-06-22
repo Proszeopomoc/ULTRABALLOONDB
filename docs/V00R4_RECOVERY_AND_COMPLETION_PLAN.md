@@ -413,3 +413,45 @@ R4.3 graph scope + Wave/path evidence + trust filter
 -> TOPOLOGICAL / SEMANTIC / HYBRID query
 -> R4.4 CPU/GPU acceleration
 ```
+
+
+## 9. R4.3 validated-install state
+
+When this package passes and commits:
+
+```text
+R4.2 = PASS at 66eb526aad7b1394269d0c66a1a37f5ce0672884
+R4.3 = PASS
+workspace crates = 21
+canonical Wave reused = true
+graph snapshot bound to ReadSnapshot = true
+external exact semantic = true
+Wave-scoped exact semantic = true
+native structural space = true
+TOPOLOGICAL / SEMANTIC / HYBRID = true
+trust read-only filter = true
+trust in similarity/hybrid score = false
+trust transitions from query = false
+ANN = false
+GPU = false
+```
+
+R4.3 product query flow:
+
+```text
+agent query vector
+-> external exact semantic candidates
+anchor
+-> canonical typed Wave scope and path evidence
+anchor native vector
+-> native structural exact similarity
+-> deterministic component merge
+-> read-only trust filter
+-> payloads and evidence for the agent
+```
+
+Immediate next gate:
+
+```text
+V00R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY
+```

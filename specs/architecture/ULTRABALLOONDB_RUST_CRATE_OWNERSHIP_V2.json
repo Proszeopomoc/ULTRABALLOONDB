@@ -1,6 +1,6 @@
 {
   "schema": "ultraballoondb.rust_crate_ownership.v2",
-  "version": "V00R4_2_OWNERSHIP_V2_R01",
+  "version": "V00R4_3_OWNERSHIP_V2_R01",
   "bound_head": "bed67dc7c03da57fded36f29f7cdc66ab958f0a2",
   "canonical_rules": {
     "query_core": "ultraballoondb-core",
@@ -12,7 +12,11 @@
     "semantic_role": "DERIVED_L8_RECORD_ID_AND_TRUST_NEUTRAL",
     "semantic_owner": "ultraballoondb-semantic",
     "semantic_exact_backend": "CPU_SCALAR_F64_ACCUMULATION",
-    "ann_role": "OPTIONAL_NON_CANONICAL_FUTURE_ACCELERATOR"
+    "ann_role": "OPTIONAL_NON_CANONICAL_FUTURE_ACCELERATOR",
+    "hybrid_query_owner": "ultraballoondb-semantic",
+    "graph_wave_owner": "ultraballoondb-core",
+    "trust_query_role": "READ_ONLY_FILTER_AND_RESULT_EVIDENCE",
+    "trust_in_similarity_score": false
   },
   "groups": {
     "KEEP_CORE": [
@@ -169,12 +173,23 @@
       "action": "KEEP_CORE",
       "rust_line_count_at_adjudication": 2515,
       "local_dependencies": [
+        "ultraballoondb-core",
         "ultraballoondb-lifecycle",
-        "ultraballoondb-storage"
+        "ultraballoondb-storage",
+        "ultraballoondb-trust"
       ],
       "compatibility_audit_required": true,
       "introduced_by": "V00R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
-      "trust_dependency_allowed": false
+      "trust_dependency_allowed": "READ_ONLY_QUERY_FILTER_ONLY",
+      "r4_3_capabilities": [
+        "GRAPH_SNAPSHOT_BINDING",
+        "WAVE_SCOPED_EXACT_QUERY",
+        "NATIVE_STRUCTURAL_SPACE",
+        "TOPOLOGICAL_QUERY",
+        "SEMANTIC_QUERY",
+        "HYBRID_QUERY",
+        "READ_ONLY_TRUST_FILTER"
+      ]
     },
     {
       "package_name": "ultraballoondb-storage",
@@ -285,5 +300,6 @@
     "delivery-specific CPU/GPU router"
   ],
   "bound_head_before_r4_2": "572386fda8774aae3cec527bfc214162996427d9",
-  "workspace_crate_count_after_r4_2": 21
+  "workspace_crate_count_after_r4_2": 21,
+  "bound_head_before_r4_3": "66eb526aad7b1394269d0c66a1a37f5ce0672884"
 }

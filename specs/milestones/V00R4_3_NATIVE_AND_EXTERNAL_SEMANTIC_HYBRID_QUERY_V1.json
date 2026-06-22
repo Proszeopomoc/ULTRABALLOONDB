@@ -1,0 +1,29 @@
+{
+  "schema": "ultraballoondb.v00r4_3.semantic_hybrid.v1",
+  "version": "V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY_R01",
+  "required_head": "66eb526aad7b1394269d0c66a1a37f5ce0672884",
+  "modified_crate": "ultraballoondb-semantic",
+  "workspace_crate_count": 21,
+  "dependencies_added": [
+    "ultraballoondb-core",
+    "ultraballoondb-trust"
+  ],
+  "features": {
+    "graph_snapshot_from_read_snapshot": true,
+    "canonical_wave_reused": true,
+    "trust_read_only_filter": true,
+    "external_semantic_query": true,
+    "wave_scoped_exact_query": true,
+    "native_structural_space": true,
+    "topological_mode": true,
+    "semantic_mode": true,
+    "hybrid_mode": true,
+    "component_scores_separate": true,
+    "trust_in_similarity_score": false,
+    "trust_transition": false,
+    "ann": false,
+    "gpu": false
+  },
+  "pass_marker": "PASS_R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY",
+  "next_gate": "V00R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY"
+}
