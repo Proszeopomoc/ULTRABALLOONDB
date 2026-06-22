@@ -1614,5 +1614,8 @@ mod tests {
     }
 }
 
+mod gpu_router;
+pub use gpu_router::*;
+
 mod hybrid;
 pub use hybrid::*;

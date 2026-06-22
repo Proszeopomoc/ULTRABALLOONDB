@@ -1,0 +1,43 @@
+{
+  "milestone": "V00R4_4_ACTIVE_CPU_GPU_ROUTER_WITH_EXACT_PARITY",
+  "schema_version": 1,
+  "base_commit": "1b398a23dc0188d56e4573ea7359b7579df80a88",
+  "role": "CORE_QUERY_ACCELERATION",
+  "backend": "OPENCL_FP64_WINDOWS_DYNAMIC",
+  "canonical_backend": "RUST_CPU_EXACT",
+  "active_surface": [
+    "VectorStore.find_exact_routed",
+    "VectorStore.find_exact_in_records_routed",
+    "query_semantic_exact",
+    "query_hybrid"
+  ],
+  "hard_gates": {
+    "exact_exhaustive_only": true,
+    "ann_used": false,
+    "fp64_required": true,
+    "kernel_fp_contract_off": true,
+    "bitwise_parity_selftest_required": true,
+    "per_query_parity_samples_required": true,
+    "measured_crossover_required_for_auto_gpu": true,
+    "cpu_fallback_unconditional": true,
+    "cpu_top_k_and_tie_break": true,
+    "trust_read_only_filter": true,
+    "trust_in_score": false,
+    "snapshot_digest_bound": true,
+    "canonical_storage_changed": false,
+    "canonical_wal_changed": false,
+    "canonical_record_changed": false,
+    "vector_column_format_changed": false,
+    "candidate_parallelism": true,
+    "dimension_parallel_reduction": false,
+    "score_quantization_used": false,
+    "tolerance_ranking_used": false,
+    "crossover_includes_host_pack": true,
+    "crossover_includes_buffer_allocation": true,
+    "crossover_includes_upload_kernel_download": true,
+    "crossover_median_repeat_count": 3,
+    "crossover_required_speedup_percent": 5,
+    "wave_crossover_reused": false
+  },
+  "next_gate": "V00R4_4_POST_COMMIT_FULL_VALIDATION_READ_ONLY"
+}

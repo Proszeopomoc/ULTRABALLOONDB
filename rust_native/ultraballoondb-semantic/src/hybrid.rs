@@ -908,7 +908,7 @@ pub fn query_semantic_exact(
             .map(|column| column.record_ids.len())
             .unwrap_or(k)
     };
-    let vector_hits = vector_store.find_exact_in_records(
+    let vector_hits = vector_store.find_exact_in_records_routed(
         snapshot,
         space_id,
         query_vector,
