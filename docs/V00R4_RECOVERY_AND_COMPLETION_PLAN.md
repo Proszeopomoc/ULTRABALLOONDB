@@ -353,10 +353,10 @@ V00R4 is complete only when:
 6. existing delivery and governance components pass current conformance;
 7. final PASS is freshly executed.
 
-## 6. Immediate next gate
+## 6. Immediate next gate after validated R4.2 install
 
 ```text
-V00R4_1A_CANONICAL_RUST_CORE_CONFORMANCE_AND_GAP_AUDIT_READ_ONLY
+V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY
 ```
 
 
@@ -382,4 +382,34 @@ R4.1B core snapshot/inventory
 -> R4.4 CPU/GPU acceleration
 -> R4.5 existing component conformance
 -> R4.6 final re-derived closure
+```
+
+
+## 8. R4.2 validated-install state
+
+When this package passes and commits:
+
+```text
+R4.1B = PASS at 572386fda8774aae3cec527bfc214162996427d9
+R4.2 = PASS
+workspace crates = 21
+new core crate = ultraballoondb-semantic
+VS1 durable vector layout/import = implemented
+VS2 exact CPU cosine = implemented
+record identity changed = false
+canonical database state changed by vector writes = false
+trust changed = false
+ANN used = false
+GPU used = false
+graph narrowing = false
+native structural semantics = false
+```
+
+Next implementation order:
+
+```text
+R4.3 graph scope + Wave/path evidence + trust filter
+-> native UltraBalloon structural vector space
+-> TOPOLOGICAL / SEMANTIC / HYBRID query
+-> R4.4 CPU/GPU acceleration
 ```

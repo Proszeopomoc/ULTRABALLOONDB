@@ -1,6 +1,6 @@
 {
   "schema": "ultraballoondb.v00r4.execution_gates.v2",
-  "version": "V00R4_EXECUTION_GATES_R4_1B_R01",
+  "version": "V00R4_EXECUTION_GATES_R4_2_R01",
   "gates": [
     {
       "order": 1,
@@ -17,19 +17,19 @@
     {
       "order": 3,
       "id": "R4.1B",
-      "status": "PASS_ON_VALIDATED_INSTALL",
+      "status": "PASS",
       "marker": "PASS_R4_1B_CANONICAL_RUST_L0_L7_DURABILITY_PARITY"
     },
     {
       "order": 4,
       "id": "R4.2",
-      "status": "NEXT",
+      "status": "PASS_ON_VALIDATED_INSTALL",
       "marker": "PASS_R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION"
     },
     {
       "order": 5,
       "id": "R4.3",
-      "status": "BLOCKED",
+      "status": "NEXT",
       "marker": "PASS_R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY"
     },
     {
@@ -50,5 +50,6 @@
       "status": "BLOCKED",
       "marker": "PASS_V00R4_FINAL_REDERIVED_PRODUCT_CLOSURE"
     }
-  ]
+  ],
+  "bound_head_before_r4_2": "572386fda8774aae3cec527bfc214162996427d9"
 }

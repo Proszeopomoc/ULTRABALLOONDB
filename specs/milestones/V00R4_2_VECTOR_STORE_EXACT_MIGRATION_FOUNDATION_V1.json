@@ -1,0 +1,37 @@
+{
+  "schema": "ultraballoondb.v00r4_2.vector_store_foundation.v1",
+  "version": "V00R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION_R01",
+  "required_head": "572386fda8774aae3cec527bfc214162996427d9",
+  "new_crate": "ultraballoondb-semantic",
+  "workspace_crate_count_before": 20,
+  "workspace_crate_count_after": 21,
+  "scope": {
+    "vs1_layout_ingest": true,
+    "vs2_exact_find": true,
+    "graph_narrowing": false,
+    "native_structural_semantics": false,
+    "hybrid_query": false,
+    "ann": false,
+    "gpu": false,
+    "trust_transition": false
+  },
+  "identity_contract": {
+    "record_id_changed": false,
+    "canonical_state_hash_changed_by_vector_write": false,
+    "vector_outside_payload_hash": true
+  },
+  "durability": {
+    "full_image_journal": true,
+    "restart_recovery": true,
+    "sha256_footer": true,
+    "backup_file_set_round_trip": true
+  },
+  "exact_search": {
+    "metric": "COSINE",
+    "canonical_backend": "SCALAR_CPU_F64_ACCUMULATION",
+    "tie_break": "RECORD_ID_ASC",
+    "ann_canonical": false
+  },
+  "pass_marker": "PASS_R4_2_VECTOR_STORE_EXACT_MIGRATION_FOUNDATION",
+  "next_gate": "V00R4_3_NATIVE_AND_EXTERNAL_SEMANTIC_HYBRID_QUERY"
+}

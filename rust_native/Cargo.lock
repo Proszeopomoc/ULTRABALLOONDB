@@ -245,6 +245,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "ultraballoondb-semantic"
+version = "0.1.0"
+dependencies = [
+ "ultraballoondb-lifecycle",
+ "ultraballoondb-storage",
+]
+
+[[package]]
 name = "ultraballoondb-storage"
 version = "0.0.3"
 

@@ -21,6 +21,7 @@ members = [
     "ultraballoondb-trust-federation",
     "ultraballoondb-wal",
     "ultraballoondb_rust_core",
+    "ultraballoondb-semantic",
 ]
 
 [workspace.package]

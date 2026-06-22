@@ -1,0 +1,13 @@
+[package]
+name = "ultraballoondb-semantic"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+
+[[example]]
+name = "vector_store_v1_probe"
+path = "examples/vector_store_v1_probe.rs"
