@@ -1,0 +1,15 @@
+[package]
+name = "ultraballoondb-hybrid-engine"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+ultraballoondb-lifecycle = { path = "../ultraballoondb-lifecycle" }
+ultraballoondb-semantic = { path = "../ultraballoondb-semantic" }
+ultraballoondb-storage = { path = "../ultraballoondb-storage" }
+ultraballoondb-trust = { path = "../ultraballoondb-trust" }
+
+[[example]]
+name = "product_hybrid_engine_v1_probe"
+path = "examples/product_hybrid_engine_v1_probe.rs"

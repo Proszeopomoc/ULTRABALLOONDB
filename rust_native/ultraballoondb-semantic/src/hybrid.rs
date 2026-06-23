@@ -13,9 +13,9 @@ use ultraballoondb_storage::{hex_digest, sha256, sha256_file};
 use ultraballoondb_trust::{MaturityState, TrustLedger, TrustState, ValidityState};
 
 use super::{
-    column_path, cosine_with_query_norm, squared_norm, validate_vector, ImportOutcome, Result,
-    SpaceId, VectorHit, VectorInput, VectorNormalization, VectorOrigin, VectorSpaceDescriptor,
-    VectorStore, VectorStoreError, VECTOR_SPACE_SCHEMA_VERSION,
+    column_path, cosine_with_query_norm, squared_norm, validate_vector, CpuGpuRouterReceipt,
+    ImportOutcome, Result, SpaceId, VectorHit, VectorInput, VectorNormalization, VectorOrigin,
+    VectorSpaceDescriptor, VectorStore, VectorStoreError, VECTOR_SPACE_SCHEMA_VERSION,
 };
 
 pub const NATIVE_STRUCTURAL_DIM: u32 = 48;
@@ -988,6 +988,32 @@ pub struct HybridHit {
     pub database_snapshot_sha256: [u8; 32],
 }
 
+pub const HYBRID_QUERY_RECEIPT_SCHEMA_VERSION: u16 = 1;
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct HybridQueryReceipt {
+    pub schema_version: u16,
+    pub database_snapshot_sha256: [u8; 32],
+    pub graph_config_digest: [u8; 32],
+    pub external_router: CpuGpuRouterReceipt,
+    pub native_router: CpuGpuRouterReceipt,
+    pub weights: HybridWeights,
+    pub trust_filter: TrustFilter,
+    pub unknown_trust_policy: UnknownTrustPolicy,
+    pub trust_ledger_head_digest: [u8; 32],
+    pub trust_in_numeric_score: bool,
+    pub wave_enabled: bool,
+    pub native_structural_enabled: bool,
+    pub deterministic_total_cmp_and_record_id_tie_break: bool,
+    pub ann_used: bool,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct HybridQueryResult {
+    pub hits: Vec<HybridHit>,
+    pub receipt: HybridQueryReceipt,
+}
+
 pub fn query_hybrid(
     snapshot: &ReadSnapshot<'_>,
     vector_store: &VectorStore,
@@ -1003,6 +1029,39 @@ pub fn query_hybrid(
     unknown_policy: UnknownTrustPolicy,
     k: usize,
 ) -> Result<Vec<HybridHit>> {
+    Ok(query_hybrid_with_receipt(
+        snapshot,
+        vector_store,
+        graph_index,
+        anchor_record_id,
+        external_space_id,
+        external_query_vector,
+        native_space_id,
+        graph_config,
+        weights,
+        ledger,
+        trust_filter,
+        unknown_policy,
+        k,
+    )?
+    .hits)
+}
+
+pub fn query_hybrid_with_receipt(
+    snapshot: &ReadSnapshot<'_>,
+    vector_store: &VectorStore,
+    graph_index: &GraphSnapshotIndex,
+    anchor_record_id: &str,
+    external_space_id: SpaceId,
+    external_query_vector: &[f32],
+    native_space_id: SpaceId,
+    graph_config: GraphScopeConfig,
+    weights: HybridWeights,
+    ledger: Option<&TrustLedger>,
+    trust_filter: TrustFilter,
+    unknown_policy: UnknownTrustPolicy,
+    k: usize,
+) -> Result<HybridQueryResult> {
     if k == 0 {
         return Err(VectorStoreError::Invalid(
             "hybrid k must be positive".to_string(),
@@ -1012,25 +1071,29 @@ pub fn query_hybrid(
     let scope = build_wave_scope(snapshot, graph_index, anchor_record_id, graph_config)?;
     let allowed = scope.allowed_record_ids();
 
-    let external_hits = vector_store.find_exact_in_records(
+    let external_routed = vector_store.find_exact_routed_with_receipt(
         snapshot,
         external_space_id,
         external_query_vector,
         allowed.len().max(1),
         Some(&allowed),
     )?;
+    let external_router = external_routed.receipt;
+    let external_hits = external_routed.hits;
     let native_query = vector_store
         .vector_for_record(native_space_id, anchor_record_id)?
         .ok_or_else(|| {
             VectorStoreError::NotFound(format!("anchor native vector {anchor_record_id}"))
         })?;
-    let native_hits = vector_store.find_exact_in_records(
+    let native_routed = vector_store.find_exact_routed_with_receipt(
         snapshot,
         native_space_id,
         &native_query,
         allowed.len().max(1),
         Some(&allowed),
     )?;
+    let native_router = native_routed.receipt;
+    let native_hits = native_routed.hits;
 
     let external = external_hits
         .into_iter()
@@ -1095,7 +1158,26 @@ pub fn query_hybrid(
     for (index, hit) in results.iter_mut().enumerate() {
         hit.rank = index + 1;
     }
-    Ok(results)
+    let receipt = HybridQueryReceipt {
+        schema_version: HYBRID_QUERY_RECEIPT_SCHEMA_VERSION,
+        database_snapshot_sha256: snapshot.descriptor().snapshot_sha256,
+        graph_config_digest: scope.config_digest,
+        external_router,
+        native_router,
+        weights,
+        trust_filter,
+        unknown_trust_policy: unknown_policy,
+        trust_ledger_head_digest: ledger.map(TrustLedger::head_digest).unwrap_or([0u8; 32]),
+        trust_in_numeric_score: false,
+        wave_enabled: true,
+        native_structural_enabled: true,
+        deterministic_total_cmp_and_record_id_tie_break: true,
+        ann_used: false,
+    };
+    Ok(HybridQueryResult {
+        hits: results,
+        receipt,
+    })
 }
 
 fn normalized_cosine(value: f64) -> f64 {
