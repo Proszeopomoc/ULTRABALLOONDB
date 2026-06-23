@@ -1,0 +1,243 @@
+{
+  "schema": "ultraballoondb.hybrid_lift_benchmark_freeze.v1",
+  "milestone_id": "V00R4_9A_REAL_WORLD_IMPERFECT_GRAPH_HYBRID_LIFT_BENCHMARK_FREEZE",
+  "exact_ultraballoondb_base": "de652ce36e581bae7bc62e87caa4a943d796d680",
+  "status": "PROTOCOL_FROZEN_EXECUTION_NOT_RUN",
+  "research_question": "How much does native graph/Wave hybrid retrieval improve file localization over the same real-embedding semantic baseline?",
+  "external_corpus": {
+    "name": "Bench4BL",
+    "upstream_repository": "https://github.com/exatoa/Bench4BL",
+    "branch": "master",
+    "expected_commit_prefix": "5480cb0",
+    "resolve_full_commit_at_intake": true,
+    "archive_provenance_required": [
+      "url",
+      "size_bytes",
+      "sha256"
+    ],
+    "projects": [
+      {
+        "group": "Commons",
+        "project": "CODEC"
+      },
+      {
+        "group": "Commons",
+        "project": "COLLECTIONS"
+      },
+      {
+        "group": "Commons",
+        "project": "COMPRESS"
+      },
+      {
+        "group": "Commons",
+        "project": "CONFIGURATION"
+      },
+      {
+        "group": "Commons",
+        "project": "CSV"
+      },
+      {
+        "group": "Commons",
+        "project": "IO"
+      },
+      {
+        "group": "Commons",
+        "project": "LANG"
+      },
+      {
+        "group": "Commons",
+        "project": "MATH"
+      }
+    ]
+  },
+  "evaluation_unit": {
+    "query": "one real bug report",
+    "candidate": "one production Java source file in mapped buggy snapshot",
+    "ground_truth": "production source files mapped as fixing files",
+    "minimum_candidate_files": 20
+  },
+  "partition": {
+    "scope": "per_project",
+    "ordering": [
+      "report_created_at",
+      "snapshot_timestamp",
+      "report_id"
+    ],
+    "train_calibration_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "locked_test_fraction": 0.2,
+    "minimum_eligible_reports_per_project": 30
+  },
+  "embedding": {
+    "runtime": "FastEmbed",
+    "runtime_version": "0.8.0",
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "dimension": 384,
+    "dtype": "float32",
+    "normalization": "UNIT_L2",
+    "ann": false,
+    "trust_in_score": false,
+    "chunk_chars": 1800,
+    "chunk_overlap_chars": 200,
+    "file_vector": "L2_NORMALIZED_MEAN_OF_NORMALIZED_CHUNK_VECTORS"
+  },
+  "graph": {
+    "node_types": [
+      "FILE",
+      "PACKAGE",
+      "DECLARED_SYMBOL"
+    ],
+    "edge_types": [
+      "FILE_IN_PACKAGE",
+      "FILE_IMPORTS_FILE",
+      "FILE_IMPORTS_PACKAGE",
+      "FILE_DECLARES_SYMBOL",
+      "FILE_REFERENCES_SYMBOL",
+      "HISTORICAL_COCHANGE"
+    ],
+    "answer_edges_forbidden": true,
+    "future_edges_forbidden": true,
+    "current_fix_commit_forbidden": true,
+    "cochange": {
+      "merge_commits_excluded": true,
+      "max_files_per_commit": 50,
+      "minimum_independent_observations": 2,
+      "weight": "CLIPPED_NORMALIZED_PMI_0_1"
+    }
+  },
+  "modes": [
+    "SEMANTIC_ONLY",
+    "GRAPH_ONLY",
+    "SEMANTIC_PLUS_STATIC_GRAPH",
+    "SEMANTIC_PLUS_COCHANGE",
+    "SEMANTIC_PLUS_WAVE",
+    "SEMANTIC_PLUS_STRUCTURAL",
+    "FULL_HYBRID"
+  ],
+  "fusion_grid": {
+    "semantic_weight": [
+      0.5,
+      0.65,
+      0.8
+    ],
+    "wave_weight": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "structural_weight": [
+      0.0,
+      0.1,
+      0.2
+    ],
+    "path_length_decay": [
+      0.5,
+      0.7,
+      0.85
+    ],
+    "max_wave_steps": [
+      2,
+      3,
+      4
+    ],
+    "semantic_seed_count": [
+      100,
+      200,
+      500
+    ],
+    "weights_must_sum_to": 1.0,
+    "selection_order": [
+      "macro_validation_ndcg_at_10_desc",
+      "macro_validation_mrr_desc",
+      "p95_latency_asc",
+      "semantic_weight_desc",
+      "max_wave_steps_asc"
+    ]
+  },
+  "stress_profiles": [
+    "NATURAL",
+    "EDGE_DROPOUT_10",
+    "EDGE_DROPOUT_25",
+    "DEGREE_MATCHED_NOISE_10"
+  ],
+  "metrics": {
+    "quality": [
+      "recall_at_1",
+      "recall_at_5",
+      "recall_at_10",
+      "mrr",
+      "map",
+      "ndcg_at_10",
+      "mean_first_relevant_rank",
+      "median_first_relevant_rank"
+    ],
+    "lift": [
+      "absolute",
+      "relative",
+      "per_project",
+      "macro_project",
+      "micro_query",
+      "queries_improved_fraction",
+      "queries_unchanged_fraction",
+      "queries_harmed_fraction"
+    ],
+    "runtime": [
+      "latency_p50_ms",
+      "latency_p95_ms",
+      "latency_p99_ms",
+      "candidate_count",
+      "semantic_backend",
+      "true_gpu_fallback_count",
+      "wave_nodes_visited",
+      "wave_edges_traversed",
+      "graph_build_ms",
+      "graph_node_count",
+      "graph_edge_count"
+    ],
+    "statistics": {
+      "paired_bootstrap_samples": 10000,
+      "confidence": 0.95,
+      "paired_randomization_test": true,
+      "primary_aggregation_unit": "project"
+    }
+  },
+  "outcome_classes": {
+    "HYBRID_ADVANTAGE_STRONG": {
+      "macro_ndcg_at_10_absolute_lift_min": 0.05,
+      "macro_ndcg_at_10_relative_lift_min": 0.1,
+      "macro_mrr_lift_positive": true,
+      "minimum_positive_projects": 6,
+      "paired_ci_lower_bound_above_zero": true,
+      "natural_positive": true,
+      "edge_dropout_10_positive": true,
+      "p95_latency_ratio_max": 3.0
+    },
+    "HYBRID_ADVANTAGE_MEASURED": {
+      "macro_ndcg_at_10_lift_positive": true,
+      "macro_mrr_lift_positive": true,
+      "majority_projects_positive": true,
+      "leakage_detected": false
+    },
+    "NO_PROVEN_HYBRID_ADVANTAGE": {
+      "lift_indistinguishable_from_zero": true
+    },
+    "HYBRID_REGRESSION": {
+      "material_negative_macro_quality_or_majority_project_regression": true
+    }
+  },
+  "execution_stages": [
+    "R4.9B1_DATASET_INTAKE_AND_LICENSE_PROVENANCE_READ_ONLY",
+    "R4.9B2_TEMPORAL_SNAPSHOT_AND_GROUND_TRUTH_AUDIT_READ_ONLY",
+    "R4.9B3_REAL_EMBEDDING_AND_IMPERFECT_GRAPH_BUILD_READ_ONLY",
+    "R4.9B4_VALIDATION_FUSION_SELECTION_READ_ONLY",
+    "R4.9B5_LOCKED_TEST_HYBRID_LIFT_EXECUTION_READ_ONLY",
+    "R4.9B6_INDEPENDENT_RESULT_AND_LEAKAGE_VERIFIER_READ_ONLY"
+  ],
+  "repository_policy": {
+    "generated_datasets_committed": false,
+    "source_archives_committed": false,
+    "embeddings_committed": false,
+    "external_project_repositories_committed": false,
+    "benchmark_answers_committed": false
+  }
+}

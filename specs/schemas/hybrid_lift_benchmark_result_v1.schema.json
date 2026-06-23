@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultraballoondb.local/specs/schemas/hybrid_lift_benchmark_result_v1.schema.json",
+  "title": "UltraBalloonDB Hybrid Lift Benchmark Result V1",
+  "type": "object",
+  "required": [
+    "schema",
+    "status",
+    "dataset",
+    "partition",
+    "selected_fusion",
+    "modes",
+    "lift",
+    "leakage",
+    "outcome"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ultraballoondb.hybrid_lift_benchmark_result.v1"
+    },
+    "status": {
+      "enum": [
+        "PASS_MEASUREMENT_COMPLETED",
+        "NO_GO_LEAKAGE_DETECTED",
+        "NO_GO_DATASET_INVALID",
+        "NO_GO_EXECUTION_INCOMPLETE"
+      ]
+    },
+    "dataset": {
+      "type": "object",
+      "required": [
+        "bench4bl_full_commit",
+        "archives",
+        "eligible_query_count",
+        "projects"
+      ],
+      "properties": {
+        "bench4bl_full_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "archives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "project",
+              "url",
+              "size_bytes",
+              "sha256"
+            ],
+            "properties": {
+              "project": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[A-F0-9]{64}$"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "eligible_query_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "projects": {
+          "type": "array",
+          "minItems": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "partition": {
+      "type": "object",
+      "required": [
+        "calibration",
+        "validation",
+        "locked_test"
+      ],
+      "additionalProperties": true
+    },
+    "selected_fusion": {
+      "type": "object",
+      "required": [
+        "configuration",
+        "configuration_sha256"
+      ],
+      "properties": {
+        "configuration_sha256": {
+          "type": "string",
+          "pattern": "^[A-F0-9]{64}$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "modes": {
+      "type": "object",
+      "required": [
+        "SEMANTIC_ONLY",
+        "FULL_HYBRID"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "macro",
+          "micro",
+          "per_project",
+          "runtime"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "lift": {
+      "type": "object",
+      "required": [
+        "macro_ndcg_at_10_absolute",
+        "macro_ndcg_at_10_relative",
+        "macro_mrr_absolute",
+        "per_project",
+        "paired_bootstrap"
+      ],
+      "additionalProperties": true
+    },
+    "leakage": {
+      "type": "object",
+      "required": [
+        "detected",
+        "future_commit_edge_count",
+        "current_fix_edge_count",
+        "answer_seed_count"
+      ],
+      "properties": {
+        "detected": {
+          "type": "boolean"
+        },
+        "future_commit_edge_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "current_fix_edge_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "answer_seed_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "outcome": {
+      "enum": [
+        "HYBRID_ADVANTAGE_STRONG",
+        "HYBRID_ADVANTAGE_MEASURED",
+        "NO_PROVEN_HYBRID_ADVANTAGE",
+        "HYBRID_REGRESSION"
+      ]
+    }
+  },
+  "additionalProperties": true
+}
