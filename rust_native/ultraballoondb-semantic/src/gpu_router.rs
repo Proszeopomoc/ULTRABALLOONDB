@@ -9,8 +9,8 @@ use ultraballoondb_lifecycle::ReadSnapshot;
 use ultraballoondb_storage::{hex_digest, sha256};
 
 use super::{
-    cosine_with_query_norm, squared_norm, validate_vector, Result, SpaceId, VectorHit,
-    VectorStore, VectorStoreError, MAX_TOP_K,
+    cosine_with_query_norm, squared_norm, validate_vector, Result, SpaceId, VectorHit, VectorStore,
+    VectorStoreError, MAX_TOP_K,
 };
 
 pub const CPU_GPU_ROUTER_SCHEMA_VERSION: u16 = 1;
@@ -122,6 +122,23 @@ impl CpuGpuRouterReceipt {
 
     pub fn kernel_sha256_hex(&self) -> String {
         hex_digest(&self.kernel_sha256)
+    }
+
+    pub fn cpu_selected_by_policy(&self) -> bool {
+        self.selected_backend == ExactComputeBackend::CpuExact
+            && !self.cpu_fallback
+            && self
+                .fallback_reason
+                .as_deref()
+                .is_some_and(|reason| reason.starts_with("policy:"))
+    }
+
+    pub fn gpu_failure_fallback(&self) -> bool {
+        self.selected_backend == ExactComputeBackend::CpuExact && self.cpu_fallback
+    }
+
+    pub fn route_reason(&self) -> Option<&str> {
+        self.fallback_reason.as_deref()
     }
 }
 
@@ -243,6 +260,29 @@ struct Calibration {
     largest_tested: usize,
 }
 
+fn cached_auto_cpu_policy(
+    calibration: Calibration,
+    candidate_count: usize,
+) -> Option<(String, Option<usize>)> {
+    match calibration.crossover_candidates {
+        Some(crossover) if candidate_count < crossover => Some((
+            format!(
+                "policy: candidate count {candidate_count} below measured GPU crossover {crossover}"
+            ),
+            Some(crossover),
+        )),
+        Some(_) => None,
+        None if candidate_count <= calibration.largest_tested => Some((
+            format!(
+                "policy: GPU did not beat CPU through {} tested candidates",
+                calibration.largest_tested
+            ),
+            None,
+        )),
+        None => None,
+    }
+}
+
 #[derive(Default)]
 struct RouterState {
     engine: Option<platform::OpenClEngine>,
@@ -358,15 +398,13 @@ impl VectorStore {
         let kernel_sha256 = sha256(OPENCL_KERNEL_SOURCE.as_bytes());
         let snapshot_sha256 = snapshot.descriptor().snapshot_sha256;
 
-        let cpu = |reason: Option<String>, crossover: Option<usize>| -> Result<RoutedVectorHits> {
-            let hits = score_cpu(
-                query_vector,
-                &indices,
-                column,
-                k,
-                space_id,
-                snapshot_sha256,
-            );
+        let cpu = |reason: Option<String>,
+                   crossover: Option<usize>,
+                   actual_fallback: bool,
+                   device_name: Option<String>,
+                   exact_parity_certified: bool|
+         -> Result<RoutedVectorHits> {
+            let hits = score_cpu(query_vector, &indices, column, k, space_id, snapshot_sha256);
             Ok(RoutedVectorHits {
                 hits,
                 receipt: CpuGpuRouterReceipt {
@@ -376,10 +414,10 @@ impl VectorStore {
                     dimension,
                     k,
                     database_snapshot_sha256: snapshot_sha256,
-                    exact_parity_certified: false,
-                    cpu_fallback: reason.is_some(),
+                    exact_parity_certified,
+                    cpu_fallback: actual_fallback,
                     fallback_reason: reason,
-                    device_name: None,
+                    device_name,
                     kernel_sha256,
                     measured_crossover_candidates: crossover,
                     batch_bytes,
@@ -388,31 +426,98 @@ impl VectorStore {
         };
 
         if indices.is_empty() {
-            return cpu(None, None);
+            return cpu(None, None, false, None, false);
         }
         if config.mode == RouterMode::CpuOnly {
-            return cpu(Some("router configured for CPU-only execution".to_string()), None);
+            return cpu(
+                Some("policy: router configured for CPU-only execution".to_string()),
+                None,
+                false,
+                None,
+                false,
+            );
         }
         if batch_bytes > config.max_batch_bytes {
             return cpu(
                 Some(format!(
-                    "GPU batch bytes {batch_bytes} exceed configured maximum {}",
+                    "policy: GPU batch bytes {batch_bytes} exceed configured maximum {}",
                     config.max_batch_bytes
                 )),
                 None,
+                false,
+                None,
+                false,
             );
         }
-        if config.mode == RouterMode::Auto
-            && indices.len() < config.bootstrap_candidate_count
-        {
+        if config.mode == RouterMode::Auto && indices.len() < config.bootstrap_candidate_count {
             return cpu(
                 Some(format!(
-                    "candidate count {} below GPU bootstrap threshold {}",
-                    indices.len(), config.bootstrap_candidate_count
+                    "policy: candidate count {} below GPU bootstrap threshold {}",
+                    indices.len(),
+                    config.bootstrap_candidate_count
                 )),
                 None,
+                false,
+                None,
+                false,
             );
         }
+
+        let cached_policy = {
+            let guard = router_state().lock().map_err(|_| {
+                VectorStoreError::Conflict("CPU/GPU router lock poisoned".to_string())
+            })?;
+            if config.mode == RouterMode::Auto {
+                guard
+                    .calibrations
+                    .get(&dimension)
+                    .copied()
+                    .and_then(|calibration| {
+                        cached_auto_cpu_policy(calibration, indices.len()).map(
+                            |(reason, crossover)| {
+                                (
+                                    reason,
+                                    crossover,
+                                    guard.device_name.clone(),
+                                    guard.parity_certified,
+                                )
+                            },
+                        )
+                    })
+            } else {
+                None
+            }
+        };
+        if let Some((reason, crossover, device_name, parity_certified)) = cached_policy {
+            return cpu(
+                Some(reason),
+                crossover,
+                false,
+                device_name,
+                parity_certified,
+            );
+        }
+
+        let initialized_device_name = {
+            let mut guard = router_state().lock().map_err(|_| {
+                VectorStoreError::Conflict("CPU/GPU router lock poisoned".to_string())
+            })?;
+            match guard.ensure_engine() {
+                Ok(engine) => Some(engine.device_name().to_string()),
+                Err(reason) => {
+                    let device_name = guard.device_name.clone();
+                    let parity_certified = guard.parity_certified;
+                    drop(guard);
+                    return cpu(
+                        Some(format!("fallback: {reason}")),
+                        None,
+                        true,
+                        device_name,
+                        parity_certified,
+                    );
+                }
+            }
+        };
 
         let host_pack_start = Instant::now();
         let mut flat = Vec::with_capacity(indices.len().saturating_mul(dimension));
@@ -424,14 +529,7 @@ impl VectorStore {
         let mut guard = router_state()
             .lock()
             .map_err(|_| VectorStoreError::Conflict("CPU/GPU router lock poisoned".to_string()))?;
-        let device_name;
-        {
-            let engine = match guard.ensure_engine() {
-                Ok(engine) => engine,
-                Err(reason) => return cpu(Some(reason), None),
-            };
-            device_name = Some(engine.device_name().to_string());
-        }
+        let device_name = guard.device_name.clone().or(initialized_device_name);
 
         let calibration = guard.calibrations.get(&dimension).copied();
         let needs_calibration = match calibration {
@@ -442,10 +540,21 @@ impl VectorStore {
         };
         if needs_calibration {
             let result = {
-                let engine = guard
-                    .engine
-                    .as_mut()
-                    .ok_or_else(|| VectorStoreError::Conflict("OpenCL engine missing".to_string()))?;
+                let engine = match guard.ensure_engine() {
+                    Ok(engine) => engine,
+                    Err(reason) => {
+                        let device_name = guard.device_name.clone();
+                        let parity_certified = guard.parity_certified;
+                        drop(guard);
+                        return cpu(
+                            Some(format!("fallback: {reason}")),
+                            None,
+                            true,
+                            device_name,
+                            parity_certified,
+                        );
+                    }
+                };
                 calibrate_on_query(
                     engine,
                     query_vector,
@@ -461,7 +570,7 @@ impl VectorStore {
                 }
                 Err(reason) => {
                     guard.disable(reason.clone());
-                    return cpu(Some(reason), None);
+                    return cpu(Some(format!("fallback: {reason}")), None, true, None, false);
                 }
             }
         }
@@ -474,27 +583,19 @@ impl VectorStore {
                 crossover_candidates: None,
                 largest_tested: 0,
             });
+
         if config.mode == RouterMode::Auto {
-            match calibration.crossover_candidates {
-                Some(crossover) if indices.len() >= crossover => {}
-                Some(crossover) => {
-                    return cpu(
-                        Some(format!(
-                            "candidate count {} below measured GPU crossover {crossover}",
-                            indices.len()
-                        )),
-                        Some(crossover),
-                    )
-                }
-                None => {
-                    return cpu(
-                        Some(format!(
-                            "GPU did not beat CPU through {} tested candidates",
-                            calibration.largest_tested
-                        )),
-                        None,
-                    )
-                }
+            if let Some((reason, crossover)) = cached_auto_cpu_policy(calibration, indices.len()) {
+                let device_name = guard.device_name.clone().or(device_name);
+                let parity_certified = guard.parity_certified;
+                drop(guard);
+                return cpu(
+                    Some(reason),
+                    crossover,
+                    false,
+                    device_name,
+                    parity_certified,
+                );
             }
         }
 
@@ -509,13 +610,25 @@ impl VectorStore {
             Ok(value) => value,
             Err(reason) => {
                 guard.disable(reason.clone());
-                return cpu(Some(reason), calibration.crossover_candidates);
+                return cpu(
+                    Some(format!("fallback: {reason}")),
+                    calibration.crossover_candidates,
+                    true,
+                    None,
+                    false,
+                );
             }
         };
 
         if let Err(reason) = verify_query_samples(query_vector, &flat, dimension, &parts) {
             guard.disable(reason.clone());
-            return cpu(Some(reason), calibration.crossover_candidates);
+            return cpu(
+                Some(format!("fallback: {reason}")),
+                calibration.crossover_candidates,
+                true,
+                None,
+                false,
+            );
         }
         let parity_certified = guard.parity_certified;
         drop(guard);
@@ -692,9 +805,7 @@ fn verify_query_samples(
     for row in samples {
         let base = row * dimension;
         let cpu = cpu_parts(query, &vectors[base..base + dimension], dimension)[0];
-        if cpu.0.to_bits() != gpu[row].0.to_bits()
-            || cpu.1.to_bits() != gpu[row].1.to_bits()
-        {
+        if cpu.0.to_bits() != gpu[row].0.to_bits() || cpu.1.to_bits() != gpu[row].1.to_bits() {
             return Err(format!(
                 "OpenCL per-query exact-parity sample failed at row {row}"
             ));
@@ -913,9 +1024,8 @@ mod platform {
     const CL_MEM_READ_ONLY: ClBitfield = 1 << 2;
     const CL_TRUE: ClBool = 1;
 
-    type ContextNotify = Option<
-        unsafe extern "system" fn(*const c_char, *const c_void, usize, *mut c_void),
-    >;
+    type ContextNotify =
+        Option<unsafe extern "system" fn(*const c_char, *const c_void, usize, *mut c_void)>;
     type ProgramNotify = Option<unsafe extern "system" fn(ClProgram, *mut c_void)>;
 
     type ClGetPlatformIDs =
@@ -927,13 +1037,8 @@ mod platform {
         *mut ClDeviceId,
         *mut ClUint,
     ) -> ClInt;
-    type ClGetDeviceInfo = unsafe extern "system" fn(
-        ClDeviceId,
-        ClUint,
-        usize,
-        *mut c_void,
-        *mut usize,
-    ) -> ClInt;
+    type ClGetDeviceInfo =
+        unsafe extern "system" fn(ClDeviceId, ClUint, usize, *mut c_void, *mut usize) -> ClInt;
     type ClCreateContext = unsafe extern "system" fn(
         *const ClContextProperties,
         ClUint,
@@ -942,12 +1047,8 @@ mod platform {
         *mut c_void,
         *mut ClInt,
     ) -> ClContext;
-    type ClCreateCommandQueue = unsafe extern "system" fn(
-        ClContext,
-        ClDeviceId,
-        ClBitfield,
-        *mut ClInt,
-    ) -> ClCommandQueue;
+    type ClCreateCommandQueue =
+        unsafe extern "system" fn(ClContext, ClDeviceId, ClBitfield, *mut ClInt) -> ClCommandQueue;
     type ClCreateProgramWithSource = unsafe extern "system" fn(
         ClContext,
         ClUint,
@@ -973,13 +1074,8 @@ mod platform {
     ) -> ClInt;
     type ClCreateKernel =
         unsafe extern "system" fn(ClProgram, *const c_char, *mut ClInt) -> ClKernel;
-    type ClCreateBuffer = unsafe extern "system" fn(
-        ClContext,
-        ClBitfield,
-        usize,
-        *mut c_void,
-        *mut ClInt,
-    ) -> ClMem;
+    type ClCreateBuffer =
+        unsafe extern "system" fn(ClContext, ClBitfield, usize, *mut c_void, *mut ClInt) -> ClMem;
     type ClSetKernelArg =
         unsafe extern "system" fn(ClKernel, ClUint, usize, *const c_void) -> ClInt;
     type ClEnqueueWriteBuffer = unsafe extern "system" fn(
@@ -1094,33 +1190,21 @@ mod platform {
                         b"clCreateProgramWithSource\0",
                     )?,
                     build_program: Self::load_symbol(module, b"clBuildProgram\0")?,
-                    get_program_build_info: Self::load_symbol(
-                        module,
-                        b"clGetProgramBuildInfo\0",
-                    )?,
+                    get_program_build_info: Self::load_symbol(module, b"clGetProgramBuildInfo\0")?,
                     create_kernel: Self::load_symbol(module, b"clCreateKernel\0")?,
                     create_buffer: Self::load_symbol(module, b"clCreateBuffer\0")?,
                     set_kernel_arg: Self::load_symbol(module, b"clSetKernelArg\0")?,
-                    enqueue_write_buffer: Self::load_symbol(
-                        module,
-                        b"clEnqueueWriteBuffer\0",
-                    )?,
+                    enqueue_write_buffer: Self::load_symbol(module, b"clEnqueueWriteBuffer\0")?,
                     enqueue_nd_range_kernel: Self::load_symbol(
                         module,
                         b"clEnqueueNDRangeKernel\0",
                     )?,
-                    enqueue_read_buffer: Self::load_symbol(
-                        module,
-                        b"clEnqueueReadBuffer\0",
-                    )?,
+                    enqueue_read_buffer: Self::load_symbol(module, b"clEnqueueReadBuffer\0")?,
                     finish: Self::load_symbol(module, b"clFinish\0")?,
                     release_mem_object: Self::load_symbol(module, b"clReleaseMemObject\0")?,
                     release_kernel: Self::load_symbol(module, b"clReleaseKernel\0")?,
                     release_program: Self::load_symbol(module, b"clReleaseProgram\0")?,
-                    release_command_queue: Self::load_symbol(
-                        module,
-                        b"clReleaseCommandQueue\0",
-                    )?,
+                    release_command_queue: Self::load_symbol(module, b"clReleaseCommandQueue\0")?,
                     release_context: Self::load_symbol(module, b"clReleaseContext\0")?,
                 })
             })();
@@ -1161,9 +1245,8 @@ mod platform {
             let api = OpenClApi::load()?;
             let (device, device_name) = select_fp64_gpu(&api)?;
             let mut status = 0;
-            let context = unsafe {
-                (api.create_context)(null(), 1, &device, None, null_mut(), &mut status)
-            };
+            let context =
+                unsafe { (api.create_context)(null(), 1, &device, None, null_mut(), &mut status) };
             check_handle(context, status, "clCreateContext")?;
             let queue = unsafe { (api.create_command_queue)(context, device, 0, &mut status) };
             if queue.is_null() || status != CL_SUCCESS {
@@ -1449,9 +1532,7 @@ mod platform {
         }
         let mut platforms = vec![null_mut(); platform_count as usize];
         check(
-            unsafe {
-                (api.get_platform_ids)(platform_count, platforms.as_mut_ptr(), null_mut())
-            },
+            unsafe { (api.get_platform_ids)(platform_count, platforms.as_mut_ptr(), null_mut()) },
             "clGetPlatformIDs(list)",
         )?;
         for platform in platforms {
@@ -1496,7 +1577,9 @@ mod platform {
                 let extensions = device_string(api, device, CL_DEVICE_EXTENSIONS)
                     .unwrap_or_else(|_| String::new());
                 if (status == CL_SUCCESS && fp64_config != 0)
-                    || extensions.split_whitespace().any(|value| value == "cl_khr_fp64")
+                    || extensions
+                        .split_whitespace()
+                        .any(|value| value == "cl_khr_fp64")
                 {
                     let name = device_string(api, device, CL_DEVICE_NAME)
                         .unwrap_or_else(|_| "OpenCL FP64 GPU".to_string());
@@ -1640,5 +1723,59 @@ mod platform {
         ) -> std::result::Result<Vec<(f64, f64)>, String> {
             Err("OpenCL backend unavailable on this platform".to_string())
         }
+    }
+}
+
+// ULTRABALLOONDB_R4_8A_CACHED_CPU_POLICY_TESTS
+#[cfg(test)]
+mod r4_8a_cached_cpu_policy_tests {
+    use super::{cached_auto_cpu_policy, Calibration};
+
+    #[test]
+    fn no_crossover_reuses_cpu_policy_within_tested_range() {
+        let decision = cached_auto_cpu_policy(
+            Calibration {
+                crossover_candidates: None,
+                largest_tested: 10_000,
+            },
+            10_000,
+        )
+        .expect("cached CPU policy expected");
+        assert!(decision.0.starts_with("policy:"));
+        assert_eq!(decision.1, None);
+    }
+
+    #[test]
+    fn no_crossover_recalibrates_above_tested_range() {
+        let decision = cached_auto_cpu_policy(
+            Calibration {
+                crossover_candidates: None,
+                largest_tested: 10_000,
+            },
+            100_000,
+        );
+        assert!(decision.is_none());
+    }
+
+    #[test]
+    fn measured_crossover_routes_cpu_only_below_threshold() {
+        let below = cached_auto_cpu_policy(
+            Calibration {
+                crossover_candidates: Some(50_000),
+                largest_tested: 50_000,
+            },
+            10_000,
+        )
+        .expect("CPU policy expected below crossover");
+        assert_eq!(below.1, Some(50_000));
+
+        let at_threshold = cached_auto_cpu_policy(
+            Calibration {
+                crossover_candidates: Some(50_000),
+                largest_tested: 50_000,
+            },
+            50_000,
+        );
+        assert!(at_threshold.is_none());
     }
 }

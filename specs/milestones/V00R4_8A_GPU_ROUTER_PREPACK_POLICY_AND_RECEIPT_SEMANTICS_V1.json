@@ -1,0 +1,40 @@
+{
+  "schema": "ultraballoondb.milestone.v1",
+  "milestone_id": "V00R4_8A_GPU_ROUTER_PREPACK_POLICY_AND_RECEIPT_SEMANTICS",
+  "exact_base": "babe5650f815a65f40676b5709bfd234a37e2122",
+  "status_before_install": "PACKAGE_READY_FOR_LOCAL_INSTALL_AND_VALIDATION",
+  "problem": {
+    "observed_scale": 10000,
+    "observed_dimension": 384,
+    "observed_batch_bytes": 15521536,
+    "auto_p50_ms_before": 22.6052,
+    "direct_cpu_p50_ms_before": 18.4122,
+    "root_cause": "cached CPU policy was consulted only after full host vector packing",
+    "receipt_issue": "policy CPU selections were incorrectly reported as GPU fallbacks"
+  },
+  "changes": [
+    "consult cached calibration before host packing",
+    "skip host packing when cached policy already selects CPU",
+    "mark policy CPU selection as cpu_fallback=false",
+    "prefix policy route reasons with policy:",
+    "prefix actual GPU failures with fallback:",
+    "preserve device and parity evidence on policy CPU receipts",
+    "add receipt helper methods without removing existing fields",
+    "add unit tests for cached crossover policy",
+    "add exact local CPU/GPU regression probe"
+  ],
+  "non_changes": {
+    "canonical_storage": false,
+    "wal": false,
+    "trust_score": false,
+    "ann": false,
+    "opencl_kernel": false,
+    "ranking_formula": false,
+    "tie_break": false
+  },
+  "expected_paths": [
+    "rust_native/ultraballoondb-semantic/src/gpu_router.rs",
+    "rust_native/ultraballoondb-semantic/examples/gpu_router_cached_cpu_policy_probe.rs",
+    "specs/milestones/V00R4_8A_GPU_ROUTER_PREPACK_POLICY_AND_RECEIPT_SEMANTICS_V1.json"
+  ]
+}
