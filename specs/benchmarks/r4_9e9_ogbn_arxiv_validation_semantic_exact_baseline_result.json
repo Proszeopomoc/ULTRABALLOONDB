@@ -1,0 +1,89 @@
+{
+  "schema": "ultraballoondb.r4_9e9.ogbn_arxiv_validation_semantic_exact_baseline_result.v1",
+  "result_identity": "OGBN_ARXIV_VALIDATION_SEMANTIC_EXACT_CPU_BASELINE_R4_9E9_R04",
+  "benchmark_identity": "ULTRABALLOONDB_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_V1",
+  "authoritative_revision": "R04",
+  "source_repository_head": "173008034ba7f8994e15e426420fcfa99d8c3d58",
+  "dataset": {
+    "provider": "Open Graph Benchmark",
+    "dataset_name": "ogbn-arxiv",
+    "upstream_dataset_version": 1,
+    "archive_sha256": "49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276",
+    "license_spdx": "ODC-By-1.0",
+    "evaluation_split": "validation",
+    "candidate_split": "train"
+  },
+  "execution": {
+    "query_count": 29799,
+    "candidate_count": 90941,
+    "dimension": 128,
+    "top_k": 10,
+    "shard_count": 30,
+    "thread_count": 6,
+    "selected_backend": "CPU_EXACT",
+    "execution_kernel": "RUST_CPU_EXACT_PRODUCT_BIT_PARITY_CERTIFIED_R04_BUILD_ID_LOCKED",
+    "product_parity_probe_count": 30,
+    "all_product_parity_exact": true,
+    "candidate_filter_train_only": true,
+    "ann_used": false,
+    "hybrid_fusion_used": false,
+    "native_structural_space_used": false,
+    "test_set_executed": false
+  },
+  "build_identity": {
+    "build_id": "R4_9E9_R04",
+    "crate_id": "ultraballoondb-r4-9e9-executor-r04-0.0.4",
+    "executor_sha256": "1ED439D07BF19BA94F260B5DA6631936E2E7ADC6F2CCF4EDEC29B9F006A6C15D",
+    "executor_source_sha256": "A559D439FDA9F3759B74DD5A2008AA236F6C60FC935D4C3C0BDE97541156FC4E",
+    "source_hash_bound_target": "U49E9T_R04_A559D439FDA9",
+    "pre_execution_smoke_passed": true
+  },
+  "evaluation_integrity": {
+    "labels_available_to_executor": false,
+    "ground_truth_available_to_executor": false,
+    "evaluation_occurs_after_result_freeze": true,
+    "canonical_output_changed": false,
+    "definition_changed": false,
+    "preflight_changed": false,
+    "staging_changed": false,
+    "repository_changed_during_execution": false
+  },
+  "evidence": {
+    "r4_9e8_report_sha256": "3CF2E387D92C9C69FF3644F1231A6AE67F418A89AAFAA523C7EB2BB6E3B3A4E9",
+    "execution_report_sha256": "437D35261BFF52808A9A01E4BBB20ABA121CBFA2B57A11F35BEF8CA795EC3F18",
+    "evidence_zip_sha256": "52BB4620E41684379AB6E831D20EABA4DBA9F0D2A5C2A9D4612B394B87842DFA",
+    "final_manifest_sha256": "5230A3178D72D9AFE306C0C500AA001F702F039CDBADFB73481F0146C59C7E11",
+    "results_freeze_manifest_sha256": "CA03053CB1711FFEE07798ABEB8EC5F4A4D720E1D0F05DB91369FC28C5E97824",
+    "metrics_sha256": "CBB457AD96D162281086B2769B4E5456D96F4B534C19EC32DB6EB5B63762D189",
+    "r04_package_sha256": "5E1C824A3776BF5EBCFFF83CE844DA140CE0C3FA97EB72893068709879A7F0D2",
+    "r04_launcher_sha256": "89A9A418173E9C34C7C138C4C02C5A6F7C33579823A8F573072E25CB527F4393"
+  },
+  "claim_scope": {
+    "allowed": "Full validation semantic-only exact CPU baseline for the frozen ogbn-arxiv train-candidate retrieval profile.",
+    "forbidden": [
+      "hybrid_engine_superiority",
+      "whole_database_superiority",
+      "test_set_quality_claim",
+      "ann_quality_claim",
+      "final_product_readiness"
+    ]
+  },
+  "next_gate": "R4_9E10_OGBN_ARXIV_VALIDATION_SEMANTIC_BASELINE_POST_EXECUTION_CONFORMANCE_READ_ONLY",
+  "metrics_artifact": {
+    "path": "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_metrics.json",
+    "sha256": "CBB457AD96D162281086B2769B4E5456D96F4B534C19EC32DB6EB5B63762D189",
+    "copy_mode": "BYTE_FOR_BYTE_FROM_FROZEN_SOURCE",
+    "numeric_source_of_truth": "EXACT_SOURCE_ARTIFACT",
+    "rounded_numeric_values_present_in_metadata": false,
+    "used_for_replay_and_machine_comparison": true
+  },
+  "presentation_contract": {
+    "scope": "HUMAN_READABLE_MARKDOWN_ONLY",
+    "source": "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_metrics.json",
+    "decimal_input": "RAW_JSON_DECIMAL_TOKEN",
+    "rounding_mode": "ROUND_HALF_EVEN",
+    "quality_metric_decimal_places": 12,
+    "operational_metric_decimal_places": 6,
+    "presentation_values_must_not_feed_machine_comparison": true
+  }
+}

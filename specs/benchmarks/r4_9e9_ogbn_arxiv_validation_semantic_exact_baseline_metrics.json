@@ -1,0 +1,22 @@
+{
+  "candidate_count": 90941,
+  "evaluation_occurs_after_result_freeze": true,
+  "ground_truth_available_to_executor": false,
+  "labels_available_to_executor": false,
+  "latency_mean_ms": 20.94681353065539,
+  "latency_p50_ms": 18.7265,
+  "latency_p95_ms": 34.35771,
+  "latency_p99_ms": 43.201442,
+  "mrr": 0.5782488439742249,
+  "ndcg_at_10": 0.4081402894744262,
+  "precision_at_10": 0.3970301016812806,
+  "queries_per_second": 285.57627655281374,
+  "query_count": 29799,
+  "results_freeze_manifest_sha256": "CA03053CB1711FFEE07798ABEB8EC5F4A4D720E1D0F05DB91369FC28C5E97824",
+  "schema": "ultraballoondb.r4_9e9.validation_metrics.v1",
+  "test_set_executed": false,
+  "top1_accuracy": 0.4555186415651532,
+  "top_k": 10,
+  "total_compute_elapsed_seconds": 104.3469029,
+  "total_relevant_hits_at_10": 118311
+}

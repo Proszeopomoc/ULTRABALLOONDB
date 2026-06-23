@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Proszeopomoc/ULTRABALLOONDB/specs/schemas/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_result.schema.json",
+  "title": "UltraBalloonDB R4.9E9 ogbn-arxiv validation semantic exact baseline result",
+  "type": "object",
+  "required": [
+    "schema",
+    "result_identity",
+    "benchmark_identity",
+    "authoritative_revision",
+    "source_repository_head",
+    "dataset",
+    "execution",
+    "build_identity",
+    "evaluation_integrity",
+    "evidence",
+    "claim_scope",
+    "next_gate",
+    "metrics_artifact",
+    "presentation_contract"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ultraballoondb.r4_9e9.ogbn_arxiv_validation_semantic_exact_baseline_result.v1"
+    },
+    "result_identity": {
+      "const": "OGBN_ARXIV_VALIDATION_SEMANTIC_EXACT_CPU_BASELINE_R4_9E9_R04"
+    },
+    "authoritative_revision": {
+      "const": "R04"
+    },
+    "source_repository_head": {
+      "const": "173008034ba7f8994e15e426420fcfa99d8c3d58"
+    },
+    "dataset": {
+      "type": "object"
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "query_count",
+        "candidate_count",
+        "dimension",
+        "top_k",
+        "shard_count",
+        "selected_backend",
+        "all_product_parity_exact",
+        "test_set_executed"
+      ],
+      "properties": {
+        "query_count": {
+          "const": 29799
+        },
+        "candidate_count": {
+          "const": 90941
+        },
+        "dimension": {
+          "const": 128
+        },
+        "top_k": {
+          "const": 10
+        },
+        "shard_count": {
+          "const": 30
+        },
+        "selected_backend": {
+          "const": "CPU_EXACT"
+        },
+        "all_product_parity_exact": {
+          "const": true
+        },
+        "test_set_executed": {
+          "const": false
+        }
+      }
+    },
+    "build_identity": {
+      "type": "object"
+    },
+    "evaluation_integrity": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "claim_scope": {
+      "type": "object"
+    },
+    "next_gate": {
+      "const": "R4_9E10_OGBN_ARXIV_VALIDATION_SEMANTIC_BASELINE_POST_EXECUTION_CONFORMANCE_READ_ONLY"
+    },
+    "metrics_artifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "copy_mode",
+        "numeric_source_of_truth",
+        "rounded_numeric_values_present_in_metadata",
+        "used_for_replay_and_machine_comparison"
+      ],
+      "properties": {
+        "path": {
+          "const": "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_metrics.json"
+        },
+        "sha256": {
+          "const": "CBB457AD96D162281086B2769B4E5456D96F4B534C19EC32DB6EB5B63762D189"
+        },
+        "copy_mode": {
+          "const": "BYTE_FOR_BYTE_FROM_FROZEN_SOURCE"
+        },
+        "numeric_source_of_truth": {
+          "const": "EXACT_SOURCE_ARTIFACT"
+        },
+        "rounded_numeric_values_present_in_metadata": {
+          "const": false
+        },
+        "used_for_replay_and_machine_comparison": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "presentation_contract": {
+      "type": "object",
+      "required": [
+        "scope",
+        "source",
+        "decimal_input",
+        "rounding_mode",
+        "quality_metric_decimal_places",
+        "operational_metric_decimal_places",
+        "presentation_values_must_not_feed_machine_comparison"
+      ],
+      "properties": {
+        "scope": {
+          "const": "HUMAN_READABLE_MARKDOWN_ONLY"
+        },
+        "source": {
+          "const": "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_metrics.json"
+        },
+        "decimal_input": {
+          "const": "RAW_JSON_DECIMAL_TOKEN"
+        },
+        "rounding_mode": {
+          "const": "ROUND_HALF_EVEN"
+        },
+        "quality_metric_decimal_places": {
+          "const": 12
+        },
+        "operational_metric_decimal_places": {
+          "const": 6
+        },
+        "presentation_values_must_not_feed_machine_comparison": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

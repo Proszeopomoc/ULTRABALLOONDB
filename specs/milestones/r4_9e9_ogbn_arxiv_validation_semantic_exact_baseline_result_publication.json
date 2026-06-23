@@ -1,0 +1,35 @@
+{
+  "schema": "ultraballoondb.milestone.v1",
+  "milestone": "V00R4_9E9_OGBN_ARXIV_VALIDATION_SEMANTIC_EXACT_BASELINE_RESULT_PUBLICATION",
+  "expected_base": "173008034ba7f8994e15e426420fcfa99d8c3d58",
+  "commit_subject": "UltraBalloonDB R4.9E9 publish ogbn-arxiv semantic exact baseline",
+  "additive_only": true,
+  "changed_paths": [
+    "docs/benchmarks/R4_9E9_OGBN_ARXIV_VALIDATION_SEMANTIC_EXACT_BASELINE_RESULT.md",
+    "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_result.json",
+    "specs/benchmarks/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_metrics.json",
+    "specs/schemas/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_result.schema.json",
+    "specs/milestones/r4_9e9_ogbn_arxiv_validation_semantic_exact_baseline_result_publication.json"
+  ],
+  "rust_source_changes": false,
+  "benchmark_execution_performed": true,
+  "benchmark_execution_performed_by_publication_package": false,
+  "authoritative_execution_revision": "R04",
+  "query_count": 29799,
+  "candidate_count": 90941,
+  "shard_count": 30,
+  "all_product_parity_exact": true,
+  "test_set_executed": false,
+  "hybrid_fusion_used": false,
+  "ann_used": false,
+  "next_gate": "R4_9E10_OGBN_ARXIV_VALIDATION_SEMANTIC_BASELINE_POST_EXECUTION_CONFORMANCE_READ_ONLY",
+  "exact_metrics_artifact_committed": true,
+  "exact_metrics_artifact_sha256": "CBB457AD96D162281086B2769B4E5456D96F4B534C19EC32DB6EB5B63762D189",
+  "rounded_metrics_in_machine_readable_metadata": false,
+  "presentation_rounding": {
+    "scope": "MARKDOWN_ONLY",
+    "mode": "ROUND_HALF_EVEN",
+    "quality_decimal_places": 12,
+    "operational_decimal_places": 6
+  }
+}
