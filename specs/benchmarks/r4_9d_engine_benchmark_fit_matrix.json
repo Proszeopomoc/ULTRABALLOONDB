@@ -1,0 +1,180 @@
+{
+  "schema": "ultraballoondb.r4_9d.engine_benchmark_fit_matrix.v1",
+  "frozen_at_head": "9a91e120cbe3df6110915c443aa569cdbf76f20a",
+  "benchmark_execution_performed": false,
+  "product_wide_single_score_allowed": false,
+  "engines_and_components": [
+    {
+      "id": "CANONICAL_DATABASE_CORE",
+      "readiness": "ACTIVE_PRODUCT_COMPONENT",
+      "purpose": [
+        "durable_records",
+        "typed_graph_edges",
+        "transactions",
+        "wal_checkpoint_recovery",
+        "snapshot_binding",
+        "restart_determinism"
+      ],
+      "allowed_benchmark_classes": [
+        "database_correctness",
+        "durability_and_recovery",
+        "concurrency",
+        "throughput_latency",
+        "storage_efficiency",
+        "restart_determinism"
+      ],
+      "forbidden_attribution": [
+        "retrieval_quality_as_database_core_proof",
+        "embedding_model_quality",
+        "code_generation"
+      ]
+    },
+    {
+      "id": "EXACT_SEMANTIC_RETRIEVAL_COMPONENT",
+      "readiness": "ACTIVE_PRODUCT_COMPONENT",
+      "purpose": [
+        "exact_vector_retrieval",
+        "deterministic_cpu_opencl_routing",
+        "exact_cpu_gpu_parity"
+      ],
+      "allowed_benchmark_classes": [
+        "exact_top_k_identity",
+        "latency_throughput",
+        "cpu_opencl_crossover",
+        "repeatability"
+      ],
+      "forbidden_attribution": [
+        "embedding_model_quality_to_database",
+        "ann_quality"
+      ]
+    },
+    {
+      "id": "PRODUCT_HYBRID_RETRIEVAL_ENGINE",
+      "runtime_identity": "ULTRABALLOONDB_PRODUCT_HYBRID_ENGINE_V1",
+      "crate": "ultraballoondb-hybrid-engine",
+      "entrypoint": "execute_product_hybrid_query",
+      "readiness": "ACTIVE_PRODUCT_ENGINE_POST_COMMIT_VERIFIED",
+      "purpose": [
+        "database_record_retrieval",
+        "external_semantic_similarity",
+        "native_structural_similarity",
+        "wave_topological_evidence",
+        "deterministic_weighted_fusion",
+        "trust_eligibility_filter",
+        "auditable_receipt"
+      ],
+      "primary_benchmark_class": "PAIRED_REAL_WORLD_IMPERFECT_GRAPH_HYBRID_RETRIEVAL",
+      "required_baselines": [
+        "semantic_only_exact",
+        "native_structural_only",
+        "wave_topological_only",
+        "graph_only_if_separable",
+        "full_product_hybrid",
+        "fusion_ablation"
+      ],
+      "quality_metrics": [
+        "ndcg_at_k",
+        "recall_at_k",
+        "mrr",
+        "top_k_hit_rate"
+      ],
+      "operational_metrics": [
+        "latency_p50",
+        "latency_p95",
+        "throughput",
+        "backend_selection",
+        "host_pack_transfer_cost",
+        "exact_parity",
+        "repeatability",
+        "fail_closed_count"
+      ],
+      "hard_invariants": {
+        "trust_in_numeric_score": false,
+        "ann_used": false,
+        "deterministic_tie_break": true,
+        "database_graph_snapshot_match": true,
+        "cpu_exact_or_parity_certified_opencl": true
+      }
+    },
+    {
+      "id": "WAVE_TOPOLOGICAL_COMPONENT",
+      "readiness": "ACTIVE_INTERNAL_COMPONENT",
+      "purpose": [
+        "multi_hop_propagation",
+        "typed_edge_masking",
+        "topological_evidence"
+      ],
+      "benchmark_role": "ABLATION_AND_COMPONENT_CONFORMANCE_ONLY",
+      "whole_product_claim_allowed": false
+    },
+    {
+      "id": "TRUST_CONTROL_PLANE",
+      "readiness": "ACTIVE_CONTROL_PLANE",
+      "purpose": [
+        "authorization",
+        "revocation",
+        "provenance",
+        "ledger_integrity",
+        "receipt_verification"
+      ],
+      "benchmark_role": "SECURITY_AND_INTEGRITY_ONLY",
+      "relevance_score_influence_allowed": false
+    },
+    {
+      "id": "DETERMINISTIC_EXECUTION_CONTRACT",
+      "readiness": "ACTIVE_CROSS_CUTTING_INVARIANT",
+      "benchmark_role": "REPEATABILITY_AND_PARITY_ONLY",
+      "retrieval_engine_identity": false
+    },
+    {
+      "id": "CODE_BUG_LOCALIZATION_PROFILE",
+      "readiness": "BLOCKED_PENDING_GROUND_TRUTH_SEMANTICS",
+      "engine_binding": "PRODUCT_HYBRID_RETRIEVAL_ENGINE",
+      "benchmark": "Bench4BL",
+      "allowed_claim": "source_entity_or_file_localization",
+      "forbidden_claims": [
+        "code_generation",
+        "patch_generation",
+        "autonomous_repair",
+        "whole_database_superiority",
+        "all_domain_retrieval"
+      ]
+    },
+    {
+      "id": "CODE_WRITING_AND_REPAIR_AGENT",
+      "readiness": "NOT_IMPLEMENTED",
+      "benchmark_execution_allowed": false
+    },
+    {
+      "id": "BROAD_KNOWLEDGE_RETRIEVAL_PROFILE",
+      "readiness": "NOT_YET_FROZEN",
+      "benchmark_execution_allowed": false
+    },
+    {
+      "id": "CREATIVE_GENERATION_ENGINE",
+      "readiness": "NOT_IMPLEMENTED",
+      "benchmark_execution_allowed": false
+    }
+  ],
+  "primary_hybrid_benchmark": {
+    "claim": "full product hybrid retrieval improves ranking over semantic-only exact retrieval on identical fixed records, embeddings, graph, queries, trust eligibility, and test split",
+    "graph_profiles": [
+      "natural_observed",
+      "deterministic_edge_dropout",
+      "deterministic_irrelevant_edge_noise",
+      "sparse_or_disconnected"
+    ],
+    "statistical_requirements": [
+      "frozen_eligibility",
+      "frozen_splits",
+      "validation_only_parameter_selection",
+      "locked_test",
+      "paired_query_comparison",
+      "confidence_intervals_or_paired_bootstrap",
+      "leakage_verification",
+      "no_test_driven_threshold_change"
+    ],
+    "test_execution_allowed": false,
+    "next_gate": "R4_9E_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_DATASET_BINDING"
+  }
+}

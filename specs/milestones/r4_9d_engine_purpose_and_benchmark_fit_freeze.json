@@ -1,0 +1,29 @@
+{
+  "schema": "ultraballoondb.milestone.v1",
+  "milestone": "V00R4_9D_ENGINE_PURPOSE_AND_BENCHMARK_FIT_FREEZE",
+  "expected_base": "9a91e120cbe3df6110915c443aa569cdbf76f20a",
+  "commit_subject": "UltraBalloonDB R4.9D engine purpose and benchmark fit freeze",
+  "additive_only": true,
+  "changed_paths": [
+    "docs/architecture/R4_9D_ENGINE_PURPOSE_AND_BENCHMARK_FIT_FREEZE.md",
+    "specs/benchmarks/r4_9d_engine_benchmark_fit_matrix.json",
+    "specs/milestones/r4_9d_engine_purpose_and_benchmark_fit_freeze.json"
+  ],
+  "product_engine": {
+    "id": "PRODUCT_HYBRID_RETRIEVAL_ENGINE",
+    "runtime_identity": "ULTRABALLOONDB_PRODUCT_HYBRID_ENGINE_V1",
+    "crate": "ultraballoondb-hybrid-engine",
+    "entrypoint": "execute_product_hybrid_query",
+    "purpose": "deterministic_hybrid_database_record_retrieval_and_ranking"
+  },
+  "primary_benchmark_fit": "PAIRED_REAL_WORLD_IMPERFECT_GRAPH_HYBRID_RETRIEVAL",
+  "bench4bl_reclassification": "SECONDARY_CODE_BUG_LOCALIZATION_PROFILE_ONLY",
+  "code_writing_agent_implemented": false,
+  "creative_generation_engine_implemented": false,
+  "broad_knowledge_profile_frozen": false,
+  "trust_in_numeric_score": false,
+  "ann_used": false,
+  "benchmark_execution_performed": false,
+  "benchmark_claim_made": false,
+  "next_gate": "R4_9E_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_DATASET_BINDING"
+}
