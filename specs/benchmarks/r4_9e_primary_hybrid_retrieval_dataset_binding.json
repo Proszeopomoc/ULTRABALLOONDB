@@ -1,0 +1,362 @@
+{
+  "schema": "ultraballoondb.r4_9e.primary_hybrid_retrieval_dataset_binding.v1",
+  "benchmark_identity": "ULTRABALLOONDB_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_V1",
+  "frozen_at_base_head": "eb6bf130073ed8ab18b4c4bef78b4bbc346a429f",
+  "benchmark_execution_performed": false,
+  "test_set_executed": false,
+  "benchmark_claim_made": false,
+  "product_engine": {
+    "id": "PRODUCT_HYBRID_RETRIEVAL_ENGINE",
+    "runtime_identity": "ULTRABALLOONDB_PRODUCT_HYBRID_ENGINE_V1",
+    "crate": "ultraballoondb-hybrid-engine",
+    "entrypoint": "execute_product_hybrid_query",
+    "trust_in_numeric_score": false,
+    "ann_used": false,
+    "required_exact_backend": "CPU_EXACT_OR_PARITY_CERTIFIED_OPENCL"
+  },
+  "dataset": {
+    "provider": "Open Graph Benchmark",
+    "dataset_name": "ogbn-arxiv",
+    "upstream_dataset_version": 1,
+    "official_task": "MULTICLASS_NODE_SUBJECT_CLASSIFICATION",
+    "ultraballoondb_derived_task": "GRAPH_SCOPED_PRIOR_PAPER_SAME_PRIMARY_CATEGORY_RETRIEVAL",
+    "derived_task_is_official_ogb_task": false,
+    "official_documentation_url": "https://ogb.stanford.edu/docs/nodeprop/",
+    "official_registry_url": "https://raw.githubusercontent.com/snap-stanford/ogb/master/ogb/nodeproppred/master.csv",
+    "official_registry_sha256_observed_at_freeze": "E2AE8CDBC995E8E07EF801711D6EDA01316FED1EBBE68BCF0A522686E20AAA3D",
+    "optional_title_abstract_mapping_url": "https://snap.stanford.edu/ogb/data/misc/ogbn_arxiv/titleabs.tsv.gz",
+    "optional_title_abstract_mapping_required_for_locked_execution": false,
+    "raw_text_redistribution_authorized_by_this_binding": false,
+    "license_spdx": "ODC-By-1.0",
+    "license_url": "https://opendatacommons.org/licenses/by/1-0/",
+    "redistribution_requires_attribution": true,
+    "archive_sha256": "UNBOUND_UNTIL_R4_9E1_READ_ONLY_INTAKE",
+    "archive_size_bytes": "UNBOUND_UNTIL_R4_9E1_READ_ONLY_INTAKE",
+    "archive_content_manifest_sha256": "UNBOUND_UNTIL_R4_9E1_READ_ONLY_INTAKE",
+    "official_registry_archive_url": "http://snap.stanford.edu/ogb/data/nodeproppred/arxiv.zip",
+    "required_tls_download_url": "https://snap.stanford.edu/ogb/data/nodeproppred/arxiv.zip"
+  },
+  "upstream_facts_to_verify_at_intake": {
+    "node_count": 169343,
+    "directed_edge_count": 1166243,
+    "class_count": 40,
+    "official_feature_dimension": 128,
+    "feature_origin": "AVERAGED_SKIP_GRAM_WORD_EMBEDDINGS_FROM_TITLE_AND_ABSTRACT",
+    "year_metadata_present": true,
+    "official_split": {
+      "train": "publication_year<=2017",
+      "validation": "publication_year==2018",
+      "test": "publication_year>=2019"
+    }
+  },
+  "claim_scope": {
+    "allowed": "On the frozen ogbn-arxiv-derived scientific-paper retrieval profile, compare deterministic full hybrid ranking against semantic-only exact ranking inside the identical graph-scoped candidate universe.",
+    "forbidden": [
+      "whole_database_superiority",
+      "broad_knowledge_retrieval",
+      "embedding_model_superiority",
+      "code_generation_or_repair",
+      "creative_generation",
+      "trust_improves_relevance",
+      "ann_quality"
+    ]
+  },
+  "record_and_graph_mapping": {
+    "record_id_format": "ogbn-arxiv:{zero_based_node_index}",
+    "node_id_mapping": "database_node_id_is_zero_based_node_index_plus_one",
+    "record_payload_fields": [
+      "ogbn_node_index",
+      "mag_paper_id_if_present_in_archive_mapping",
+      "publication_year",
+      "official_split"
+    ],
+    "evaluation_only_fields_not_exposed_to_ranking": [
+      "primary_subject_class"
+    ],
+    "edge_type": "CITES",
+    "edge_direction": "citing_paper_to_cited_paper",
+    "edge_weight": 1.0,
+    "self_edges_allowed": false,
+    "duplicate_edges_allowed": false
+  },
+  "external_semantic_space": {
+    "identity": "OGBN_ARXIV_OFFICIAL_128D_TITLE_ABSTRACT_WORD2VEC_AVERAGE_V1",
+    "dimension": 128,
+    "dtype": "F32",
+    "metric": "COSINE",
+    "normalization": "UNIT_L2_AT_IMPORT",
+    "database_does_not_claim_embedding_model_quality": true,
+    "feature_reembedding_allowed": false
+  },
+  "native_structural_space": {
+    "builder": "build_native_structural_space",
+    "identity": "ultraballoon-native-structural-v1",
+    "dimension": 48,
+    "labels_forbidden_in_construction": true
+  },
+  "temporal_snapshots": {
+    "validation": {
+      "corpus": "official_train_nodes_only",
+      "anchors": "official_validation_nodes_only",
+      "included_edges": [
+        "corpus_to_corpus",
+        "validation_anchor_to_corpus"
+      ],
+      "forbidden_edges": [
+        "corpus_to_validation_anchor",
+        "validation_anchor_to_validation_anchor"
+      ]
+    },
+    "test": {
+      "corpus": "official_train_plus_validation_nodes",
+      "anchors": "official_test_nodes_only",
+      "included_edges": [
+        "corpus_to_corpus",
+        "test_anchor_to_corpus"
+      ],
+      "forbidden_edges": [
+        "corpus_to_test_anchor",
+        "test_anchor_to_test_anchor"
+      ]
+    },
+    "future_information_allowed": false,
+    "query_anchor_may_be_returned_as_candidate": false
+  },
+  "ground_truth": {
+    "relevant_candidate_rule": "candidate_primary_subject_class_equals_query_anchor_primary_subject_class",
+    "labels_are_evaluation_only": true,
+    "labels_allowed_in_vector_features": false,
+    "labels_allowed_in_native_structural_features": false,
+    "labels_allowed_in_natural_graph": false,
+    "self_match_excluded": true,
+    "binary_relevance": true
+  },
+  "query_selection": {
+    "validation_target_count": 256,
+    "test_target_count": 512,
+    "minimum_graph_scoped_candidate_count": 64,
+    "minimum_relevant_candidate_count": 5,
+    "selection_order": "ascending_sha256_of_utf8('R49E_QUERY\\0'+split+'\\0'+record_id)",
+    "selection_depends_on_engine_results": false,
+    "fail_closed_if_target_count_not_met": true
+  },
+  "graph_scope_validation_grid": [
+    {
+      "id": "G1",
+      "max_steps": 1,
+      "energy_threshold": 0.0,
+      "candidate_limit": 256,
+      "edge_mask": 4294967295,
+      "rigor_multiplier": 1.0
+    },
+    {
+      "id": "G2",
+      "max_steps": 2,
+      "energy_threshold": 0.001,
+      "candidate_limit": 512,
+      "edge_mask": 4294967295,
+      "rigor_multiplier": 1.0
+    },
+    {
+      "id": "G3",
+      "max_steps": 3,
+      "energy_threshold": 0.001,
+      "candidate_limit": 1024,
+      "edge_mask": 4294967295,
+      "rigor_multiplier": 1.0
+    },
+    {
+      "id": "G4",
+      "max_steps": 3,
+      "energy_threshold": 0.01,
+      "candidate_limit": 1024,
+      "edge_mask": 4294967295,
+      "rigor_multiplier": 1.0
+    }
+  ],
+  "ranking_paths": [
+    {
+      "id": "SEMANTIC_ONLY_EXACT",
+      "weights": {
+        "external": 1.0,
+        "native": 0.0,
+        "wave": 0.0
+      },
+      "required": true
+    },
+    {
+      "id": "NATIVE_STRUCTURAL_ONLY",
+      "weights": {
+        "external": 0.0,
+        "native": 1.0,
+        "wave": 0.0
+      },
+      "required": true
+    },
+    {
+      "id": "WAVE_TOPOLOGICAL_ONLY",
+      "weights": {
+        "external": 0.0,
+        "native": 0.0,
+        "wave": 1.0
+      },
+      "required": true
+    },
+    {
+      "id": "EXTERNAL_PLUS_WAVE_ABLATION",
+      "weights": {
+        "external": 1.0,
+        "native": 0.0,
+        "wave": 1.0
+      },
+      "required": true
+    },
+    {
+      "id": "EXTERNAL_PLUS_NATIVE_ABLATION",
+      "weights": {
+        "external": 1.0,
+        "native": 1.0,
+        "wave": 0.0
+      },
+      "required": true
+    }
+  ],
+  "full_hybrid_validation_weight_grid": [
+    {
+      "id": "H111",
+      "external": 1.0,
+      "native": 1.0,
+      "wave": 1.0
+    },
+    {
+      "id": "H211",
+      "external": 2.0,
+      "native": 1.0,
+      "wave": 1.0
+    },
+    {
+      "id": "H121",
+      "external": 1.0,
+      "native": 2.0,
+      "wave": 1.0
+    },
+    {
+      "id": "H112",
+      "external": 1.0,
+      "native": 1.0,
+      "wave": 2.0
+    },
+    {
+      "id": "H212",
+      "external": 2.0,
+      "native": 1.0,
+      "wave": 2.0
+    },
+    {
+      "id": "H221",
+      "external": 2.0,
+      "native": 2.0,
+      "wave": 1.0
+    },
+    {
+      "id": "H122",
+      "external": 1.0,
+      "native": 2.0,
+      "wave": 2.0
+    }
+  ],
+  "graph_profiles": [
+    {
+      "id": "NATURAL_OBSERVED",
+      "role": "PRIMARY_CLAIM_PROFILE",
+      "construction": "frozen_temporal_edges_only"
+    },
+    {
+      "id": "DETERMINISTIC_EDGE_DROPOUT_10",
+      "role": "ROBUSTNESS_ONLY",
+      "construction": "drop_edge_if_u64_be(SHA256('R49E_DROP10\\0'+src+'\\0'+dst)[0:8]) < floor(0.10*2^64)"
+    },
+    {
+      "id": "DETERMINISTIC_IRRELEVANT_EDGE_NOISE_10",
+      "role": "ROBUSTNESS_ONLY",
+      "construction": "add_nonedge_pairs_until_floor(0.10*natural_edge_count), selected by deterministic SHA256 stream, with unequal evaluation labels; labels are removed before engine execution",
+      "ground_truth_used_only_to_construct_adversarial_noise": true,
+      "not_used_for_parameter_selection": true
+    },
+    {
+      "id": "DETERMINISTIC_ANCHOR_DISCONNECT_10",
+      "role": "ROBUSTNESS_ONLY",
+      "construction": "remove_all_anchor_incident_edges_for_lowest_10_percent_of_query_hashes",
+      "not_used_for_parameter_selection": true
+    }
+  ],
+  "graph_only_baseline": {
+    "separately_representable": false,
+    "reason": "The current public engine exposes Wave/topological evidence as the sole graph-derived numeric signal; a second graph-only score would duplicate that component."
+  },
+  "validation_and_test_lock": {
+    "selection_split": "validation_only",
+    "selection_primary_metric": "mean_ndcg_at_10",
+    "selection_tie_break_order": [
+      "mean_mrr_descending",
+      "latency_p95_ascending",
+      "graph_config_id_lexical",
+      "weight_config_id_lexical"
+    ],
+    "test_configuration_written_once": true,
+    "test_configuration_receipt_required": true,
+    "test_reselection_forbidden": true,
+    "test_driven_threshold_change_forbidden": true
+  },
+  "metrics": {
+    "quality": [
+      "ndcg_at_10",
+      "ndcg_at_50",
+      "recall_at_10",
+      "recall_at_50",
+      "recall_at_100",
+      "mrr",
+      "top10_hit_rate"
+    ],
+    "operational": [
+      "end_to_end_latency_p50_ms",
+      "end_to_end_latency_p95_ms",
+      "queries_per_second",
+      "backend_selection_counts",
+      "host_pack_ms",
+      "transfer_ms",
+      "exact_parity_count",
+      "repeatability_count",
+      "fail_closed_count"
+    ],
+    "paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 4909001,
+      "confidence_level": 0.95
+    }
+  },
+  "primary_pass_condition": {
+    "profile": "NATURAL_OBSERVED",
+    "full_hybrid_minus_semantic_only_ndcg_at_10_mean_gt": 0.0,
+    "paired_bootstrap_lower_bound_gt": 0.0,
+    "mrr_delta_must_not_be_negative": true,
+    "full_hybrid_latency_p95_ratio_max": 3.0,
+    "determinism_violations_allowed": 0,
+    "snapshot_mismatch_allowed": 0,
+    "trust_in_numeric_score_allowed": false,
+    "ann_used_allowed": false
+  },
+  "leakage_and_integrity_rules": [
+    "no_test_labels_in_vectors",
+    "no_test_labels_in_native_structural_space",
+    "no_test_labels_in_natural_graph",
+    "no_test_queries_during_validation_selection",
+    "no_future_edges_into_query_snapshots",
+    "no_engine_result_based_query_selection",
+    "same_candidate_universe_for_all_comparable_ranking_paths",
+    "same_trust_eligibility_for_all_comparable_ranking_paths",
+    "byte_stable_normalized_receipts_required",
+    "dataset_archive_digest_must_be_bound_before_materialization"
+  ],
+  "next_gate": "R4_9E1_OGBN_ARXIV_DATASET_INTAKE_LICENSE_AND_DIGEST_READ_ONLY"
+}

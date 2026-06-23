@@ -1,0 +1,32 @@
+{
+  "schema": "ultraballoondb.milestone.v1",
+  "milestone": "V00R4_9E_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_DATASET_BINDING",
+  "expected_base": "eb6bf130073ed8ab18b4c4bef78b4bbc346a429f",
+  "commit_subject": "UltraBalloonDB R4.9E bind primary hybrid retrieval benchmark dataset",
+  "additive_only": true,
+  "changed_paths": [
+    "docs/benchmarks/R4_9E_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_DATASET_BINDING.md",
+    "specs/benchmarks/r4_9e_primary_hybrid_retrieval_dataset_binding.json",
+    "specs/schemas/r4_9e_primary_hybrid_retrieval_dataset_binding.schema.json",
+    "specs/milestones/r4_9e_primary_hybrid_retrieval_benchmark_dataset_binding.json"
+  ],
+  "rust_source_changes": false,
+  "product_engine": {
+    "runtime_identity": "ULTRABALLOONDB_PRODUCT_HYBRID_ENGINE_V1",
+    "crate": "ultraballoondb-hybrid-engine",
+    "entrypoint": "execute_product_hybrid_query"
+  },
+  "primary_dataset": "ogbn-arxiv",
+  "upstream_dataset_version": 1,
+  "license": "ODC-By-1.0",
+  "derived_task": "GRAPH_SCOPED_PRIOR_PAPER_SAME_PRIMARY_CATEGORY_RETRIEVAL",
+  "benchmark_execution_performed": false,
+  "dataset_download_performed": false,
+  "dataset_materialization_performed": false,
+  "embedding_generation_performed": false,
+  "graph_build_performed": false,
+  "test_set_executed": false,
+  "benchmark_claim_made": false,
+  "bench4bl_status": "SECONDARY_CODE_BUG_LOCALIZATION_PROFILE_REMAINS_BLOCKED",
+  "next_gate": "R4_9E1_OGBN_ARXIV_DATASET_INTAKE_LICENSE_AND_DIGEST_READ_ONLY"
+}
