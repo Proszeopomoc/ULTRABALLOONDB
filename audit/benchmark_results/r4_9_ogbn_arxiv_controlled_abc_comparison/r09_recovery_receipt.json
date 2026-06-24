@@ -1,0 +1,22 @@
+﻿{
+    "schema":  "ultraballoondb.ogbn_abc_r09_recovery_receipt.v1",
+    "source_run_root":  "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290",
+    "source_freeze_manifest_sha256":  "47580B7190E1C28A8F61AA4EB6FB91613D06B0F9396172F49A9C9AB6401DC7A4",
+    "benchmark_rerun":  false,
+    "query_execution_performed":  false,
+    "ground_truth_bound_after_freeze":  true,
+    "report":  {
+                   "sha256":  "08C663906547542CBCE9F53ADE5EFDF6E31EC442F674179C7BE21E0D40A75D95",
+                   "path":  "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\ogbn_abc_comparison_report_r09.json"
+               },
+    "markdown":  {
+                     "sha256":  "43BE08B3E8B5C9905937CA529BF2E4C5CC0966022CB6DAEEDD2A063B752B15AC",
+                     "path":  "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\ogbn_abc_comparison_r09.md"
+                 },
+    "ground_truth_receipt":  {
+                                 "sha256":  "F75BE02DAAEB41DED551A0DA6F2737FCBC4AB8888B91EDD38C1F23CD5343AC2E",
+                                 "path":  "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\ground_truth_binding_receipt_r09.json"
+                             },
+    "repository_unchanged":  true,
+    "test_set_executed":  false
+}

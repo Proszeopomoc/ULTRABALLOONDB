@@ -1,0 +1,63 @@
+{
+  "evaluation_performed": false,
+  "files": {
+    "dataset_archive": {
+      "bytes": 83058288,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_DATASET_CACHE\\ogbn-arxiv\\v1\\arxiv.zip",
+      "sha256": "49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276"
+    },
+    "definition_manifest": {
+      "bytes": 4408,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\manifests\\validation_benchmark_definition_manifest.json",
+      "sha256": "8F39D0B9596C850E1225D23846600CB05F723AF793F02E4CB9A51202FE63B72E"
+    },
+    "execution_receipt": {
+      "bytes": 1165,
+      "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\execution\\abc_execution_receipt.json",
+      "sha256": "D8879797A20D8183367677F761464847067C8E6B8CF9D0CE767582B347461485"
+    },
+    "native_column": {
+      "bytes": 25638266,
+      "path": "C:\\U49E12B_R04\\49F85C801589\\validation_native_structural_space_build_v1\\controlled_database\\vectors\\COLUMNS\\3F54D50ED7556AB2FEFE27F31941ADBC69E18A3565C722BF152F7212DF633927.ubvc",
+      "sha256": "17C730F25731F746D4646A334BB3083C83156873CF0C4E071D46B62B3FEF47B8"
+    },
+    "protocol": {
+      "bytes": 3687,
+      "path": "C:\\UDBTMP\\ABC_R08L\\8e023f1f4d7f\\config\\ABC_PROTOCOL.json",
+      "sha256": "DE5DC5D174E9B5804F58FC677E05C17652D8E81D021C5A14B581F0089D35E057"
+    },
+    "query_node_ids": {
+      "bytes": 238392,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\query_set\\validation_queries_u64le.bin",
+      "sha256": "DD9C938B6BEA370FB2E49FAF649509FDFD367B6A67CE14D7BE277A135FC2F78D"
+    },
+    "query_vector_receipt": {
+      "bytes": 1257,
+      "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\query_vector_preparation_receipt.json",
+      "sha256": "F2B9BE250C4900B3FD7469C3B8088EA493849CA995AB0F1DE894EDCED5F39C47"
+    },
+    "query_vectors": {
+      "bytes": 15257088,
+      "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\execution\\validation_query_vectors_f32le.bin",
+      "sha256": "5D1F1C7525B7D97A68A870B47C47855F22BB99E075F826846D520DFBEB8A05D6"
+    },
+    "results": {
+      "bytes": 14083360,
+      "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\execution\\abc_results.tsv",
+      "sha256": "7B2DC6903F857171C690B071235C6723BACEC27B88C68502ABAA77C1F071D459"
+    },
+    "semantic_column": {
+      "bytes": 48411828,
+      "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\semantic_source_short\\vectors\\COLUMNS\\0637855A1D87DBE69D42077F822392F634375EA240C111561532F7A818AE4AA4.ubvc",
+      "sha256": "89EE643081235742BA91FBE93B06C1458DB19F23D9BB792D6DD33CE164EF2F4D"
+    },
+    "train_node_ids": {
+      "bytes": 727528,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\corpus\\train_candidate_node_ids_u64le.bin",
+      "sha256": "1A86BA8E581E12DB3FAD0DBF15F7EF33753BCECD7C906CBEC0BBABCD78EB7AD6"
+    }
+  },
+  "ground_truth_read": false,
+  "labels_read": false,
+  "schema": "ultraballoondb.ogbn_abc_results_freeze.v7"
+}

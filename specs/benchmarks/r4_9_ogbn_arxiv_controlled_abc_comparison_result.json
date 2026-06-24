@@ -1,0 +1,107 @@
+{
+  "schema": "ultraballoondb.r4_9.ogbn_arxiv_controlled_abc_comparison_result.v1",
+  "result_identity": "OGBN_ARXIV_VALIDATION_CONTROLLED_ABC_COMPARISON_R08_R09",
+  "benchmark_identity": "ULTRABALLOONDB_PRIMARY_HYBRID_RETRIEVAL_BENCHMARK_V1",
+  "source_repository_head": "9e62856dade468514c06120526db4b02bde0acba",
+  "dataset": {
+    "provider": "Open Graph Benchmark",
+    "dataset_name": "ogbn-arxiv",
+    "upstream_dataset_version": 1,
+    "archive_sha256": "49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276",
+    "license_spdx": "ODC-By-1.0",
+    "evaluation_split": "validation",
+    "candidate_split": "train",
+    "derived_task": "GRAPH_SCOPED_PRIOR_PAPER_SAME_PRIMARY_CATEGORY_RETRIEVAL",
+    "derived_task_is_official_ogb_task": false
+  },
+  "execution": {
+    "query_count": 29799,
+    "candidate_count": 90941,
+    "top_k": 10,
+    "graph_profile": "G4",
+    "hybrid_weight_profile": "H111",
+    "test_set_executed": false,
+    "result_freeze_before_evaluation": true,
+    "benchmark_rerun_during_recovery": false,
+    "query_execution_during_recovery": false
+  },
+  "controlled_abc": {
+    "A_semantic": {
+      "precision_at_10": 0.44657874425316285,
+      "top1_accuracy": 0.5378703983355146,
+      "mrr": 0.6240843812272477,
+      "ndcg_at_10": 0.4646836722741459,
+      "latency_p50_ms": 7.1161,
+      "latency_p95_ms": 13.437839999999996,
+      "latency_p99_ms": 16.107764000000007,
+      "queries_per_second": 143.12566480920304
+    },
+    "B_structural": {
+      "precision_at_10": 0.4289942615524011,
+      "top1_accuracy": 0.4970636598543575,
+      "mrr": 0.5906124739458202,
+      "ndcg_at_10": 0.4426716331145944,
+      "latency_p50_ms": 8.7889,
+      "latency_p95_ms": 15.676469999999997,
+      "latency_p99_ms": 18.529926000000007,
+      "queries_per_second": 118.94735197963236
+    },
+    "C_hybrid": {
+      "precision_at_10": 0.47468035840128864,
+      "top1_accuracy": 0.5796503238363704,
+      "mrr": 0.6559872308488098,
+      "ndcg_at_10": 0.4961031047174601,
+      "latency_p50_ms": 14.2736,
+      "latency_p95_ms": 24.62502,
+      "latency_p99_ms": 28.458174000000003,
+      "queries_per_second": 74.8472574730971
+    }
+  },
+  "comparison": {
+    "quality_winner_by_ndcg_then_mrr": "C_hybrid",
+    "C_minus_A": {
+      "precision_at_10": 0.028101614148125786,
+      "top1_accuracy": 0.04177992550085574,
+      "mrr": 0.03190284962156209,
+      "ndcg_at_10": 0.03141943244331419,
+      "latency_p50_ms": 7.1575,
+      "queries_per_second": -68.27840733610594
+    },
+    "C_minus_B": {
+      "precision_at_10": 0.045686096848887525,
+      "top1_accuracy": 0.08258666398201286,
+      "mrr": 0.06537475690298966,
+      "ndcg_at_10": 0.05343147160286571,
+      "latency_p50_ms": 5.4847,
+      "queries_per_second": -44.10009450653526
+    }
+  },
+  "integrity": {
+    "same_database": true,
+    "same_query_set": true,
+    "same_candidate_universe": true,
+    "labels_available_to_executor": false,
+    "ground_truth_available_to_executor": false,
+    "evaluation_after_result_freeze": true,
+    "ann_used": false,
+    "trust_in_numeric_score": false
+  },
+  "evidence": {
+    "source_run": "RUN_R08_20260624_135210_290",
+    "results_freeze_manifest_sha256": "47580B7190E1C28A8F61AA4EB6FB91613D06B0F9396172F49A9C9AB6401DC7A4",
+    "comparison_report_r09_sha256": "08C663906547542CBCE9F53ADE5EFDF6E31EC442F674179C7BE21E0D40A75D95",
+    "recovery_receipt_sha256": "8D9010345FE7DCC3A644BA349842A760C4921431ADA6F5CB3A4C721EBA9FF4B4",
+    "ground_truth_binding_receipt_sha256": "F75BE02DAAEB41DED551A0DA6F2737FCBC4AB8888B91EDD38C1F23CD5343AC2E"
+  },
+  "claim_scope": {
+    "allowed": "On the frozen ogbn-arxiv validation retrieval profile, the H111 product hybrid path improved all reported quality metrics over semantic-only and structural-only while using more latency and lower throughput.",
+    "forbidden": [
+      "whole_database_superiority",
+      "official_ogb_task_superiority",
+      "test_set_quality_claim",
+      "ann_quality_claim",
+      "final_product_readiness"
+    ]
+  },
+  "next_gate": "R4_9F2_CURRENT_PRODUCT_10M_SEMANTIC_SCALE_EXECUTION"
+}

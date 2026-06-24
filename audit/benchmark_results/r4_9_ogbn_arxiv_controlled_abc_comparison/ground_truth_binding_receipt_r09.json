@@ -1,0 +1,47 @@
+{
+  "benchmark_rerun": false,
+  "class_count": 40,
+  "definition_manifest": {
+    "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\manifests\\validation_benchmark_definition_manifest.json",
+    "sha256": "8F39D0B9596C850E1225D23846600CB05F723AF793F02E4CB9A51202FE63B72E"
+  },
+  "labels_read_after_result_freeze": true,
+  "maximum_relevant_count_per_query": 16284,
+  "minimum_relevant_count_per_query": 21,
+  "query_execution_performed": false,
+  "query_labels": {
+    "count": 29799,
+    "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\validation_query_labels_r09.tsv",
+    "sha256": "14C7D9E5C6AD78531602E7712602833F179EED934E781B9D3B6EA054E9B08A75"
+  },
+  "query_node_ids": {
+    "count": 29799,
+    "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\query_set\\validation_queries_u64le.bin",
+    "sha256": "DD9C938B6BEA370FB2E49FAF649509FDFD367B6A67CE14D7BE277A135FC2F78D"
+  },
+  "schema": "ultraballoondb.ogbn_abc_ground_truth_binding.recovery_r09",
+  "source_files": {
+    "query_labels_u8": {
+      "bytes": 29799,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\evaluation_only\\validation_query_labels_u8.bin",
+      "sha256": "8BE83889713D9786D4CFB9780809DAEE5FC48B0D6D4A78F97797F56EA1BE3C99"
+    },
+    "train_labels_u8": {
+      "bytes": 90941,
+      "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\evaluation_only\\train_candidate_labels_u8.bin",
+      "sha256": "6B279784AA756A32117E72ED37D7AD7A3378B209739B2F83D7E98F78A4C2992A"
+    }
+  },
+  "source_mode": "EXACT_ISOLATED_U8_QUERY_AND_TRAIN_LABEL_VECTORS",
+  "test_set_executed": false,
+  "train_labels": {
+    "count": 90941,
+    "path": "C:\\Users\\Michal\\Downloads\\UDB_OGBN_ABC_RUNS\\RUN_R08_20260624_135210_290\\evidence\\train_candidate_labels_r09.tsv",
+    "sha256": "27CC93C5AF3870BD3429FF71B64C536BB030C0FD5E591339A5A1C7D3EFF00DDB"
+  },
+  "train_node_ids": {
+    "count": 90941,
+    "path": "C:\\Users\\Michal\\Downloads\\ULTRABALLOONDB_BENCHMARK_WORKSPACE\\ogbn-arxiv\\v1\\49F85C801589ECDCC52CFACA99693AAEA7B8AF16A9AC3F41DD85A5F3193FE276\\validation_benchmark_definition_v1\\corpus\\train_candidate_node_ids_u64le.bin",
+    "sha256": "1A86BA8E581E12DB3FAD0DBF15F7EF33753BCECD7C906CBEC0BBABCD78EB7AD6"
+  }
+}
